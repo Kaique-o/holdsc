@@ -814,35 +814,57 @@ html {
 }
 
 .nav {
-  top: calc(12px + env(safe-area-inset-top, 0px));
   z-index: 60;
-  margin-top: 12px;
-  padding-inline: 12px;
+  padding: calc(12px + env(safe-area-inset-top, 0px)) 12px 10px;
+  background: #f5f7fb9e;
   position: sticky;
+  top: 0;
 }
 
-.nav:before, .nav:after {
-  content: "";
+.nav-fx {
   z-index: -1;
   pointer-events: none;
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  background: none;
+  position: absolute;
+  inset: 0;
+}
+
+.nav-fx b, .nav-fx i {
+  display: block;
   position: absolute;
   left: 0;
   right: 0;
 }
 
-.nav:before {
-  top: calc(-12px - env(safe-area-inset-top, 0px));
-  height: calc(100% + 12px + env(safe-area-inset-top, 0px));
+.nav-fx b {
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  top: 0;
+  bottom: 0;
 }
 
-.nav:after {
-  height: 32px;
+.nav-fx i {
+  height: 10px;
+}
+
+.nav-fx i:first-of-type {
+  -webkit-backdrop-filter: blur(9px);
+  backdrop-filter: blur(9px);
+  background: #f5f7fb6b;
   top: 100%;
-  -webkit-mask-image: linear-gradient(#000, #0000);
-  mask-image: linear-gradient(#000, #0000);
+}
+
+.nav-fx i:nth-of-type(2) {
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  background: #f5f7fb3d;
+  top: calc(100% + 10px);
+}
+
+.nav-fx i:nth-of-type(3) {
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  background: #f5f7fb1a;
+  top: calc(100% + 20px);
 }
 
 .nav-bar {

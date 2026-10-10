@@ -3,6 +3,7 @@
 <head><meta name="robots" content="noindex,nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050B24">
 <title>Hold em Cena</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,11 +56,9 @@ a{color:var(--sky)}
 
 /* nav */
 .nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:background .25s,border-color .25s;border-bottom:1px solid transparent}
-/* desfoque em duas camadas (o Safari do iPhone falha ao combinar desfoque e máscara): do topo da tela até o fim do menu, e um degradê abaixo dele */
-.nav::before,.nav::after{content:"";position:absolute;left:0;right:0;z-index:-1;pointer-events:none;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;transition:opacity .25s}
-.nav::before{top:0;bottom:0}
-.nav::after{top:100%;height:32px;-webkit-mask-image:linear-gradient(to bottom,#000,transparent);mask-image:linear-gradient(to bottom,#000,transparent)}
-.nav.solid::before,.nav.solid::after{opacity:1}
+/* desfoque sem máscara (o Safari do iPhone desenha errado desfoque com máscara): cobre do topo da tela até o fim do menu */
+.nav::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;transition:opacity .25s}
+.nav.solid::before{opacity:1}
 .nav.solid{background:rgba(5,11,36,.78);border-bottom-color:var(--line)}
 .nav .c{display:flex;align-items:center;gap:28px;height:76px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--white);flex:none}
