@@ -107,6 +107,22 @@
     $$(".clients .rowx").forEach(function(r){r.innerHTML+=r.innerHTML;$$(".client,.logo-cli",r).forEach(function(c,i,a){if(i>=a.length/2)c.setAttribute("aria-hidden","true")})});
   }
 
+  /* ============ celular: indicador de posição dos carrosséis de arrastar ============ */
+  function carDots(){
+    $$(".sectors,.people,.prows,.tall,.intents,.pains,.related,.posts").forEach(function(t){
+      var n=t.children.length;if(n<2)return;
+      var d=document.createElement("div");d.className="car-dots";d.setAttribute("aria-hidden","true");
+      for(var i=0;i<n;i++)d.appendChild(document.createElement("i"));
+      t.insertAdjacentElement("afterend",d);
+      var tique=false;
+      function marcar(){tique=false;var passo=t.children[1].offsetLeft-t.children[0].offsetLeft||1;
+        var at=t.scrollLeft>=t.scrollWidth-t.clientWidth-4?n-1:Math.round(t.scrollLeft/passo);
+        for(var k=0;k<n;k++)d.children[k].classList.toggle("on",k===at)}
+      t.addEventListener("scroll",function(){if(!tique){tique=true;requestAnimationFrame(marcar)}},{passive:true});
+      marcar();
+    });
+  }
+
   /* ============ números que sobem ao aparecer na tela ============ */
   function contadores(){
     var alvos=$$(".stat b").map(function(b){
@@ -208,7 +224,7 @@
   }
 
   document.addEventListener("DOMContentLoaded",function(){
-    ui();nav();svcList();carousels();contadores();leadForms();signups();selfcheck();topics();fab();cookieBanner();thanks();
+    ui();nav();svcList();carousels();carDots();contadores();leadForms();signups();selfcheck();topics();fab();cookieBanner();thanks();
     track("page_view",{});
   });
 })();

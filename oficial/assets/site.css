@@ -88,10 +88,12 @@ a{color:var(--blue)}
 
 /* ---------- nav flutuante (ref. Monarch) ---------- */
 .nav{position:sticky;top:calc(12px + env(safe-area-inset-top,0px));z-index:60;padding-inline:12px;margin-top:12px}
-/* só desfoque (transparente, sem cor): do topo da tela até meia altura do menu abaixo dele; some nos últimos 30% */
-.nav::before{content:"";position:absolute;left:0;right:0;top:-12px;height:calc(100% + 12px + 32px);z-index:-1;pointer-events:none;
-  background:transparent;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
-  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 70%,transparent 100%);mask-image:linear-gradient(to bottom,#000 0%,#000 70%,transparent 100%)}
+/* só desfoque (transparente, sem cor). Duas camadas, porque o Safari do iPhone falha ao combinar desfoque e máscara:
+   ::before cobre do topo da tela (inclusive a área do relógio) até o fim do menu, sem máscara;
+   ::after continua meia altura do menu abaixo dele e some em degradê. */
+.nav::before,.nav::after{content:"";position:absolute;left:0;right:0;z-index:-1;pointer-events:none;background:transparent;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.nav::before{top:calc(-12px - env(safe-area-inset-top,0px));height:calc(100% + 12px + env(safe-area-inset-top,0px))}
+.nav::after{top:100%;height:32px;-webkit-mask-image:linear-gradient(to bottom,#000,transparent);mask-image:linear-gradient(to bottom,#000,transparent)}
 .nav-bar{max-width:1240px;margin:0 auto;background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:var(--r-md);height:64px;display:flex;align-items:center;gap:20px;padding-inline:18px;box-shadow:var(--float)}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--navy);flex:none}
 .logo-img{display:block;height:34px;width:auto}
@@ -265,7 +267,7 @@ a{color:var(--blue)}
 /* ---------- comprovação social (ref. Monarch) ---------- */
 .lined{background-color:var(--paper);background-image:repeating-linear-gradient(90deg,transparent 0,transparent 71px,rgba(14,30,74,.045) 71px,rgba(14,30,74,.045) 72px)}
 .prow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--split);align-items:center;padding-block:44px}
-.prow:nth-child(even) .ptext{order:2}
+.prow:nth-child(odd) .ptext{order:2}
 .ptext{display:flex;flex-direction:column;gap:14px}
 .ptext .eyebrow{font-size:12px}
 .ptext h3{font-weight:600;font-size:clamp(24px,2.6vw,32px);line-height:1.15}
@@ -522,7 +524,7 @@ a{color:var(--blue)}
   .menu,.nav-r{display:none}
   .burger{display:grid;place-items:center}
   .hero .c,.phero .c,.band .c,.lead-sec .c,.faq-sec .c,.svc-list,.split,.signup,.selfcheck,.prow,.unit{grid-template-columns:1fr;gap:36px}
-  .prow:nth-child(even) .ptext{order:0}
+  .prow:nth-child(odd) .ptext{order:0}
   .hero .c{padding-block:32px 104px}
   .hero-art{max-width:520px}
   .svc-media{height:auto;min-height:0;max-width:520px;aspect-ratio:4/3.4}
@@ -606,3 +608,19 @@ input[type=checkbox]{cursor:pointer}
 .proof .faces span:hover{transform:translateY(-3px)}
 .ui-row a:hover{color:var(--blue-d);text-decoration:underline}
 .unit dd a:hover{color:var(--blue-d)}
+
+/* ---------- celular: grades repetidas viram carrossel de arrastar ---------- */
+.car-dots{display:none}
+@media (max-width:760px){
+  .sectors,.sectors--5,.people,.prows,.tall,.intents,.pains,.related,.posts{display:flex;grid-template-columns:none;gap:14px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-inline:-24px;padding-inline:24px;scroll-padding-inline:24px;align-items:stretch}
+  .sectors::-webkit-scrollbar,.people::-webkit-scrollbar,.prows::-webkit-scrollbar,.tall::-webkit-scrollbar,.intents::-webkit-scrollbar,.pains::-webkit-scrollbar,.related::-webkit-scrollbar,.posts::-webkit-scrollbar{display:none}
+  .sectors>*,.people>*,.prows>*,.tall>*,.intents>*,.pains>*,.related>*,.posts>*{flex:0 0 84%;min-width:0;scroll-snap-align:start}
+  .prows>.prow{display:flex;flex-direction:column;gap:20px;padding-block:8px 0}
+  .prows>.prow .ui{margin-top:auto}
+  .car-dots{display:flex;justify-content:center;gap:6px;margin-top:18px}
+  .car-dots i{width:18px;height:4px;border-radius:2px;background:var(--line);transition:background-color .15s,width .15s}
+  .car-dots i.on{width:28px;background:var(--blue)}
+}
+@media (max-width:600px){
+  .sectors,.sectors--5,.people,.prows,.tall,.intents,.pains,.related,.posts{margin-inline:-16px;padding-inline:16px;scroll-padding-inline:16px}
+}
