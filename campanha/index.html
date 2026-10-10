@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Hold em Cena</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Direção cinematográfica: um só mundo, azul profundo. Cores explícitas, sem tema claro. */
+:root{
+  color-scheme:dark;
+  --abyss:#050B24;--navy:#0E1E4A;--navy-2:#13275C;--blue:#1560E8;--blue-d:#0F4BC0;--sky:#9FC0FF;--mist:#8EA1C0;--white:#F4F7FF;--line:rgba(159,192,255,.18);
+  --wa:#1FAF55;--alert:#FFC53D;--err:#FF8A7A;--ok:#6FD3A0;
+  --display:"Sora",ui-sans-serif,"Segoe UI",Helvetica,Arial,sans-serif;
+  --body:"Source Sans 3","Source Sans Pro","Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --float:0 6px 16px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--abyss);color:var(--white);font-family:var(--body);font-size:17px;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:var(--display);margin:0;text-wrap:balance;color:var(--white)}
+p{margin:0}
+a{color:var(--sky)}
+:focus-visible{outline:3px solid var(--alert);outline-offset:3px;border-radius:6px}
+.c{max-width:1280px;margin:0 auto;padding-inline:28px}
+.slate{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mist)}
+.slate b{color:var(--white);font-weight:500}
+.kicker{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--sky)}
+
+/* vídeo simulado */
+.film{position:absolute;inset:0;overflow:hidden;background:var(--navy)}
+.film canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.film .kb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.85) contrast(1.05);animation:kb 22s ease-in-out infinite alternate;transform-origin:60% 40%}
+.film .kb+canvas+.shade{background:linear-gradient(180deg,rgba(5,11,36,.45) 0%,rgba(14,30,74,.35) 45%,rgba(5,11,36,.9) 100%)}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.12) translate(-1.5%,-1%)}}
+.film .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,11,36,.35) 0%,rgba(5,11,36,.15) 40%,rgba(5,11,36,.85) 100%)}
+.film .tagv{position:absolute;right:14px;top:14px;z-index:2;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,247,255,.8);background:rgba(5,11,36,.55);padding:4px 8px;border-radius:4px}
+
+/* botões */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--display);font-weight:700;font-size:15px;line-height:1;padding:17px 26px;border-radius:12px;border:0;cursor:pointer;text-decoration:none;transition:background .15s,color .15s}
+.btn svg{width:18px;height:18px;flex:none}
+.btn--primary{background:var(--blue);color:#fff}
+.btn--primary:hover{background:var(--blue-d)}
+.btn--light{background:var(--white);color:var(--navy)}
+.btn--light:hover{background:#DCE8FB}
+.btn--ghost{background:transparent;color:var(--white);box-shadow:inset 0 0 0 1.5px rgba(244,247,255,.6)}
+.btn--ghost:hover{background:rgba(244,247,255,.1)}
+.btn--sm{padding:11px 16px;font-size:14px;border-radius:10px}
+.tag{display:inline-flex;padding:5px 10px;border-radius:4px;font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:rgba(21,96,232,.9);color:#fff}
+
+/* nav */
+.nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;transition:background .25s,border-color .25s;border-bottom:1px solid transparent}
+.nav.solid{background:rgba(5,11,36,.94);border-bottom-color:var(--line)}
+.nav .c{display:flex;align-items:center;gap:28px;height:76px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--white);flex:none}
+.logo .oh{display:grid;place-items:center;width:40px;height:29px;border:3px solid currentColor;border-radius:7px;font-family:var(--display);font-weight:800;font-size:12px}
+.logo b{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.05em}
+.links{display:flex;gap:4px;flex:1}
+.links a{color:rgba(244,247,255,.8);text-decoration:none;font-weight:600;font-size:15px;padding:8px 12px;border-radius:8px}
+.links a:hover{color:#fff;background:rgba(244,247,255,.08)}
+.nav-r{display:flex;align-items:center;gap:10px}
+.client{color:rgba(244,247,255,.85);text-decoration:none;font-weight:600;font-size:15px;padding:8px 12px;border-radius:8px;white-space:nowrap}
+.client:hover{color:#fff}
+.burger{display:none;margin-left:auto;background:none;border:0;color:#fff;width:44px;height:44px;border-radius:8px;cursor:pointer}
+.burger svg{width:26px;height:26px}
+.drawer{background:var(--abyss);border-top:1px solid var(--line)}
+.drawer .c{display:flex;flex-direction:column;padding-block:8px 20px}
+.drawer a:not(.btn){font-family:var(--display);font-weight:700;font-size:22px;color:#fff;text-decoration:none;padding:14px 0;border-bottom:1px solid var(--line)}
+.drawer .btn{margin-top:16px}
+
+/* hero */
+.hero{position:relative;min-height:clamp(620px,88vh,940px);display:flex;align-items:flex-end;isolation:isolate}
+.hero .film{z-index:-1}
+.hero .c{width:100%;padding-block:140px 56px;display:flex;flex-direction:column;gap:28px}
+.hero h1{font-weight:800;font-size:clamp(46px,9.2vw,148px);line-height:.92;letter-spacing:-.045em;text-transform:uppercase}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.04em}
+.hero h1 .ln span{display:inline-block;animation:rise 1s cubic-bezier(.2,.8,.2,1) both}
+.hero h1 .ln:nth-child(2) span{animation-delay:.12s}
+.hero h1 .ln:nth-child(3) span{animation-delay:.24s}
+.hero h1 .blue{color:var(--sky)}
+@keyframes rise{from{transform:translateY(105%)}to{transform:none}}
+.hero-bot{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end}
+.hero-bot p{font-size:clamp(17px,1.5vw,20px);color:rgba(244,247,255,.85);max-width:50ch}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.play{display:flex;align-items:center;gap:14px;background:none;border:0;color:#fff;cursor:pointer;font:600 15px var(--body);text-align:left;padding:6px;border-radius:12px}
+.play .circ{width:64px;height:64px;border-radius:50%;border:1.5px solid rgba(244,247,255,.7);display:grid;place-items:center;flex:none;transition:background .15s}
+.play:hover .circ{background:rgba(244,247,255,.12)}
+.play .circ::after{content:"";border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:5px}
+.play small{display:block;font-family:var(--mono);font-size:11.5px;color:var(--mist);letter-spacing:.08em}
+.hero-slate{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:16px}
+
+/* letreiro */
+.marquee{border-block:1px solid var(--line);overflow:hidden;padding-block:26px;background:var(--abyss)}
+.track{display:flex;gap:48px;width:max-content;animation:slide 38s linear infinite}
+.track span{font-family:var(--display);font-weight:800;font-size:clamp(34px,5vw,64px);letter-spacing:-.02em;text-transform:uppercase;color:transparent;-webkit-text-stroke:1.5px rgba(159,192,255,.55);white-space:nowrap}
+.track span:nth-child(odd){color:var(--white);-webkit-text-stroke:0}
+.track i{align-self:center;width:14px;height:14px;border-radius:50%;background:var(--blue);flex:none}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* números */
+.nums{padding-block:110px 90px}
+.nums-h{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:48px}
+.nums-h h2{font-weight:800;font-size:clamp(30px,4vw,54px);line-height:1.02;letter-spacing:-.03em;max-width:16ch}
+.num-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));container-type:inline-size}
+.num{padding:8px 24px 8px 0;display:flex;flex-direction:column;gap:6px;border-left:1px solid var(--line);padding-left:24px}
+.num:first-child{border-left:0;padding-left:0}
+.num b{font-family:var(--display);font-weight:800;font-size:min(112px,6.4cqi);line-height:.9;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.num b sup{font-size:.5em;line-height:1;color:var(--sky);vertical-align:top;position:relative;top:.12em;margin-right:.04em}
+.num>span{font-size:16px;color:var(--mist)}
+.num b .v{font:inherit;color:inherit}
+
+/* caminhos */
+.paths-sec{padding-block:0 110px}
+.sec-h{display:flex;flex-direction:column;gap:14px;margin-bottom:36px;max-width:780px}
+.sec-h h2{font-weight:800;font-size:clamp(32px,4.6vw,64px);line-height:1;letter-spacing:-.035em}
+.sec-h p{color:rgba(244,247,255,.75);font-size:18px;max-width:54ch}
+.paths{display:flex;gap:14px;height:560px}
+.path{position:relative;flex:1;border-radius:22px;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;padding:30px;text-align:left;border:0;cursor:pointer;color:#fff;font:inherit;transition:flex .5s cubic-bezier(.2,.8,.2,1)}
+.path .film{z-index:-1}
+.path:hover,.path:focus-visible{flex:1.7}
+.path h3{font-weight:800;font-size:clamp(24px,2.6vw,36px);line-height:1.05;letter-spacing:-.02em}
+.path p{color:rgba(244,247,255,.82);font-size:16px;margin-top:12px;max-width:34ch}
+.path .go{margin-top:20px;font-family:var(--display);font-weight:700;font-size:15px;display:flex;align-items:center;gap:10px}
+.path .go::after{content:"";width:34px;height:1.5px;background:currentColor;transition:width .3s}
+.path:hover .go::after{width:60px}
+.path--feat .go{color:var(--sky)}
+.mei{margin-top:14px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;border:1px solid var(--line);border-radius:16px;padding:18px 22px;text-decoration:none;color:#fff}
+.mei:hover{border-color:rgba(159,192,255,.5)}
+.mei p{flex:1;min-width:220px;color:rgba(244,247,255,.85)}
+.mei span:last-child{font-family:var(--display);font-weight:700;color:var(--sky)}
+
+/* manifesto */
+.manifesto{padding-block:120px;background:var(--navy);position:relative;overflow:hidden}
+.manifesto::before{content:"";position:absolute;right:-220px;top:-220px;width:620px;height:620px;border-radius:50%;border:80px solid var(--blue);opacity:.9}
+.manifesto .c{position:relative}
+.mani{font-family:var(--display);font-weight:800;font-size:clamp(30px,4.8vw,72px);line-height:1.06;letter-spacing:-.035em;max-width:20ch}
+.mani .w{opacity:.28;transition:opacity .3s}
+.mani .w.on{opacity:1}
+.mani .w.hl.on{color:var(--sky)}
+.mani-sig{margin-top:40px;display:flex;gap:18px;align-items:center}
+.mani-sig .face{width:56px;height:56px;border-radius:50%;background:linear-gradient(150deg,#9DB0D6,#34497E);flex:none}
+.mani-sig strong{display:block;font-family:var(--display)}
+.mani-sig span{color:var(--mist);font-size:15px}
+
+/* terceirização */
+.bpo{position:relative;isolation:isolate;padding-block:130px}
+.bpo .film{z-index:-1}
+.bpo .film .shade{background:linear-gradient(90deg,rgba(5,11,36,.94) 0%,rgba(5,11,36,.75) 50%,rgba(5,11,36,.45) 100%)}
+.bpo .c{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:64px;align-items:center}
+.bpo h2{font-weight:800;font-size:clamp(34px,5vw,74px);line-height:.98;letter-spacing:-.04em;margin-top:16px}
+.bpo p.lead{color:rgba(244,247,255,.82);font-size:18px;margin-top:22px;max-width:48ch}
+.bpo .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.ledger{background:rgba(5,11,36,.9);border:1px solid var(--line);border-radius:18px;padding:24px;font-variant-numeric:tabular-nums}
+.ledger-h{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;color:var(--mist);padding-bottom:12px;border-bottom:1px solid var(--line);letter-spacing:.06em;text-transform:uppercase}
+.lr{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:14px;align-items:center;padding-block:12px;border-bottom:1px solid rgba(159,192,255,.1);font-size:15px}
+.lr .v{font-family:var(--mono);font-size:14px}
+.lr .s{font-family:var(--display);font-weight:700;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px}
+.s-ok{background:rgba(111,211,160,.15);color:var(--ok)}
+.s-due{background:rgba(255,197,61,.15);color:var(--alert)}
+.ledger-f{display:flex;justify-content:space-between;align-items:baseline;padding-top:16px}
+.ledger-f span{color:var(--mist);font-size:14px}
+.ledger-f b{font-family:var(--display);font-weight:800;font-size:28px}
+.ledger small{display:block;margin-top:8px;font-family:var(--mono);font-size:10.5px;color:var(--mist)}
+
+/* setores */
+.sectors-sec{padding-block:120px 60px}
+.rail-wrap{overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:18px;scrollbar-color:var(--blue) transparent}
+.rail{display:flex;gap:14px;width:max-content;padding-inline:max(28px,calc((100vw - 1280px)/2 + 28px))}
+.sector{position:relative;isolation:isolate;width:min(360px,78vw);aspect-ratio:3/4;border-radius:20px;overflow:hidden;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;text-decoration:none;color:#fff}
+.sector .film{z-index:-1}
+.sector .num-s{position:absolute;left:24px;top:22px;font-family:var(--mono);font-size:12px;color:rgba(244,247,255,.75)}
+.sector h3{font-weight:800;font-size:26px;line-height:1.05;letter-spacing:-.02em}
+.sector p{color:rgba(244,247,255,.8);font-size:15px;margin-top:8px}
+.sector .go{margin-top:16px;font-family:var(--display);font-weight:700;font-size:14px;color:var(--sky)}
+.rail-hint{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}
+.rail-btns{display:flex;gap:8px}
+.rail-btns button{width:48px;height:48px;border-radius:50%;border:1.5px solid rgba(244,247,255,.5);background:none;color:#fff;font:700 18px var(--display);cursor:pointer}
+.rail-btns button:hover{background:rgba(244,247,255,.1)}
+
+/* especialistas */
+.people-sec{padding-block:60px 120px}
+.people{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.person{position:relative;isolation:isolate;aspect-ratio:3/4.2;max-width:100%;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:20px}
+.person .film{z-index:-1}
+.person strong{font-family:var(--display);font-size:18px}
+.person span{color:rgba(244,247,255,.8);font-size:14.5px}
+.person a{margin-top:12px;align-self:flex-start;font-family:var(--display);font-weight:700;font-size:14px;color:var(--sky);text-decoration:none}
+.person a::after{content:" →"}
+
+/* depoimentos */
+.cine{padding-block:120px;background:#030817}
+.screen{position:relative;isolation:isolate;aspect-ratio:21/9;max-width:100%;border-radius:22px;overflow:hidden;display:flex;align-items:flex-end;padding:34px}
+.screen .film{z-index:-1}
+.screen-t{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;width:100%}
+.screen blockquote{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(20px,2.6vw,36px);line-height:1.15;letter-spacing:-.02em;max-width:24ch}
+.screen cite{display:block;margin-top:14px;font-style:normal;color:rgba(244,247,255,.8);font-size:15px}
+.reel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:14px}
+.reel button{background:none;border:1px solid var(--line);border-radius:14px;padding:16px 18px;text-align:left;color:#fff;cursor:pointer;font:inherit;display:flex;flex-direction:column;gap:4px}
+.reel button[aria-pressed="true"]{border-color:var(--sky);background:rgba(21,96,232,.12)}
+.reel strong{font-family:var(--display);font-size:16px}
+.reel span{font-size:14px;color:var(--mist)}
+
+/* planilha */
+.gift{padding-block:90px;border-top:1px solid var(--line)}
+.gift .c{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+.gift h2{font-weight:800;font-size:clamp(28px,3.6vw,48px);line-height:1.02;letter-spacing:-.03em;margin-top:12px}
+.gift p{color:rgba(244,247,255,.8);margin-top:14px;max-width:46ch}
+.gift form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.gift form .btn{grid-column:1/-1}
+.okmsg{color:var(--ok);font-weight:600}
+
+/* formulário */
+.cta-sec{position:relative;isolation:isolate;padding-block:130px}
+.cta-sec .film{z-index:-1}
+.cta-sec .film .shade{background:rgba(5,11,36,.8)}
+.cta-sec .c{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:center}
+.cta-sec h2{font-weight:800;font-size:clamp(38px,6vw,96px);line-height:.92;letter-spacing:-.045em;text-transform:uppercase}
+.cta-sec h2 span{color:var(--sky)}
+.cta-sec .lead{margin-top:22px;color:rgba(244,247,255,.82);font-size:18px;max-width:42ch}
+.form{background:rgba(5,11,36,.92);border:1px solid var(--line);border-radius:22px;padding:32px;display:flex;flex-direction:column;gap:18px}
+.steps{display:flex;gap:6px}
+.steps i{flex:1;height:3px;border-radius:2px;background:var(--line)}
+.steps i.on{background:var(--sky)}
+.form h3{font-size:22px}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+.opt{font:600 15.5px var(--body);text-align:left;padding:16px;border-radius:12px;border:1.5px solid var(--line);background:transparent;color:#fff;cursor:pointer}
+.opt[aria-pressed="true"]{border-color:var(--sky);background:rgba(21,96,232,.18)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-weight:700;font-size:14px}
+.field input,.field select{font:inherit;font-size:16px;color:#fff;background:rgba(244,247,255,.06);border:1.5px solid var(--line);border-radius:10px;padding:13px 14px;width:100%;min-width:0}
+.field input::placeholder{color:rgba(244,247,255,.4)}
+.field input:focus,.field select:focus{outline:none;border-color:var(--sky)}
+.field select option{color:#0E1E4A}
+.field.err input{border-color:var(--err)}
+.field .hint{font-size:13.5px;color:var(--mist)}
+.field.err .hint{color:var(--err)}
+.consent{display:flex;gap:10px;font-size:13.5px;color:var(--mist);align-items:flex-start}
+.consent input{margin-top:3px;accent-color:var(--blue);width:16px;height:16px;flex:none}
+.factions{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.linkbtn{background:none;border:0;color:var(--sky);font:700 15px var(--display);cursor:pointer;padding:6px 0}
+.done{display:flex;flex-direction:column;gap:12px}
+.done .ok{width:56px;height:56px;border-radius:50%;background:rgba(111,211,160,.15);color:var(--ok);display:grid;place-items:center;font:800 26px var(--display)}
+.errmsg{color:var(--err);font-size:14px}
+
+/* rodapé */
+.ftr{background:#030817;border-top:1px solid var(--line);color:var(--mist);font-size:15px}
+.ftr .big{font-family:var(--display);font-weight:800;font-size:clamp(64px,16vw,240px);line-height:.8;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.5px rgba(159,192,255,.3);padding-top:60px;overflow:hidden;white-space:nowrap}
+.ftr-g{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:32px;padding-block:48px 32px}
+.ftr h4{font-size:15px;margin-bottom:10px}
+.ftr .col{display:flex;flex-direction:column;gap:4px}
+.ftr a{color:var(--mist);text-decoration:none}
+.ftr a:hover{color:#fff}
+.ftr-b{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-block:20px 28px;font-size:13.5px}
+
+/* whatsapp */
+.fab{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:45;width:60px;height:60px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:var(--float)}
+.fab svg{width:30px;height:30px;color:#fff}
+
+/* modal do filme */
+.modal{position:fixed;inset:0;z-index:80;background:rgba(3,8,23,.94);display:flex;align-items:center;justify-content:center;padding:24px}
+.modal-in{position:relative;width:min(1100px,100%);aspect-ratio:16/9;max-width:100%;border-radius:18px;overflow:hidden;isolation:isolate}
+.modal-in .film{z-index:-1}
+.modal-cap{position:absolute;left:24px;right:24px;bottom:22px;display:flex;justify-content:space-between;gap:16px;align-items:end;flex-wrap:wrap}
+.modal-cap p{font-family:var(--display);font-weight:700;font-size:clamp(18px,2.2vw,28px);max-width:30ch}
+.x{position:absolute;right:14px;top:14px;z-index:3;width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(244,247,255,.6);background:rgba(5,11,36,.6);color:#fff;font:700 20px var(--display);cursor:pointer}
+
+/* escopo de produção */
+.scope{background:#EEF2F9;color:#0E1E4A;padding-block:90px 110px}
+.scope h2,.scope h3,.scope h4{color:#0E1E4A}
+.scope .slate{color:#4A5675}
+.scope-h{display:flex;flex-direction:column;gap:12px;max-width:760px;margin-bottom:36px}
+.scope-h h2{font-weight:800;font-size:clamp(28px,3.6vw,44px);letter-spacing:-.02em;line-height:1.05}
+.scope-h p{color:#4A5675}
+.tw{overflow-x:auto;border:1px solid #D8E0EE;border-radius:14px;background:#fff}
+.scope table{border-collapse:collapse;width:100%;min-width:760px;font-size:15px}
+.scope th,.scope td{text-align:left;padding:12px 16px;border-bottom:1px solid #D8E0EE;vertical-align:top}
+.scope tr:last-child td{border-bottom:0}
+.scope th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#7A86A3;font-weight:500}
+.scope td:first-child{font-family:var(--mono);color:#1560E8;white-space:nowrap}
+.scope td b{font-family:var(--display)}
+.sg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+.sc{background:#fff;border:1px solid #D8E0EE;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.sc h4{font-size:16px}
+.sc ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:15px;color:#4A5675}
+.cmp{margin-top:18px}
+
+
+/* ---------- hover em tudo que é clicável ---------- */
+a,button,.opt,.sector,.person,.reel button,select,input,label{transition:color .15s,background-color .15s,border-color .15s,transform .2s,opacity .15s}
+.logo:hover{opacity:.8}
+.drawer a:not(.btn):hover{color:var(--sky);padding-left:6px}
+.burger:hover{background:rgba(244,247,255,.1)}
+.fab:hover{transform:scale(1.07)}
+.sector:hover{transform:translateY(-4px)}
+.sector:hover .go{color:#fff}
+.sector:hover .film .kb{transform:scale(1.15)}
+.person:hover{transform:translateY(-4px)}
+.person a:hover{color:#fff}
+.reel button:hover{border-color:rgba(159,192,255,.6);background:rgba(21,96,232,.08)}
+.opt:hover{border-color:rgba(159,192,255,.6);background:rgba(244,247,255,.04)}
+.linkbtn:hover{color:#fff}
+.x:hover{background:rgba(244,247,255,.15)}
+.field input:hover,.field select:hover{border-color:rgba(159,192,255,.45)}
+.field:hover>label{color:var(--sky)}
+input[type=checkbox]{cursor:pointer}
+.consent{cursor:pointer}
+.consent:hover{color:#fff}
+.gift .field input:hover{border-color:rgba(159,192,255,.45)}
+.mei:hover span:last-child{color:#fff}
+.play:hover small{color:#fff}
+
+@media (max-width:1000px){
+  .links,.client,.nav-r .btn{display:none}
+  .burger{display:grid;place-items:center}
+  .num-row{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:36px}
+  .num:nth-child(3){border-left:0;padding-left:0}
+  .num b{font-size:11cqi}
+  .paths{flex-direction:column;height:auto}
+  .path{min-height:320px}
+  .path:hover,.path:focus-visible{flex:1}
+  .bpo .c,.gift .c,.cta-sec .c{grid-template-columns:1fr;gap:40px}
+  .people{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .screen{aspect-ratio:4/3}
+  .ftr-g{grid-template-columns:1fr 1fr}
+  .sg{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .c{padding-inline:16px}
+  .rail{padding-inline:16px}
+  .hero-bot{grid-template-columns:1fr}
+  .screen{aspect-ratio:3/4;padding:22px}
+  .screen-t{grid-template-columns:1fr}
+  .reel{grid-template-columns:1fr}
+  .opts,.gift form{grid-template-columns:1fr}
+  .form{padding:22px}
+  .ftr-g{grid-template-columns:1fr}
+  .people{grid-template-columns:1fr 1fr}
+  .manifesto::before{width:360px;height:360px;border-width:50px;right:-160px;top:-160px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+  .hero h1 .ln span,.track,.film .kb{animation:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="c">
+    <a class="logo" href="#topo" aria-label="Hold, início"><img src="assets/hold-logo-branco.png" alt="Hold Assessoria e Consultoria Contábil" style="height:36px;width:auto;display:block"></a>
+    <nav class="links" aria-label="Principal"><a href="#caminhos">Serviços</a><a href="#time">A Hold</a><a href="#terceirizacao">Terceirização</a><a href="#setores">Setores</a><a href="#depoimentos">Clientes</a></nav>
+    <div class="nav-r"><a class="client" href="#">Área do cliente</a><a class="btn btn--light btn--sm" href="#proposta">Pedir proposta</a></div>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Abrir menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+  <div class="drawer" id="drawer" hidden><div class="c">
+    <a href="#caminhos">Serviços</a><a href="#time">A Hold</a><a href="#terceirizacao">Terceirização</a><a href="#setores">Setores</a><a href="#depoimentos">Clientes</a><a href="#">Área do cliente</a>
+    <a class="btn btn--light" href="#proposta">Pedir proposta</a>
+  </div></div>
+</header>
+
+<main id="topo">
+<!-- CENA 01 · HERO -->
+<section class="hero">
+  <div class="film" data-v="office" data-seed="1"><img class="kb" src="assets/img/escritorio-hold.jpg" alt="" loading="eager"><canvas></canvas><div class="shade"></div><span class="tagv">Vídeo · cena 01 · bastidores · 15s loop</span></div>
+  <div class="c">
+    <span class="kicker">Contabilidade estratégica · há mais de 25 anos</span>
+    <h1><span class="ln"><span>Seu dinheiro</span></span><span class="ln"><span class="blue">trabalhando</span></span><span class="ln"><span>por você.</span></span></h1>
+    <div class="hero-bot">
+      <div>
+        <p>Mais de 60 especialistas em Tubarão, Laguna e Belo Horizonte cuidando da contabilidade, do financeiro e do planejamento tributário da sua empresa.</p>
+        <div class="hero-ctas"><a class="btn btn--primary" href="#proposta">Falar com um especialista</a><a class="btn btn--ghost" href="#caminhos">Ver serviços</a></div>
+      </div>
+      <button class="play" type="button" id="playfilm"><span class="circ" aria-hidden="true"></span><span>Assistir o filme da Hold<small>0:45 · com legenda</small></span></button>
+    </div>
+    <div class="hero-slate"><span class="slate"><b>Tubarão</b> · Rua Luiz Martins Collaço, 537</span><span class="slate"><b>Laguna</b> · Rua Osvaldo Cabral, 68</span><span class="slate">Role para ver</span></div>
+  </div>
+</section>
+
+<!-- LETREIRO -->
+<div class="marquee" aria-hidden="true"><div class="track" id="track">
+  <span>Contabilidade</span><i></i><span>Abertura de empresas</span><i></i><span>Departamento pessoal</span><i></i><span>Terceirização financeira</span><i></i><span>Imposto de Renda</span><i></i><span>MEI</span><i></i><span>Alvarás</span><i></i><span>Certificado digital</span><i></i>
+</div></div>
+
+<!-- CENA 02 · NÚMEROS -->
+<section class="nums">
+  <div class="c">
+    <div class="nums-h"><h2>Um quarto de século fazendo conta por você.</h2><span class="slate">Números Hold · 2026</span></div>
+    <div class="num-row">
+      <div class="num"><b><sup>+</sup><span class="v" data-count="25">25</span></b><span>anos de mercado</span></div>
+      <div class="num"><b><sup>+</sup><span class="v" data-count="60">60</span></b><span>especialistas</span></div>
+      <div class="num"><b><sup>+</sup><span class="v" data-count="1000" data-fmt="1">1.000</span></b><span>empresas abertas</span></div>
+      <div class="num"><b><sup>+</sup><span class="v" data-count="1000" data-fmt="1">1.000</span></b><span>clientes ativos</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CENA 03 · CAMINHOS -->
+<section class="paths-sec" id="caminhos">
+  <div class="c">
+    <div class="sec-h"><span class="kicker">Por onde começar</span><h2>O que a sua empresa precisa agora?</h2></div>
+    <div class="paths">
+      <a class="path" href="#proposta" data-intent="abrir_empresa">
+        <div class="film" data-v="hands" data-seed="2"><img class="kb" src="assets/img/abertura-de-empresas.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div><span class="tagv">cena 02 · 6s</span></div>
+        <h3>Quero abrir minha empresa</h3><p>O tipo de empresa e o regime certos para pagar menos imposto desde o primeiro mês.</p><span class="go">Começar</span>
+      </a>
+      <a class="path" href="#proposta" data-intent="trocar_contador">
+        <div class="film" data-v="people" data-seed="3"><img class="kb" src="assets/img/reuniao.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div><span class="tagv">cena 03 · 6s</span></div>
+        <h3>Quero trocar de contador</h3><p>A Hold cuida da troca com o escritório anterior. Sua empresa não para.</p><span class="go">Começar</span>
+      </a>
+      <a class="path path--feat" href="#proposta" data-intent="terceirizar_financeiro">
+        <div class="film" data-v="desk" data-seed="4"><img class="kb" src="assets/img/terceirizacao.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div><span class="tagv">cena 04 · 6s</span></div>
+        <h3>Quero terceirizar meu financeiro</h3><p>Contas, conciliação e fluxo de caixa com a Hold. Você volta a vender.</p><span class="go">Começar</span>
+      </a>
+    </div>
+    <a class="mei" href="#proposta" data-intent="mei"><span class="tag">MEI</span><p>DAS, declaração anual e a hora certa de virar ME.</p><span>Plano para MEI →</span></a>
+  </div>
+</section>
+
+<!-- CENA 04 · MANIFESTO -->
+<section class="manifesto" id="time">
+  <div class="c">
+    <span class="kicker">Por que a Hold</span>
+    <p class="mani" id="mani" style="margin-top:22px">O básico, qualquer escritório faz. A Hold *planeja* o seu imposto, *antecipa* o seu prazo e *cuida* das pessoas por trás dos números.</p>
+    <div class="mani-sig"><span class="face" aria-hidden="true"></span><div><strong>Nome do sócio</strong><span>Sócio-fundador da Hold</span></div></div>
+  </div>
+</section>
+
+<!-- CENA 05 · TERCEIRIZAÇÃO -->
+<section class="bpo" id="terceirizacao">
+  <div class="film" data-v="desk" data-seed="5"><img class="kb" src="assets/img/grafico.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div><span class="tagv">Vídeo · cena 05 · relatório financeiro · 10s</span></div>
+  <div class="c">
+    <div>
+      <span class="slate">Terceirizou · uma empresa Hold</span>
+      <h2>Você sabe para onde o dinheiro está indo?</h2>
+      <p class="lead">A Hold assume o seu financeiro: contas a pagar e a receber, conciliação e fluxo de caixa. Todo mês, um relatório simples para decidir com número na mão.</p>
+      <div class="ctas"><a class="btn btn--light" href="#proposta" data-intent="terceirizar_financeiro">Quero terceirizar meu financeiro</a><a class="btn btn--ghost" href="https://www.terceirizou.com.br/" target="_blank" rel="noopener">Conhecer a Terceirizou</a></div>
+    </div>
+    <div class="ledger" aria-label="Exemplo de relatório mensal">
+      <div class="ledger-h"><span>Relatório de setembro</span><span>exemplo</span></div>
+      <div class="lr"><span>Recebimentos</span><span class="v">R$ 184.320,00</span><span class="s s-ok">conciliado</span></div>
+      <div class="lr"><span>Fornecedores</span><span class="v">R$ 72.910,40</span><span class="s s-ok">pago</span></div>
+      <div class="lr"><span>Folha e encargos</span><span class="v">R$ 48.600,00</span><span class="s s-ok">pago</span></div>
+      <div class="lr"><span>DAS do mês</span><span class="v">R$ 11.059,20</span><span class="s s-due">dia 20</span></div>
+      <div class="ledger-f"><span>Saldo projetado</span><b>R$ 51.750,40</b></div>
+      <small>Valores ilustrativos</small>
+    </div>
+  </div>
+</section>
+
+<!-- CENA 06 · SETORES -->
+<section class="sectors-sec" id="setores">
+  <div class="c">
+    <div class="rail-hint">
+      <div class="sec-h" style="margin:0"><span class="kicker">Setores</span><h2>Especialistas no seu tipo de negócio</h2></div>
+      <div class="rail-btns"><button type="button" id="prev" aria-label="Setor anterior">←</button><button type="button" id="next" aria-label="Próximo setor">→</button></div>
+    </div>
+  </div>
+  <div class="rail-wrap" id="rail"><div class="rail">
+    <a class="sector" href="#proposta"><div class="film" data-v="city" data-seed="6"><img class="kb" src="assets/img/moedas.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><span class="num-s">Revendas</span><h3>Revendas de veículos</h3><p>Tributação de usados e margem do estoque.</p><span class="go">Ver como a Hold atende →</span></a>
+    <a class="sector" href="#proposta"><div class="film" data-v="people" data-seed="7"><img class="kb" src="assets/img/profissional-mesa.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><span class="num-s">Saúde</span><h3>Profissionais da saúde</h3><p>CPF ou CNPJ, e como pagar menos no PJ.</p><span class="go">Ver como a Hold atende →</span></a>
+    <a class="sector" href="#proposta"><div class="film" data-v="office" data-seed="8"><img class="kb" src="assets/img/escritorio-2.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><span class="num-s">Associações</span><h3>Proteção veicular</h3><p>CNSP 491, LC 213 e a adaptação da associação.</p><span class="go">Ver como a Hold atende →</span></a>
+    <a class="sector" href="#proposta"><div class="film" data-v="hands" data-seed="9"><img class="kb" src="assets/img/casa.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><span class="num-s">Família</span><h3>Holding patrimonial</h3><p>Organizar os bens e planejar a sucessão.</p><span class="go">Ver como a Hold atende →</span></a>
+    <a class="sector" href="#proposta"><div class="film" data-v="city" data-seed="10"><img class="kb" src="assets/img/condominio.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><span class="num-s">Condomínios</span><h3>Condomínios</h3><p>Folha, prestação de contas e boletos.</p><span class="go">Ver como a Hold atende →</span></a>
+  </div></div>
+</section>
+
+<!-- CENA 07 · ESPECIALISTAS -->
+<section class="people-sec">
+  <div class="c">
+    <div class="sec-h"><span class="kicker">Quem cuida de você</span><h2>Gente de verdade, com nome e rosto.</h2></div>
+    <div class="people">
+      <div class="person"><div class="film" data-v="portrait" data-seed="11"><img class="kb" src="assets/img/pessoa-1.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><strong>Nome Sobrenome</strong><span>Planejamento tributário</span><a href="#">Falar comigo</a></div>
+      <div class="person"><div class="film" data-v="portrait" data-seed="12"><img class="kb" src="assets/img/pessoa-3.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><strong>Nome Sobrenome</strong><span>Revendas de veículos</span><a href="#">Falar comigo</a></div>
+      <div class="person"><div class="film" data-v="portrait" data-seed="13"><img class="kb" src="assets/img/pessoa-2.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><strong>Nome Sobrenome</strong><span>Terceirização financeira</span><a href="#">Falar comigo</a></div>
+      <div class="person"><div class="film" data-v="portrait" data-seed="14"><img class="kb" src="assets/img/pessoa-4.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><strong>Nome Sobrenome</strong><span>Profissionais da saúde</span><a href="#">Falar comigo</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- CENA 08 · DEPOIMENTOS -->
+<section class="cine" id="depoimentos">
+  <div class="c">
+    <div class="sec-h"><span class="kicker">Quem já é Hold</span><h2>Na voz de quem é cliente.</h2></div>
+    <div class="screen">
+      <div class="film" data-v="portrait" data-seed="15"><img class="kb" src="assets/img/gratidao.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div><span class="tagv">Depoimento em vídeo</span></div>
+      <div class="screen-t">
+        <div><blockquote id="q-title">O que o Mateus tem para falar da Hold</blockquote><cite id="q-who">Mateus · Suporte Proteção Veicular</cite></div>
+        <a class="btn btn--light" id="q-link" href="https://www.youtube.com/shorts/TKlWerrH4gk" target="_blank" rel="noopener">Assistir no YouTube</a>
+      </div>
+    </div>
+    <div class="reel" role="group" aria-label="Escolher depoimento">
+      <button type="button" aria-pressed="true" data-t="O que o Mateus tem para falar da Hold" data-w="Mateus · Suporte Proteção Veicular" data-u="https://www.youtube.com/shorts/TKlWerrH4gk"><strong>Mateus</strong><span>Suporte Proteção Veicular</span></button>
+      <button type="button" aria-pressed="false" data-t="O que o Delamar tem para falar da Hold" data-w="Delamar · Unilages Proteção Veicular" data-u="https://www.youtube.com/shorts/DbvoU19B2Zs"><strong>Delamar</strong><span>Unilages Proteção Veicular</span></button>
+      <button type="button" aria-pressed="false" data-t="O que o Maike Souza tem para falar da Hold" data-w="Maike · Instituto Maike Souza" data-u="https://www.youtube.com/watch?v=A2kEN-YSdZ8"><strong>Maike</strong><span>Instituto Maike Souza</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- PLANILHA -->
+<section class="gift">
+  <div class="c">
+    <div><span class="kicker">Material gratuito</span><h2>Planilha de fluxo de caixa da Hold.</h2><p>A estrutura que os nossos especialistas usam para ver para onde o dinheiro vai. Você recebe no WhatsApp.</p></div>
+    <div>
+      <form id="gift" novalidate>
+        <div class="field"><label for="g-nome">Seu nome</label><input id="g-nome" placeholder="Ana" autocomplete="given-name"></div>
+        <div class="field" id="g-f"><label for="g-wa">Seu WhatsApp</label><input id="g-wa" placeholder="(48) 99999-0000" inputmode="tel" autocomplete="tel"></div>
+        <button class="btn btn--primary" type="submit">Quero a planilha</button>
+      </form>
+      <p class="okmsg" id="g-ok" hidden>Pronto! A planilha chega no seu WhatsApp em alguns minutos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CENA 09 · FORMULÁRIO -->
+<section class="cta-sec" id="proposta">
+  <div class="film" data-v="city" data-seed="16"><img class="kb" src="assets/img/predios.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div><span class="tagv">Vídeo · cena 10 · Tubarão aérea · 8s</span></div>
+  <div class="c">
+    <div>
+      <h2>A próxima cena é <span>da sua empresa.</span></h2>
+      <p class="lead">Conte o que você precisa. Um especialista chama você no WhatsApp com a proposta.</p>
+    </div>
+    <form class="form" id="form" novalidate>
+      <div class="steps" aria-hidden="true"><i class="on"></i><i id="s2"></i><i id="s3"></i></div>
+      <div id="f1"><h3>O que você precisa?</h3>
+        <div class="opts" role="group" aria-label="O que você precisa">
+          <button class="opt" type="button" data-v="abrir_empresa" aria-pressed="false">Abrir empresa</button>
+          <button class="opt" type="button" data-v="trocar_contador" aria-pressed="false">Trocar de contador</button>
+          <button class="opt" type="button" data-v="terceirizar_financeiro" aria-pressed="false">Terceirizar financeiro</button>
+          <button class="opt" type="button" data-v="mei" aria-pressed="false">Sou MEI</button>
+          <button class="opt" type="button" data-v="imposto_renda" aria-pressed="false">Imposto de Renda</button>
+          <button class="opt" type="button" data-v="outro" aria-pressed="false">Outro assunto</button>
+        </div>
+        <p class="errmsg" id="e1" hidden style="margin-top:10px">Escolha uma opção para continuar.</p>
+      </div>
+      <div id="f2" hidden style="display:flex;flex-direction:column;gap:14px"><h3>Como a gente fala com você?</h3>
+        <div class="field"><label for="nome">Seu nome</label><input id="nome" placeholder="Ana" autocomplete="given-name"></div>
+        <div class="field" id="waf"><label for="wa">Seu WhatsApp</label><input id="wa" placeholder="(48) 99999-0000" inputmode="tel" autocomplete="tel"><span class="hint" id="wah">A gente chama você por aqui, sem spam.</span></div>
+        <div class="field"><label for="cidade">Cidade</label><select id="cidade"><option>Tubarão</option><option>Laguna</option><option>Belo Horizonte</option><option>Outra cidade</option></select></div>
+        <label class="consent"><input type="checkbox" id="lgpd"> Concordo que a Hold use meus dados para entrar em contato sobre este pedido.</label>
+        <p class="errmsg" id="e2" hidden>Precisamos da sua autorização para entrar em contato.</p>
+      </div>
+      <div id="f3" class="done" hidden><span class="ok">✓</span><h3>Recebemos, <span id="okn">tudo certo</span>!</h3><p style="color:var(--mist)">Um especialista chama você no WhatsApp em até 1 dia útil.</p><button class="linkbtn" type="button" id="again" style="align-self:flex-start">Enviar outro pedido</button></div>
+      <div class="factions" id="fa"><button class="linkbtn" type="button" id="back" hidden>Voltar</button><button class="btn btn--light" type="submit" id="nx" style="margin-left:auto">Continuar</button></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="ftr">
+  <div class="c">
+    <div class="big" aria-hidden="true">HOLD</div>
+    <div class="ftr-g">
+      <div class="col"><a class="logo" href="#topo" aria-label="Hold, início"><img src="assets/hold-logo-branco.png" alt="Hold Assessoria e Consultoria Contábil" style="height:42px;width:auto;display:block"></a><span style="margin-top:12px">Contabilidade estratégica há mais de 25 anos.</span></div>
+      <div class="col"><h4>Tubarão</h4><span>Rua Luiz Martins Collaço, 537</span><span>Santo Antônio · 88701-523</span><span>(48) 3052-4321</span></div>
+      <div class="col"><h4>Laguna</h4><span>Rua Osvaldo Cabral, 68, salas 1 e 2</span><span>Centro · 88790-000</span><span>(48) 3644-4321</span></div>
+      <div class="col"><h4>Navegue</h4><a href="#caminhos">Serviços</a><a href="#setores">Setores</a><a href="#terceirizacao">Terceirização</a><a href="#">Área do cliente</a><a href="https://www.instagram.com/holdcontabil/" target="_blank" rel="noopener">Instagram</a></div>
+    </div>
+    <div class="ftr-b"><span>© 2026 Hold Assessoria &amp; Consultoria Contábil</span><span>contato@holdcontabil.com.br · Política de privacidade</span></div>
+  </div>
+</footer>
+
+<a class="fab" href="#" aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9 0-1.4.7-2 1-2.3.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg></a>
+
+<div class="modal" id="modal" hidden role="dialog" aria-label="Filme da Hold">
+  <div class="modal-in">
+    <div class="film" data-v="office" data-seed="17"><img class="kb" src="assets/img/equipe-hold.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div><span class="tagv">Filme manifesto · cena 09 · 0:45</span></div>
+    <button class="x" type="button" id="closefilm" aria-label="Fechar filme">×</button>
+    <div class="modal-cap"><p>Aqui entra o filme de 45 segundos com os sócios, a equipe e as cidades.</p><span class="slate">Legenda sempre ligada</span></div>
+  </div>
+</div>
+
+<!-- ESCOPO DE PRODUÇÃO (anotação do protótipo, não faz parte do site) -->
+<section class="scope" id="escopo">
+  <div class="c">
+    <div class="scope-h">
+      <span class="slate">Notas do protótipo · não faz parte do site</span>
+      <h2>Escopo de produção da versão cinematográfica</h2>
+      <p>O que precisa ser filmado e como os vídeos entram no site sem pesar. Os blocos em movimento acima simulam cada cena.</p>
+    </div>
+    <div class="tw"><table>
+      <thead><tr><th>Cena</th><th>Onde entra</th><th>O que filmar</th><th>Duração</th><th>Formato</th></tr></thead>
+      <tbody>
+        <tr><td>01</td><td><b>Hero</b></td><td>Bastidores: equipe chegando, telas, reunião, café. Câmera lenta, sem corte brusco, loop perfeito.</td><td>15s loop</td><td>16:9 + 9:16</td></tr>
+        <tr><td>02</td><td><b>Abrir empresa</b></td><td>Mãos assinando contrato, chave na porta de uma loja nova.</td><td>6s loop</td><td>4:5</td></tr>
+        <tr><td>03</td><td><b>Trocar de contador</b></td><td>Sócio em reunião com cliente, aperto de mão natural.</td><td>6s loop</td><td>4:5</td></tr>
+        <tr><td>04 e 05</td><td><b>Terceirização</b></td><td>Especialista explicando um relatório na tela, close em números e gráficos.</td><td>6s e 10s</td><td>4:5 e 16:9</td></tr>
+        <tr><td>06</td><td><b>Setores</b></td><td>Pátio de revenda, consultório, sede de associação, família reunida, fachada de condomínio.</td><td>5 × 6s</td><td>3:4</td></tr>
+        <tr><td>07</td><td><b>Especialistas</b></td><td>Retrato em movimento de cada especialista olhando para a câmera, fundo do escritório.</td><td>4s cada</td><td>3:4</td></tr>
+        <tr><td>08</td><td><b>Depoimentos</b></td><td>Regravar Mateus, Delamar e Maike em 16:9 com a mesma luz, e gravar um cliente por setor.</td><td>30 a 60s</td><td>16:9 + 9:16</td></tr>
+        <tr><td>09</td><td><b>Filme manifesto</b></td><td>Sócios, equipe e as cidades, narrando o "seu dinheiro trabalhando por você". Com legenda.</td><td>45s</td><td>16:9</td></tr>
+        <tr><td>10</td><td><b>Formulário</b></td><td>Aéreas de drone: rio em Tubarão e centro histórico de Laguna.</td><td>8s loop</td><td>16:9</td></tr>
+      </tbody>
+    </table></div>
+    <div class="sg">
+      <div class="sc"><h4>Especificação técnica</h4><ul>
+        <li>MP4 (H.264) e WebM, sem áudio nos loops.</li>
+        <li>Hero até 4 MB em 1080p. Cards até 1,5 MB em 720p.</li>
+        <li>Sempre com imagem de capa, que aparece primeiro.</li>
+        <li><code>autoplay muted loop playsinline</code>, pausando fora da tela.</li>
+        <li>Hospedagem em CDN de vídeo (Cloudflare Stream, Bunny ou Vimeo).</li>
+      </ul></div>
+      <div class="sc"><h4>Acessibilidade e SEO</h4><ul>
+        <li>Todo texto é HTML real, nunca dentro do vídeo.</li>
+        <li>Camada azul de 55% ou mais sob o texto, para garantir contraste.</li>
+        <li>Quem desativa animação no sistema vê só a imagem de capa.</li>
+        <li>No celular, vídeos menores ou só a imagem, para não gastar dados.</li>
+        <li>Filme manifesto com legenda e botão de pausa.</li>
+      </ul></div>
+      <div class="sc"><h4>Custo e riscos</h4><ul>
+        <li>1 ou 2 diárias de filmagem e edição, mais o drone.</li>
+        <li>Página mais pesada: exige cuidado com a velocidade de carregamento (LCP).</li>
+        <li>Vídeo envelhece: planejar regravação a cada 1 ou 2 anos.</li>
+        <li>Sem vídeo bom, a versão sóbria converte melhor do que uma cinematográfica mal filmada.</li>
+      </ul></div>
+    </div>
+    <div class="tw cmp"><table>
+      <thead><tr><th>Critério</th><th>Cinematográfica</th><th>Sóbria</th></tr></thead>
+      <tbody>
+        <tr><td>Impacto</td><td>Alto. Passa "moderno e humano" em segundos.</td><td>Médio. Passa organização e clareza.</td></tr>
+        <tr><td>Depende de</td><td>Produção de vídeo de qualidade.</td><td>Boas fotos da equipe.</td></tr>
+        <tr><td>Velocidade</td><td>Precisa de otimização.</td><td>Leve por natureza.</td></tr>
+        <tr><td>Prazo</td><td>Maior, por causa da filmagem.</td><td>Menor.</td></tr>
+        <tr><td>Estrutura e conversão</td><td colspan="2">Iguais nas duas: mesmas seções, mesmo formulário e mesmo rastreamento.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+  /* ---------- vídeo simulado em canvas ---------- */
+  var grain=document.createElement("canvas");grain.width=grain.height=160;
+  (function(){var g=grain.getContext("2d"),d=g.createImageData(160,160);for(var i=0;i<d.data.length;i+=4){var v=Math.random()*255;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=22}g.putImageData(d,0,0)})();
+  function rnd(s){return function(){s=(s*9301+49297)%233280;return s/233280}}
+  function Film(el){
+    var cv=el.querySelector("canvas"),ctx=cv.getContext("2d"),v=el.dataset.v,r=rnd(+el.dataset.seed||1);
+    var blobs=[0,1,2].map(function(){return{x:r(),y:r(),s:.35+r()*.4,p:r()*6,c:["21,96,232","90,140,255","159,192,255"][Math.floor(r()*3)]}});
+    var figs=[0,1,2,3].map(function(){return{x:.15+r()*.7,s:.7+r()*.5,p:r()*6}});
+    var W=0,H=0;
+    function size(){var b=el.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,1.5);W=Math.max(1,b.width);H=Math.max(1,b.height);cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
+    function sil(x,y,s,a){ctx.fillStyle="rgba(3,8,26,"+a+")";ctx.beginPath();ctx.arc(x,y-s*.62,s*.2,0,7);ctx.fill();ctx.beginPath();ctx.ellipse(x,y+s*.05,s*.38,s*.46,0,Math.PI,0);ctx.lineTo(x+s*.38,H+10);ctx.lineTo(x-s*.38,H+10);ctx.fill()}
+    var hasImg=!!el.querySelector(".kb");
+    function draw(t){
+      if(hasImg){ctx.clearRect(0,0,W,H);var vg0=ctx.createRadialGradient(W/2,H/2,Math.min(W,H)*.3,W/2,H/2,Math.max(W,H)*.75);vg0.addColorStop(0,"rgba(0,0,0,0)");vg0.addColorStop(1,"rgba(2,6,20,.55)");ctx.fillStyle=vg0;ctx.fillRect(0,0,W,H);ctx.save();ctx.translate(-Math.random()*160,-Math.random()*160);ctx.fillStyle=ctx.createPattern(grain,"repeat");ctx.fillRect(0,0,W+160,H+160);ctx.restore();return}
+      var g=ctx.createLinearGradient(0,0,W,H);g.addColorStop(0,"#081436");g.addColorStop(1,"#0E1E4A");ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+      blobs.forEach(function(b,i){var x=(b.x+Math.sin(t*.00012+b.p)*.18)*W,y=(b.y+Math.cos(t*.0001+b.p)*.14)*H,R=b.s*Math.max(W,H);var rg=ctx.createRadialGradient(x,y,0,x,y,R);rg.addColorStop(0,"rgba("+b.c+",.55)");rg.addColorStop(1,"rgba("+b.c+",0)");ctx.fillStyle=rg;ctx.fillRect(0,0,W,H)});
+      if(v==="office"){for(var i=0;i<7;i++){var x=((i/7)+t*.000018)%1.15*W-W*.08;ctx.fillStyle="rgba(200,220,255,.07)";ctx.fillRect(x,0,W*.05,H*.7)}figs.slice(0,3).forEach(function(f,i){sil(f.x*W+Math.sin(t*.0004+f.p)*12,H*.78,H*.32*f.s,.75)})}
+      if(v==="people"){figs.slice(0,2).forEach(function(f,i){sil((.32+i*.36)*W+Math.sin(t*.0005+f.p)*8,H*.72,H*.42*f.s,.8)})}
+      if(v==="portrait"){sil(W*.5+Math.sin(t*.0006)*5,H*.66,H*.52,.82)}
+      if(v==="desk"){ctx.strokeStyle="rgba(159,192,255,.18)";ctx.lineWidth=1;for(var k=0;k<12;k++){var yy=H*.35+k*H*.05;ctx.beginPath();ctx.moveTo(W*.1,yy);ctx.lineTo(W*.9,yy);ctx.stroke()}ctx.strokeStyle="rgba(159,192,255,.8)";ctx.lineWidth=2.5;ctx.beginPath();for(var j=0;j<=40;j++){var xx=W*.1+j*(W*.8/40),y2=H*.72-(j/40)*H*.3+Math.sin(j*.7+t*.0012)*H*.03;j?ctx.lineTo(xx,y2):ctx.moveTo(xx,y2)}ctx.stroke()}
+      if(v==="hands"){ctx.fillStyle="rgba(230,238,255,.12)";ctx.save();ctx.translate(W*.5,H*.62);ctx.rotate(-.12+Math.sin(t*.0004)*.03);ctx.fillRect(-W*.28,-H*.18,W*.56,H*.36);ctx.restore();ctx.fillStyle="rgba(3,8,26,.7)";ctx.beginPath();ctx.ellipse(W*.62+Math.sin(t*.0009)*W*.04,H*.66,W*.12,H*.07,-.3,0,7);ctx.fill()}
+      if(v==="city"){ctx.fillStyle="rgba(3,8,26,.75)";var bx=0,rr=rnd(+el.dataset.seed*7);while(bx<W){var bw=20+rr()*60,bh=H*(.12+rr()*.3);ctx.fillRect(bx,H*.62-bh,bw,bh);bx+=bw+4}ctx.fillStyle="rgba(21,96,232,.25)";ctx.fillRect(0,H*.62,W,H*.38);ctx.strokeStyle="rgba(159,192,255,.25)";for(var q=0;q<5;q++){ctx.beginPath();var yq=H*.68+q*H*.06;ctx.moveTo(0,yq);for(var z=0;z<=W;z+=20)ctx.lineTo(z,yq+Math.sin(z*.02+t*.0015+q)*3);ctx.stroke()}}
+      var vg=ctx.createRadialGradient(W/2,H/2,Math.min(W,H)*.3,W/2,H/2,Math.max(W,H)*.75);vg.addColorStop(0,"rgba(0,0,0,0)");vg.addColorStop(1,"rgba(2,6,20,.6)");ctx.fillStyle=vg;ctx.fillRect(0,0,W,H);
+      ctx.save();ctx.translate(-Math.random()*160,-Math.random()*160);ctx.fillStyle=ctx.createPattern(grain,"repeat");ctx.fillRect(0,0,W+160,H+160);ctx.restore();
+    }
+    size();draw(0);
+    return{el:el,size:size,draw:draw,on:false};
+  }
+  var films=[].map.call(document.querySelectorAll(".film"),Film);
+  addEventListener("resize",function(){films.forEach(function(f){f.size();f.draw(performance.now())})});
+  if(!reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){films.forEach(function(f){if(f.el===e.target)f.on=e.isIntersecting})})},{rootMargin:"100px"});
+    films.forEach(function(f){io.observe(f.el)});
+    var last=0;(function loop(t){requestAnimationFrame(loop);if(t-last<40)return;last=t;films.forEach(function(f){if(f.on&&f.el.offsetParent!==null)f.draw(t)})})(0);
+  }
+
+  /* ---------- nav ---------- */
+  var nav=document.getElementById("nav");function ns(){nav.classList.toggle("solid",scrollY>40)}addEventListener("scroll",ns,{passive:true});ns();
+  var burger=document.getElementById("burger"),drawer=document.getElementById("drawer");
+  burger.addEventListener("click",function(){drawer.hidden=!drawer.hidden;burger.setAttribute("aria-expanded",String(!drawer.hidden));nav.classList.add("solid")});
+  drawer.addEventListener("click",function(e){if(e.target.closest("a")){drawer.hidden=true;burger.setAttribute("aria-expanded","false")}});
+
+  /* ---------- letreiro duplicado para loop contínuo ---------- */
+  var tr=document.getElementById("track");tr.innerHTML+=tr.innerHTML;
+
+  /* ---------- números ---------- */
+  var nums=document.querySelectorAll("[data-count]");
+  if(!reduce&&"IntersectionObserver" in window){
+    var nio=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;nio.unobserve(e.target);var el=e.target,end=+el.dataset.count,t0=performance.now();
+      (function step(t){var p=Math.min(1,(t-t0)/1400),v=Math.round(end*(1-Math.pow(1-p,3)));el.textContent=String(v).replace(/\B(?=(\d{3})+(?!\d))/g,".");if(p<1)requestAnimationFrame(step)})(t0)})},{threshold:.6});
+    nums.forEach(function(n){nio.observe(n)});
+  }
+
+  /* ---------- manifesto: palavras acendem com a rolagem ---------- */
+  var mani=document.getElementById("mani");
+  mani.innerHTML=mani.textContent.split(" ").map(function(w){var hl=/^\*.*\*$/.test(w);w=w.replace(/\*/g,"");return '<span class="w'+(hl?" hl":"")+'">'+w+"</span>"}).join(" ");
+  var words=mani.querySelectorAll(".w");
+  function lit(){var b=mani.getBoundingClientRect(),vh=innerHeight,p=reduce?1:Math.min(1,Math.max(0,(vh*.85-b.top)/(b.height+vh*.35)));var n=Math.round(p*words.length);words.forEach(function(w,i){w.classList.toggle("on",i<n)})}
+  addEventListener("scroll",lit,{passive:true});lit();
+
+  /* ---------- trilho de setores ---------- */
+  var rail=document.getElementById("rail");
+  document.getElementById("next").addEventListener("click",function(){rail.scrollBy({left:380,behavior:reduce?"auto":"smooth"})});
+  document.getElementById("prev").addEventListener("click",function(){rail.scrollBy({left:-380,behavior:reduce?"auto":"smooth"})});
+
+  /* ---------- depoimentos ---------- */
+  var reel=document.querySelectorAll(".reel button");
+  reel.forEach(function(b){b.addEventListener("click",function(){reel.forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");
+    document.getElementById("q-title").textContent=b.dataset.t;document.getElementById("q-who").textContent=b.dataset.w;document.getElementById("q-link").href=b.dataset.u})});
+
+  /* ---------- filme ---------- */
+  var modal=document.getElementById("modal"),pf=document.getElementById("playfilm");
+  pf.addEventListener("click",function(){modal.hidden=false;films.forEach(function(f){if(f.el.closest("#modal")){f.size();f.draw(performance.now());f.on=true}});document.getElementById("closefilm").focus()});
+  function close(){modal.hidden=true;pf.focus()}
+  document.getElementById("closefilm").addEventListener("click",close);
+  modal.addEventListener("click",function(e){if(e.target===modal)close()});
+  addEventListener("keydown",function(e){if(e.key==="Escape"&&!modal.hidden)close()});
+
+  /* ---------- planilha ---------- */
+  document.getElementById("gift").addEventListener("submit",function(e){e.preventDefault();var wa=document.getElementById("g-wa");
+    if(wa.value.replace(/\D/g,"").length<10){document.getElementById("g-f").classList.add("err");wa.focus();return}
+    this.hidden=true;document.getElementById("g-ok").hidden=false});
+
+  /* ---------- formulário ---------- */
+  var step=1,intent=null,opts=document.querySelectorAll(".opt"),nx=document.getElementById("nx"),back=document.getElementById("back");
+  function pick(v){intent=v;opts.forEach(function(o){o.setAttribute("aria-pressed",String(o.dataset.v===v))});document.getElementById("e1").hidden=true}
+  opts.forEach(function(o){o.addEventListener("click",function(){pick(o.dataset.v)})});
+  function show(){document.getElementById("f1").hidden=step!==1;document.getElementById("f2").hidden=step!==2;document.getElementById("f3").hidden=step!==3;
+    document.getElementById("f2").style.display=step===2?"flex":"";
+    document.getElementById("s2").className=step>=2?"on":"";document.getElementById("s3").className=step>=3?"on":"";
+    back.hidden=step!==2;document.getElementById("fa").hidden=step===3;nx.textContent=step===2?"Quero falar com um especialista":"Continuar"}
+  document.querySelectorAll("[data-intent]").forEach(function(a){a.addEventListener("click",function(){pick(a.dataset.intent);step=2;show()})});
+  document.getElementById("form").addEventListener("submit",function(e){e.preventDefault();
+    if(step===1){if(!intent){document.getElementById("e1").hidden=false;return}step=2;show();return}
+    var wa=document.getElementById("wa"),f=document.getElementById("waf"),h=document.getElementById("wah");
+    if(wa.value.replace(/\D/g,"").length<10){f.classList.add("err");h.textContent="Faltou o DDD. Ex.: (48) 99999-0000";wa.focus();return}
+    f.classList.remove("err");h.textContent="A gente chama você por aqui, sem spam.";
+    if(!document.getElementById("lgpd").checked){document.getElementById("e2").hidden=false;return}
+    document.getElementById("e2").hidden=true;document.getElementById("okn").textContent=document.getElementById("nome").value.trim()||"tudo certo";step=3;show()});
+  back.addEventListener("click",function(){step=1;show()});
+  document.getElementById("again").addEventListener("click",function(){step=1;intent=null;opts.forEach(function(o){o.setAttribute("aria-pressed","false")});show()});
+  show();
+})();
+</script>
+
+</body>
+</html>
