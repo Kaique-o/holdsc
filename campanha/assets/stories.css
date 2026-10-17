@@ -1,0 +1,38 @@
+/* Modo story · campanha no celular (TESTE, 17/10/2026)
+   Cada seção vira uma tela cheia, o dedo para em cada uma, barrinhas no topo e toque à direita/esquerda para
+   avançar/voltar. Só vale com a classe html.stories, que o assets/stories.js liga em telas de até 640px.
+   Para desligar: abra com ?stories=0 (fica lembrado; ?stories=1 religa).
+   Para tirar de vez: apague as duas linhas de stories no prototipo-cinema-hold.html e estes dois arquivos. */
+/* barra e dica só existem no modo story (no computador ficam escondidas) */
+.st-barra,.st-dica{display:none}
+@media (max-width:640px){
+  html.stories{scroll-snap-type:y mandatory;--st-topo:92px}
+  html.stories .st-barra,html.stories .st-dica{display:flex}
+  html.stories body{overscroll-behavior-y:none}
+
+  /* cada seção (e o rodapé) ocupa a tela inteira e prende o scroll */
+  html.stories main>section,
+  html.stories footer.ftr{min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;justify-content:center;padding-block:var(--st-topo) 28px}
+  /* como item de coluna flexível com margin:auto, o .c encolheria para o conteúdo (e os carrosséis o alargariam) */
+  html.stories main>section>.c,
+  html.stories footer.ftr>.c{width:100%;min-width:0}
+  html.stories main>section.hero{justify-content:flex-end;padding-block:0}
+  /* a etiqueta "vídeo · cena" (anotação do protótipo) ficaria entre o menu e o título */
+  html.stories .hero .film .tagv{display:none}
+  html.stories .hero .c{padding-block:var(--st-topo) 28px;gap:20px}
+  html.stories .ftr-g{padding-block:8px 20px;gap:22px}
+  html.stories .hero{min-height:100svh}
+
+  /* barrinhas de progresso, acima do menu */
+  html.stories .nav{padding-top:calc(env(safe-area-inset-top,0px) + 12px)}
+  .st-barra{position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);left:12px;right:12px;z-index:60;display:flex;gap:4px;pointer-events:none}
+  .st-barra i{flex:1;height:3px;border-radius:2px;background:rgba(244,247,255,.28);overflow:hidden}
+  .st-barra b{display:block;height:100%;background:#F4F7FF;transform-origin:left;transform:scaleX(0);transition:transform .45s cubic-bezier(0.23,1,0.32,1)}
+
+  /* dica de abertura */
+  .st-dica{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 26px);z-index:55;translate:-50% 0;display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:4px;background:rgba(5,11,36,.72);border:1px solid rgba(244,247,255,.18);color:#F4F7FF;font:600 13px var(--body);letter-spacing:.02em;pointer-events:none;transition:opacity .3s ease,translate .3s cubic-bezier(0.23,1,0.32,1)}
+  .st-dica.st-some{opacity:0;translate:-50% 8px}
+}
+@media (max-width:640px) and (prefers-reduced-motion:reduce){
+  .st-barra b{transition:none}
+}

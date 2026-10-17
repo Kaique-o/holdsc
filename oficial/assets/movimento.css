@@ -1,0 +1,20 @@
+/* Movimento · estilos do motor de animação (movimento.js).
+   CÓPIA IDÊNTICA em site-real/assets/movimento.css e site-cine/assets/movimento.css: mudou um, copie para o outro.
+   Usa as propriedades `translate` e `scale` (separadas de `transform`) para somar com o que cada componente já faz.
+   Regras da marca: sem glow; a sombra do cartão em hover é neutra (mesma cor da --float). */
+:root{--mv-saida:cubic-bezier(0.23,1,0.32,1)}
+
+/* revelação no scroll (o JS só esconde o que está abaixo da dobra): deslocamento curto e lento = suave */
+[data-rv]{opacity:0;translate:0 16px}
+[data-rv="on"]{opacity:1;translate:0 0;transition:opacity 1s var(--mv-saida),translate 1.2s var(--mv-saida)}
+
+/* paralaxe: o JS move a imagem; a moldura (pai) precisa cortar */
+.mv-plx{will-change:transform}
+
+/* cartão inteiro reage ao ponteiro (só mouse).
+   Repouso, hover e a inclinação do JS usam a MESMA lista de funções (perspective, translateY, rotateX, rotateY):
+   assim o navegador interpola valor a valor, sem tranco ao entrar e sair do cartão. */
+@media (hover:hover) and (pointer:fine){
+  html.mv .mv-incl{transform:perspective(1100px) translateY(0) rotateX(0deg) rotateY(0deg);transition:transform .7s var(--mv-saida),box-shadow .6s var(--mv-saida),border-color .3s ease,background-color .3s ease,color .3s ease}
+  html.mv .mv-incl:hover{transform:perspective(1100px) translateY(-4px) rotateX(0deg) rotateY(0deg);box-shadow:0 22px 44px -26px rgba(14,30,74,.32),0 2px 10px rgba(14,30,74,.05)}
+}

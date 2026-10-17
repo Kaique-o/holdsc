@@ -15,81 +15,81 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;family=Source+Sans+3:wght@400;600&amp;display=swap">
-  <style type="text/css" data-vite-dev-id="C:/Users/Kaiqu/Desktop/holdsc/compartilhado/tokens.css">/* Hold Contábil · tokens e base compartilhados (mesmo sistema do site oficial)
-   Regras da marca: sem pílula, sem glow. Etiquetas com canto de 4px.
-   Sombra só em flutuante, sempre neutra. */
-:root{
-  color-scheme:light;
-  --navy:#0E1E4A;--navy-2:#16295F;--blue:#1560E8;--blue-d:#0F4BC0;--sky:#DCE8FB;--mist:#8EA1C0;
-  --paper:#F5F7FB;--paper-2:#EEF1F6;--white:#FFFFFF;--ink:#0E1E4A;--ink-2:#4A5675;--ink-3:#7A86A3;--line:#DCE3F0;
-  --alert:#FFC53D;--wa:#1FAF55;--err:#C4320A;--err-bg:#FDECE7;--ok:#1D7A4E;--ok-bg:#E3F4EA;--warn:#8A5A00;--warn-bg:#FFF2D6;
-  --display:"Sora",ui-sans-serif,"Segoe UI",Helvetica,Arial,sans-serif;
-  --body:"Source Sans 3","Source Sans Pro","Segoe UI",Helvetica,Arial,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
-  --float:0 4px 14px rgba(14,30,74,.14);
-  --r-sm:10px;--r-md:14px;--r-lg:20px;--r-tag:4px;
-  --gap:24px;--split:64px;
-}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
-img{max-width:100%}
-h1,h2,h3,h4{font-family:var(--display);margin:0;text-wrap:balance;color:var(--navy);letter-spacing:-.01em}
-p{margin:0}
-a{color:var(--blue)}
-[hidden]{display:none!important}
-:focus-visible{outline:3px solid var(--alert);outline-offset:3px;border-radius:6px}
-.c{max-width:1200px;margin:0 auto;padding-inline:24px}
-.eyebrow{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
-.h1{font-weight:800;font-size:clamp(32px,4.4vw,52px);line-height:1.06;letter-spacing:-.025em}
-.h2{font-weight:700;font-size:clamp(24px,2.8vw,34px);line-height:1.15;letter-spacing:-.015em}
-.lead{font-size:clamp(17px,1.5vw,19px);line-height:1.5;color:var(--ink-2);max-width:60ch}
-.muted{color:var(--ink-2)}
-.note{font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
-
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--display);font-weight:700;font-size:15px;line-height:1;padding:14px 20px;border-radius:12px;border:0;cursor:pointer;text-decoration:none;transition:background .15s,color .15s,box-shadow .15s;white-space:nowrap}
-.btn svg{width:18px;height:18px;flex:none}
-.btn--primary{background:var(--blue);color:#fff}
-.btn--primary:hover{background:var(--blue-d)}
-.btn--secondary{background:transparent;color:var(--navy);box-shadow:inset 0 0 0 1.5px var(--navy)}
-.btn--secondary:hover{background:var(--navy);color:#fff}
-.btn--outline{background:#fff;color:var(--navy);box-shadow:inset 0 0 0 1.5px var(--line)}
-.btn--outline:hover{box-shadow:inset 0 0 0 1.5px var(--navy)}
-.btn--danger{background:#fff;color:var(--err);box-shadow:inset 0 0 0 1.5px #F2C4B6}
-.btn--danger:hover{background:var(--err);color:#fff}
-.btn--light{background:#fff;color:var(--navy)}
-.btn--light:hover{background:var(--sky)}
-.btn--sm{padding:10px 14px;font-size:14px;border-radius:10px}
-.btn--link{background:none;padding:4px 0;color:var(--blue);border-radius:4px}
-.btn--link:hover{color:var(--blue-d);text-decoration:underline;text-underline-offset:4px}
-.btn[disabled]{opacity:.55;cursor:not-allowed}
-.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:var(--r-tag);font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:var(--sky);color:var(--blue-d);white-space:nowrap}
-.tag--navy{background:var(--navy);color:#fff}
-.tag--white{background:#fff;color:var(--navy)}
-.tag--ok{background:var(--ok-bg);color:var(--ok)}
-.tag--warn{background:var(--warn-bg);color:var(--warn)}
-.tag--mute{background:var(--paper-2);color:var(--ink-2)}
-
-.field{display:flex;flex-direction:column;gap:6px}
-.field label{font-weight:700;font-size:14px;color:var(--navy)}
-.field input,.field select,.field textarea{font:inherit;font-size:16px;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;width:100%;min-width:0}
-.field textarea{resize:vertical;min-height:90px;line-height:1.5}
-.field input:hover,.field select:hover,.field textarea:hover{border-color:var(--mist)}
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue)}
-.field:hover>label{color:var(--blue-d)}
-.field .hint{font-size:13px;color:var(--ink-3)}
-.field.err input,.field.err textarea{border-color:var(--err)}
-.field.err .hint{color:var(--err)}
-.spin{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;animation:hold-sp .8s linear infinite;display:inline-block}
-.spin--dark{border-color:rgba(14,30,74,.2);border-top-color:var(--navy)}
-@keyframes hold-sp{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:.001ms!important}}
-
-/* hover padrão para links de texto e controles */
-a:not([class]):hover{color:var(--blue-d);text-decoration-thickness:2px}
-input[type=checkbox],input[type=radio],select{cursor:pointer}
-a,button,input,select,textarea{transition:color .15s,background-color .15s,border-color .15s,box-shadow .15s,transform .15s,opacity .15s}
-</style><style type="text/css" data-vite-dev-id="C:/Users/Kaiqu/Desktop/holdsc/site-linktree/src/estilo.css">/* Link na bio · pensado para a tela do celular (abre de dentro do Instagram) */
+  <style type="text/css" data-vite-dev-id="C:/Users/Kaiqu/Desktop/Claude/holdsc/compartilhado/tokens.css">/* Hold Contábil · tokens e base compartilhados (mesmo sistema do site oficial)
+   Regras da marca: sem pílula, sem glow. Etiquetas com canto de 4px.
+   Sombra só em flutuante, sempre neutra. */
+:root{
+  color-scheme:light;
+  --navy:#0E1E4A;--navy-2:#16295F;--blue:#1560E8;--blue-d:#0F4BC0;--sky:#DCE8FB;--mist:#8EA1C0;
+  --paper:#F5F7FB;--paper-2:#EEF1F6;--white:#FFFFFF;--ink:#0E1E4A;--ink-2:#4A5675;--ink-3:#7A86A3;--line:#DCE3F0;
+  --alert:#FFC53D;--wa:#1FAF55;--err:#C4320A;--err-bg:#FDECE7;--ok:#1D7A4E;--ok-bg:#E3F4EA;--warn:#8A5A00;--warn-bg:#FFF2D6;
+  --display:"Sora",ui-sans-serif,"Segoe UI",Helvetica,Arial,sans-serif;
+  --body:"Source Sans 3","Source Sans Pro","Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --float:0 4px 14px rgba(14,30,74,.14);
+  --r-sm:10px;--r-md:14px;--r-lg:20px;--r-tag:4px;
+  --gap:24px;--split:64px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+h1,h2,h3,h4{font-family:var(--display);margin:0;text-wrap:balance;color:var(--navy);letter-spacing:-.01em}
+p{margin:0}
+a{color:var(--blue)}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--alert);outline-offset:3px;border-radius:6px}
+.c{max-width:1200px;margin:0 auto;padding-inline:24px}
+.eyebrow{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.h1{font-weight:800;font-size:clamp(32px,4.4vw,52px);line-height:1.06;letter-spacing:-.025em}
+.h2{font-weight:700;font-size:clamp(24px,2.8vw,34px);line-height:1.15;letter-spacing:-.015em}
+.lead{font-size:clamp(17px,1.5vw,19px);line-height:1.5;color:var(--ink-2);max-width:60ch}
+.muted{color:var(--ink-2)}
+.note{font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--display);font-weight:700;font-size:15px;line-height:1;padding:14px 20px;border-radius:12px;border:0;cursor:pointer;text-decoration:none;transition:background .15s,color .15s,box-shadow .15s;white-space:nowrap}
+.btn svg{width:18px;height:18px;flex:none}
+.btn--primary{background:var(--blue);color:#fff}
+.btn--primary:hover{background:var(--blue-d)}
+.btn--secondary{background:transparent;color:var(--navy);box-shadow:inset 0 0 0 1.5px var(--navy)}
+.btn--secondary:hover{background:var(--navy);color:#fff}
+.btn--outline{background:#fff;color:var(--navy);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn--outline:hover{box-shadow:inset 0 0 0 1.5px var(--navy)}
+.btn--danger{background:#fff;color:var(--err);box-shadow:inset 0 0 0 1.5px #F2C4B6}
+.btn--danger:hover{background:var(--err);color:#fff}
+.btn--light{background:#fff;color:var(--navy)}
+.btn--light:hover{background:var(--sky)}
+.btn--sm{padding:10px 14px;font-size:14px;border-radius:10px}
+.btn--link{background:none;padding:4px 0;color:var(--blue);border-radius:4px;white-space:normal;text-align:left}
+.btn--link:hover{color:var(--blue-d);text-decoration:underline;text-underline-offset:4px}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:var(--r-tag);font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:var(--sky);color:var(--blue-d);white-space:nowrap}
+.tag--navy{background:var(--navy);color:#fff}
+.tag--white{background:#fff;color:var(--navy)}
+.tag--ok{background:var(--ok-bg);color:var(--ok)}
+.tag--warn{background:var(--warn-bg);color:var(--warn)}
+.tag--mute{background:var(--paper-2);color:var(--ink-2)}
+
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-weight:700;font-size:14px;color:var(--navy)}
+.field input,.field select,.field textarea{font:inherit;font-size:16px;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;width:100%;min-width:0}
+.field textarea{resize:vertical;min-height:90px;line-height:1.5}
+.field input:hover,.field select:hover,.field textarea:hover{border-color:var(--mist)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue)}
+.field:hover>label{color:var(--blue-d)}
+.field .hint{font-size:13px;color:var(--ink-3)}
+.field.err input,.field.err textarea{border-color:var(--err)}
+.field.err .hint{color:var(--err)}
+.spin{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;animation:hold-sp .8s linear infinite;display:inline-block}
+.spin--dark{border-color:rgba(14,30,74,.2);border-top-color:var(--navy)}
+@keyframes hold-sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:.001ms!important}}
+
+/* hover padrão para links de texto e controles */
+a:not([class]):hover{color:var(--blue-d);text-decoration-thickness:2px}
+input[type=checkbox],input[type=radio],select{cursor:pointer}
+a,button,input,select,textarea{transition:color .15s,background-color .15s,border-color .15s,box-shadow .15s,transform .15s,opacity .15s}
+</style><style type="text/css" data-vite-dev-id="C:/Users/Kaiqu/Desktop/Claude/holdsc/site-linktree/src/estilo.css">/* Link na bio · pensado para a tela do celular (abre de dentro do Instagram) */
 html,body{overflow-x:clip}
 body{background:var(--paper)}
 .lt{max-width:480px;margin:0 auto;padding:0 18px calc(28px + env(safe-area-inset-bottom,0px));min-height:100vh;display:flex;flex-direction:column;position:relative;isolation:isolate}

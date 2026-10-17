@@ -43,7 +43,7 @@ a{color:var(--sky)}
 .film .tagv{position:absolute;right:14px;top:14px;z-index:2;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,247,255,.8);background:rgba(5,11,36,.55);padding:4px 8px;border-radius:4px}
 
 /* botões */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--display);font-weight:700;font-size:15px;line-height:1;padding:17px 26px;border-radius:12px;border:0;cursor:pointer;text-decoration:none;transition:background .15s,color .15s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--display);font-weight:700;font-size:15px;line-height:1;padding:17px 26px;border-radius:12px;border:0;cursor:pointer;text-decoration:none;transition:background-color .3s ease,color .3s ease,translate .5s cubic-bezier(.23,1,.32,1),scale .16s ease-out}
 .btn svg{width:18px;height:18px;flex:none}
 .btn--primary{background:var(--blue);color:#fff}
 .btn--primary:hover{background:var(--blue-d)}
@@ -73,7 +73,8 @@ a{color:var(--sky)}
 .burger{display:none;margin-left:auto;background:none;border:0;color:#fff;width:44px;height:44px;border-radius:8px;cursor:pointer}
 .burger svg{width:26px;height:26px}
 .drawer{background:var(--abyss);border-top:1px solid var(--line)}
-.drawer .c{display:flex;flex-direction:column;padding-block:8px 20px}
+.drawer{max-height:calc(100svh - 76px - env(safe-area-inset-top,0px));overflow-y:auto;overscroll-behavior:contain}
+.drawer .c{display:flex;flex-direction:column;align-items:stretch;gap:0;height:auto;padding-block:8px 20px} /* o menu fica dentro da .nav: desfaz a altura fixa e o centro da barra */
 .drawer a:not(.btn){font-family:var(--display);font-weight:700;font-size:22px;color:#fff;text-decoration:none;padding:14px 0;border-bottom:1px solid var(--line)}
 .drawer .btn{margin-top:16px}
 
@@ -87,6 +88,7 @@ a{color:var(--sky)}
 .hero h1 .ln:nth-child(2) span{animation-delay:.12s}
 .hero h1 .ln:nth-child(3) span{animation-delay:.24s}
 .hero h1 .blue{color:var(--sky)}
+@media (max-width:520px){.hero h1{font-size:11.4vw}} /* "TRABALHANDO" cabe inteiro de 320px para cima */
 @keyframes rise{from{transform:translateY(105%)}to{transform:none}}
 .hero-bot{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end}
 .hero-bot p{font-size:clamp(17px,1.5vw,20px);color:rgba(244,247,255,.85);max-width:50ch}
@@ -124,7 +126,7 @@ a{color:var(--sky)}
 .sec-h h2{font-weight:800;font-size:clamp(32px,4.6vw,64px);line-height:1;letter-spacing:-.035em}
 .sec-h p{color:rgba(244,247,255,.75);font-size:18px;max-width:54ch}
 .paths{display:flex;gap:14px;height:560px}
-.path{position:relative;flex:1;border-radius:22px;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;padding:30px;text-align:left;border:0;cursor:pointer;color:#fff;font:inherit;transition:flex .5s cubic-bezier(.2,.8,.2,1)}
+.path{position:relative;flex:1;border-radius:22px;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;padding:30px;text-align:left;border:0;cursor:pointer;color:#fff;font:inherit;transition:flex .5s cubic-bezier(.2,.8,.2,1);text-decoration:none}
 .path .film{z-index:-1}
 .path:hover,.path:focus-visible{flex:1.7}
 .path h3{font-weight:800;font-size:clamp(24px,2.6vw,36px);line-height:1.05;letter-spacing:-.02em}
@@ -170,10 +172,28 @@ a{color:var(--sky)}
 .ledger-f span{color:var(--mist);font-size:14px}
 .ledger-f b{font-family:var(--display);font-weight:800;font-size:28px}
 .ledger small{display:block;margin-top:8px;font-family:var(--mono);font-size:10.5px;color:var(--mist)}
+/* celular: a seção de terceirização cabe numa tela só (relatório numa linha por item, links mais enxutos) */
+@media (max-width:520px){
+  .bpo .c{gap:22px}
+  .bpo h2{font-size:30px;margin-top:10px}
+  .bpo p.lead{font-size:15.5px;line-height:1.45;margin-top:12px}
+  .bpo .ctas{margin-top:18px;gap:10px;flex-direction:column;align-items:flex-start}
+  .bpo .ctas .btn--light{width:100%;padding:15px 18px}
+  .bpo .ctas .btn--ghost{padding:4px 0;background:none;box-shadow:none;border:0;font-size:14.5px;text-decoration:underline;text-underline-offset:4px;color:rgba(244,247,255,.85)}
+  .ledger{padding:14px 16px}
+  .ledger-h{padding-bottom:8px}
+  .lr{grid-template-columns:minmax(0,1fr) auto auto;gap:8px;padding-block:9px;font-size:13.5px}
+  .lr .v{font-size:12.5px}
+  .lr .s{font-size:8.5px;padding:2px 5px;letter-spacing:.06em}
+  .ledger-f{padding-top:10px}
+  .ledger-f b{font-size:22px}
+  .ledger small{margin-top:4px}
+}
+@media (max-width:350px){.lr{grid-template-columns:minmax(0,1fr) auto;row-gap:3px}.lr .s{grid-column:2;justify-self:end}} /* celular bem pequeno: status embaixo do valor */
 
 /* setores */
 .sectors-sec{padding-block:120px 60px}
-.rail-wrap{overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:18px;scrollbar-color:var(--blue) transparent}
+.rail-wrap{overflow-x:auto;scroll-snap-type:x mandatory;padding-block:14px 18px;margin-top:-14px;scrollbar-color:var(--blue) transparent} /* respiro em cima: o setor sobe no hover sem ser cortado */
 .rail{display:flex;gap:14px;width:max-content;padding-inline:max(28px,calc((100vw - 1280px)/2 + 28px))}
 .sector{position:relative;isolation:isolate;width:min(360px,78vw);aspect-ratio:3/4;border-radius:20px;overflow:hidden;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;text-decoration:none;color:#fff}
 .sector .film{z-index:-1}
@@ -185,6 +205,7 @@ a{color:var(--sky)}
 .rail-btns{display:flex;gap:8px}
 .rail-btns button{width:48px;height:48px;border-radius:50%;border:1.5px solid rgba(244,247,255,.5);background:none;color:#fff;font:700 18px var(--display);cursor:pointer}
 .rail-btns button:hover{background:rgba(244,247,255,.1)}
+@media (max-width:640px){.rail-btns{display:none}} /* no celular arrasta com o dedo */
 
 /* especialistas */
 .people-sec{padding-block:60px 120px}
@@ -203,6 +224,26 @@ a{color:var(--sky)}
 .screen-t{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;width:100%}
 .screen blockquote{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(20px,2.6vw,36px);line-height:1.15;letter-spacing:-.02em;max-width:24ch}
 .screen cite{display:block;margin-top:14px;font-style:normal;color:rgba(244,247,255,.8);font-size:15px}
+/* depoimento em vídeo: o próprio vídeo é o fundo da tela (sem som, em loop, escurecido à esquerda);
+   no play ele toca inteiro e com som por cima, e o fundo vira uma versão desfocada */
+.screen-t{position:relative;z-index:2;grid-template-columns:1fr;justify-items:start;gap:20px;transition:opacity .35s ease}
+.screen-t>div{max-width:min(52%,560px)}
+.screen{cursor:pointer;background:#030817}
+.dep-fundo,.dep-video{position:absolute;inset:0;width:100%;height:100%;display:block}
+.dep-fundo{z-index:-2;object-fit:cover;object-position:50% 30%;transition:filter .6s ease,scale .8s cubic-bezier(.23,1,.32,1)}
+.dep-sombra{position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(5,11,36,.88) 0%,rgba(5,11,36,.55) 38%,rgba(5,11,36,.08) 70%),linear-gradient(0deg,rgba(5,11,36,.55) 0%,rgba(5,11,36,0) 45%);transition:opacity .4s ease}
+.dep-video{z-index:1;object-fit:contain;opacity:0;pointer-events:none;transition:opacity .45s ease}
+/* vídeo em pé numa tela larga: fica nítido e inteiro à direita, com as bordas sumindo no próprio vídeo desfocado */
+.dep-borrao{position:absolute;inset:0;width:100%;height:100%;z-index:-3;display:none;filter:blur(26px) brightness(.5) saturate(1.1);scale:1.2}
+.screen.dep--v .dep-borrao{display:block}
+.screen.dep--v .dep-fundo{left:auto;right:7%;width:auto;aspect-ratio:9/16;object-position:50% 50%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%)}
+#q-play svg{width:15px;height:15px}
+#q-play small{font:500 12px var(--mono);opacity:.7;margin-left:2px}
+.screen.tocando{cursor:auto}
+.screen.tocando .dep-video{opacity:1;pointer-events:auto}
+.screen.tocando .dep-fundo{filter:blur(22px) brightness(.4);scale:1.12}
+.screen.dep--v.tocando .dep-fundo{opacity:0}
+.screen.tocando .dep-sombra,.screen.tocando .screen-t{opacity:0;pointer-events:none}
 .reel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:14px}
 .reel button{background:none;border:1px solid var(--line);border-radius:14px;padding:16px 18px;text-align:left;color:#fff;cursor:pointer;font:inherit;display:flex;flex-direction:column;gap:4px}
 .reel button[aria-pressed="true"]{border-color:var(--sky);background:rgba(21,96,232,.12)}
@@ -253,8 +294,7 @@ a{color:var(--sky)}
 
 /* rodapé */
 .ftr{background:#030817;border-top:1px solid var(--line);color:var(--mist);font-size:15px}
-.ftr .big{font-family:var(--display);font-weight:800;font-size:clamp(64px,16vw,240px);line-height:.8;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.5px rgba(159,192,255,.3);padding-top:60px;overflow:hidden;white-space:nowrap}
-.ftr-g{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:32px;padding-block:48px 32px}
+.ftr-g{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:32px;padding-block:64px 32px}
 .ftr h4{font-size:15px;margin-bottom:10px}
 .ftr .col{display:flex;flex-direction:column;gap:4px}
 .ftr a{color:var(--mist);text-decoration:none}
@@ -273,29 +313,27 @@ a{color:var(--sky)}
 .modal-cap p{font-family:var(--display);font-weight:700;font-size:clamp(18px,2.2vw,28px);max-width:30ch}
 .x{position:absolute;right:14px;top:14px;z-index:3;width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(244,247,255,.6);background:rgba(5,11,36,.6);color:#fff;font:700 20px var(--display);cursor:pointer}
 
-/* escopo de produção */
-.scope{background:#EEF2F9;color:#0E1E4A;padding-block:90px 110px}
-.scope h2,.scope h3,.scope h4{color:#0E1E4A}
-.scope .slate{color:#4A5675}
-.scope-h{display:flex;flex-direction:column;gap:12px;max-width:760px;margin-bottom:36px}
-.scope-h h2{font-weight:800;font-size:clamp(28px,3.6vw,44px);letter-spacing:-.02em;line-height:1.05}
-.scope-h p{color:#4A5675}
-.tw{overflow-x:auto;border:1px solid #D8E0EE;border-radius:14px;background:#fff}
-.scope table{border-collapse:collapse;width:100%;min-width:760px;font-size:15px}
-.scope th,.scope td{text-align:left;padding:12px 16px;border-bottom:1px solid #D8E0EE;vertical-align:top}
-.scope tr:last-child td{border-bottom:0}
-.scope th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#7A86A3;font-weight:500}
-.scope td:first-child{font-family:var(--mono);color:#1560E8;white-space:nowrap}
-.scope td b{font-family:var(--display)}
-.sg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
-.sc{background:#fff;border:1px solid #D8E0EE;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px}
-.sc h4{font-size:16px}
-.sc ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:15px;color:#4A5675}
-.cmp{margin-top:18px}
 
 
 /* ---------- hover em tudo que é clicável ---------- */
-a,button,.opt,.sector,.person,.reel button,select,input,label{transition:color .15s,background-color .15s,border-color .15s,transform .2s,opacity .15s}
+a,button,.opt,.sector,.person,.reel button,select,input,label{transition:color .25s ease,background-color .25s ease,border-color .25s ease,transform .45s cubic-bezier(.23,1,.32,1),opacity .25s ease,translate .45s cubic-bezier(.23,1,.32,1),scale .16s ease-out}
+/* paralaxe dos filmes de fundo (assets/movimento.js): a seção corta o filme ampliado */
+.hero,.bpo,.cta-sec{overflow:hidden}
+/* hover mais visível (só mouse); setores e MEI também inclinam com o ponteiro */
+@media (hover:hover) and (pointer:fine){
+  .btn:hover,.opt:hover,.reel button:hover,.mei:hover,.ftr a:hover{translate:0 -2px}
+  .path .film .kb{transition:scale 1s cubic-bezier(.23,1,.32,1)}
+  .path:hover .film .kb{scale:1.05}
+  .person .film .kb{transition:scale 1s cubic-bezier(.23,1,.32,1)}
+  .person:hover .film .kb{scale:1.05}
+  .play .circ{transition:scale .3s cubic-bezier(.23,1,.32,1),background-color .15s}
+  .play:hover .circ{scale:1.08}
+  .links a{position:relative}
+  .links a::after{content:"";position:absolute;left:12px;right:12px;bottom:3px;height:2px;border-radius:1px;background:var(--sky);scale:0 1;transform-origin:left;transition:scale .25s cubic-bezier(.23,1,.32,1)}
+  .links a:hover::after{scale:1 1}
+}
+/* aperto ao clicar (também no toque) */
+.btn:active,.opt:active,.reel button:active,.path:active,.play:active{scale:.97;transition-duration:.08s}
 .logo:hover{opacity:.8}
 .drawer a:not(.btn):hover{color:var(--sky);padding-left:6px}
 .burger:hover{background:rgba(244,247,255,.1)}
@@ -331,14 +369,23 @@ input[type=checkbox]{cursor:pointer}
   .people{grid-template-columns:repeat(2,minmax(0,1fr))}
   .screen{aspect-ratio:4/3}
   .ftr-g{grid-template-columns:1fr 1fr}
-  .sg{grid-template-columns:1fr}
 }
 @media (max-width:640px){
   body{font-size:16px}
   .c{padding-inline:16px}
   .rail{padding-inline:16px}
   .hero-bot{grid-template-columns:1fr}
-  .screen{aspect-ratio:3/4;padding:22px}
+  .screen{aspect-ratio:auto;min-height:560px;padding:22px}
+  .screen-t>div{max-width:none}
+  .screen-t>div{max-width:none}
+  .screen{min-height:min(620px,78svh)}
+  /* no celular o vídeo de fundo fica na parte de cima, enquadrado no rosto: a legenda gravada nele (≈3/4 da altura)
+     fica de fora e não briga com o título, que vai embaixo sobre o fundo liso */
+  .dep-fundo,.screen.dep--v .dep-fundo,.screen.dep--h .dep-fundo{inset:0 0 auto 0;width:100%;height:64%;aspect-ratio:auto;object-fit:cover;object-position:50% 22%;-webkit-mask-image:none;mask-image:none}
+  .dep-sombra{background:linear-gradient(180deg,rgba(3,8,23,0) 0%,rgba(3,8,23,0) 40%,rgba(3,8,23,.85) 58%,#030817 66%)}
+  /* no celular a tela já é em pé: o vídeo preenche tudo */
+  .screen.dep--v .dep-borrao{display:none}
+  .screen.dep--v.tocando .dep-fundo{opacity:1}
   .screen-t{grid-template-columns:1fr}
   .reel{grid-template-columns:1fr}
   .opts,.gift form{grid-template-columns:1fr}
@@ -368,6 +415,10 @@ input[type=checkbox]{cursor:pointer}
   html{scroll-behavior:auto}
 }
 </style>
+<link rel="stylesheet" href="assets/movimento.css">
+<!-- modo story no celular (teste): para tirar, apague estas duas linhas -->
+<link rel="stylesheet" href="assets/stories.css">
+<script src="assets/stories.js"></script>
 </head>
 <body>
 
@@ -508,17 +559,20 @@ input[type=checkbox]{cursor:pointer}
 <section class="cine" id="depoimentos">
   <div class="c">
     <div class="sec-h"><span class="kicker">Quem já é Hold</span><h2>Na voz de quem é cliente.</h2></div>
-    <div class="screen">
-      <div class="film" data-v="portrait" data-seed="15"><img class="kb" src="assets/img/gratidao.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div><span class="tagv">Depoimento em vídeo</span></div>
+    <div class="screen" id="dep-tela">
+      <video class="dep-fundo" id="dep-fundo" muted playsinline loop preload="metadata" aria-hidden="true" tabindex="-1" src="assets/video/depoimento-mateus.mp4#t=5"></video>
+      <canvas class="dep-borrao" id="dep-borrao" width="48" height="21" aria-hidden="true"></canvas>
+      <div class="dep-sombra"></div>
+      <video class="dep-video" id="dep-video" playsinline preload="none"></video>
       <div class="screen-t">
         <div><blockquote id="q-title">O que o Mateus tem para falar da Hold</blockquote><cite id="q-who">Mateus · Suporte Proteção Veicular</cite></div>
-        <a class="btn btn--light" id="q-link" href="https://www.youtube.com/shorts/TKlWerrH4gk" target="_blank" rel="noopener">Assistir no YouTube</a>
+        <button class="btn btn--light" id="q-play" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Assistir o depoimento <small id="dep-dur">0:45</small></button>
       </div>
     </div>
     <div class="reel" role="group" aria-label="Escolher depoimento">
-      <button type="button" aria-pressed="true" data-t="O que o Mateus tem para falar da Hold" data-w="Mateus · Suporte Proteção Veicular" data-u="https://www.youtube.com/shorts/TKlWerrH4gk"><strong>Mateus</strong><span>Suporte Proteção Veicular</span></button>
-      <button type="button" aria-pressed="false" data-t="O que o Delamar tem para falar da Hold" data-w="Delamar · Unilages Proteção Veicular" data-u="https://www.youtube.com/shorts/DbvoU19B2Zs"><strong>Delamar</strong><span>Unilages Proteção Veicular</span></button>
-      <button type="button" aria-pressed="false" data-t="O que o Maike Souza tem para falar da Hold" data-w="Maike · Instituto Maike Souza" data-u="https://www.youtube.com/watch?v=A2kEN-YSdZ8"><strong>Maike</strong><span>Instituto Maike Souza</span></button>
+      <button type="button" aria-pressed="true" data-t="O que o Mateus tem para falar da Hold" data-w="Mateus · Suporte Proteção Veicular" data-u="https://www.youtube.com/shorts/TKlWerrH4gk" data-v="assets/video/depoimento-mateus.mp4" data-f="v" data-d="0:45"><strong>Mateus</strong><span>Suporte Proteção Veicular</span></button>
+      <button type="button" aria-pressed="false" data-t="O que o Delamar tem para falar da Hold" data-w="Delamar · Unilages Proteção Veicular" data-u="https://www.youtube.com/shorts/DbvoU19B2Zs" data-v="assets/video/depoimento-delamar.mp4" data-f="v" data-d="0:48"><strong>Delamar</strong><span>Unilages Proteção Veicular</span></button>
+      <button type="button" aria-pressed="false" data-t="O que o Maike Souza tem para falar da Hold" data-w="Maike · Instituto Maike Souza" data-u="https://www.youtube.com/watch?v=A2kEN-YSdZ8" data-v="assets/video/depoimento-maike.mp4" data-f="h" data-d="0:51"><strong>Maike</strong><span>Instituto Maike Souza</span></button>
     </div>
   </div>
 </section>
@@ -575,7 +629,6 @@ input[type=checkbox]{cursor:pointer}
 
 <footer class="ftr">
   <div class="c">
-    <div class="big" aria-hidden="true">HOLD</div>
     <div class="ftr-g">
       <div class="col"><a class="logo" href="#topo" aria-label="Hold, início"><img src="assets/hold-logo-branco.png" alt="Hold Assessoria e Consultoria Contábil" style="height:42px;width:auto;display:block"></a><span style="margin-top:12px">Contabilidade estratégica há mais de 25 anos.</span></div>
       <div class="col"><h4>Tubarão</h4><span>Rua Luiz Martins Collaço, 537</span><span>Santo Antônio · 88701-523</span><span>(48) 3052-4321</span></div>
@@ -595,63 +648,6 @@ input[type=checkbox]{cursor:pointer}
     <div class="modal-cap"><p>Aqui entra o filme de 45 segundos com os sócios, a equipe e as cidades.</p><span class="slate">Legenda sempre ligada</span></div>
   </div>
 </div>
-
-<!-- ESCOPO DE PRODUÇÃO (anotação do protótipo, não faz parte do site) -->
-<section class="scope" id="escopo">
-  <div class="c">
-    <div class="scope-h">
-      <span class="slate">Notas do protótipo · não faz parte do site</span>
-      <h2>Escopo de produção da versão cinematográfica</h2>
-      <p>O que precisa ser filmado e como os vídeos entram no site sem pesar. Os blocos em movimento acima simulam cada cena.</p>
-    </div>
-    <div class="tw"><table>
-      <thead><tr><th>Cena</th><th>Onde entra</th><th>O que filmar</th><th>Duração</th><th>Formato</th></tr></thead>
-      <tbody>
-        <tr><td>01</td><td><b>Hero</b></td><td>Bastidores: equipe chegando, telas, reunião, café. Câmera lenta, sem corte brusco, loop perfeito.</td><td>15s loop</td><td>16:9 + 9:16</td></tr>
-        <tr><td>02</td><td><b>Abrir empresa</b></td><td>Mãos assinando contrato, chave na porta de uma loja nova.</td><td>6s loop</td><td>4:5</td></tr>
-        <tr><td>03</td><td><b>Trocar de contador</b></td><td>Sócio em reunião com cliente, aperto de mão natural.</td><td>6s loop</td><td>4:5</td></tr>
-        <tr><td>04 e 05</td><td><b>Terceirização</b></td><td>Especialista explicando um relatório na tela, close em números e gráficos.</td><td>6s e 10s</td><td>4:5 e 16:9</td></tr>
-        <tr><td>06</td><td><b>Setores</b></td><td>Pátio de revenda, consultório, sede de associação, família reunida, fachada de condomínio.</td><td>5 × 6s</td><td>3:4</td></tr>
-        <tr><td>07</td><td><b>Especialistas</b></td><td>Retrato em movimento de cada especialista olhando para a câmera, fundo do escritório.</td><td>4s cada</td><td>3:4</td></tr>
-        <tr><td>08</td><td><b>Depoimentos</b></td><td>Regravar Mateus, Delamar e Maike em 16:9 com a mesma luz, e gravar um cliente por setor.</td><td>30 a 60s</td><td>16:9 + 9:16</td></tr>
-        <tr><td>09</td><td><b>Filme manifesto</b></td><td>Sócios, equipe e as cidades, narrando o "seu dinheiro trabalhando por você". Com legenda.</td><td>45s</td><td>16:9</td></tr>
-        <tr><td>10</td><td><b>Formulário</b></td><td>Aéreas de drone: rio em Tubarão e centro histórico de Laguna.</td><td>8s loop</td><td>16:9</td></tr>
-      </tbody>
-    </table></div>
-    <div class="sg">
-      <div class="sc"><h4>Especificação técnica</h4><ul>
-        <li>MP4 (H.264) e WebM, sem áudio nos loops.</li>
-        <li>Hero até 4 MB em 1080p. Cards até 1,5 MB em 720p.</li>
-        <li>Sempre com imagem de capa, que aparece primeiro.</li>
-        <li><code>autoplay muted loop playsinline</code>, pausando fora da tela.</li>
-        <li>Hospedagem em CDN de vídeo (Cloudflare Stream, Bunny ou Vimeo).</li>
-      </ul></div>
-      <div class="sc"><h4>Acessibilidade e SEO</h4><ul>
-        <li>Todo texto é HTML real, nunca dentro do vídeo.</li>
-        <li>Camada azul de 55% ou mais sob o texto, para garantir contraste.</li>
-        <li>Quem desativa animação no sistema vê só a imagem de capa.</li>
-        <li>No celular, vídeos menores ou só a imagem, para não gastar dados.</li>
-        <li>Filme manifesto com legenda e botão de pausa.</li>
-      </ul></div>
-      <div class="sc"><h4>Custo e riscos</h4><ul>
-        <li>1 ou 2 diárias de filmagem e edição, mais o drone.</li>
-        <li>Página mais pesada: exige cuidado com a velocidade de carregamento (LCP).</li>
-        <li>Vídeo envelhece: planejar regravação a cada 1 ou 2 anos.</li>
-        <li>Sem vídeo bom, a versão sóbria converte melhor do que uma cinematográfica mal filmada.</li>
-      </ul></div>
-    </div>
-    <div class="tw cmp"><table>
-      <thead><tr><th>Critério</th><th>Cinematográfica</th><th>Sóbria</th></tr></thead>
-      <tbody>
-        <tr><td>Impacto</td><td>Alto. Passa "moderno e humano" em segundos.</td><td>Médio. Passa organização e clareza.</td></tr>
-        <tr><td>Depende de</td><td>Produção de vídeo de qualidade.</td><td>Boas fotos da equipe.</td></tr>
-        <tr><td>Velocidade</td><td>Precisa de otimização.</td><td>Leve por natureza.</td></tr>
-        <tr><td>Prazo</td><td>Maior, por causa da filmagem.</td><td>Menor.</td></tr>
-        <tr><td>Estrutura e conversão</td><td colspan="2">Iguais nas duas: mesmas seções, mesmo formulário e mesmo rastreamento.</td></tr>
-      </tbody>
-    </table></div>
-  </div>
-</section>
 
 <script>
 (function(){
@@ -725,7 +721,38 @@ input[type=checkbox]{cursor:pointer}
   /* ---------- depoimentos ---------- */
   var reel=document.querySelectorAll(".reel button");
   reel.forEach(function(b){b.addEventListener("click",function(){reel.forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");
-    document.getElementById("q-title").textContent=b.dataset.t;document.getElementById("q-who").textContent=b.dataset.w;document.getElementById("q-link").href=b.dataset.u})});
+    document.getElementById("q-title").textContent=b.dataset.t;document.getElementById("q-who").textContent=b.dataset.w;trocarDepoimento(b)})});
+  /* vídeo do depoimento: o fundo da tela é o vídeo escolhido (mudo, em loop, a partir do segundo 5, porque antes
+     é a abertura em lápis); o play toca o vídeo do começo, com som, por cima */
+  var tela=document.getElementById("dep-tela"),fundo=document.getElementById("dep-fundo"),dv=document.getElementById("dep-video");
+  var semMovimento=matchMedia("(prefers-reduced-motion:reduce)").matches,visivel=false;
+  function fundoTocar(){if(!semMovimento&&visivel&&!tela.classList.contains("tocando")){var p=fundo.play();if(p&&p.catch)p.catch(function(){})}}
+  function parar(){dv.pause();dv.removeAttribute("controls");tela.classList.remove("tocando")}
+  function trocarDepoimento(b){
+    parar();
+    fundo.src=b.dataset.v+"#t=5";dv.dataset.src=b.dataset.v;dv.removeAttribute("src");dv.load();
+    tela.classList.toggle("dep--v",b.dataset.f==="v");tela.classList.toggle("dep--h",b.dataset.f==="h");
+    document.getElementById("dep-dur").textContent=b.dataset.d||"";
+    document.getElementById("q-play").setAttribute("aria-label","Assistir o depoimento do "+b.querySelector("strong").textContent);
+    fundoTocar();
+  }
+  function tocarDepoimento(){
+    if(tela.classList.contains("tocando"))return;
+    if(dv.getAttribute("src")!==dv.dataset.src)dv.src=dv.dataset.src;
+    fundo.pause();tela.classList.add("tocando");dv.controls=true;dv.currentTime=0;
+    var p=dv.play();if(p&&p.catch)p.catch(function(){});dv.focus();
+  }
+  document.getElementById("q-play").addEventListener("click",function(e){e.stopPropagation();tocarDepoimento()});
+  tela.addEventListener("click",function(e){if(e.target===dv)return;tocarDepoimento()});
+  dv.addEventListener("ended",function(){parar();fundoTocar()});
+  // só anima o fundo com a seção na tela; saiu (rolou ou passou o story): pausa tudo, para o som não continuar escondido
+  if("IntersectionObserver" in window)new IntersectionObserver(function(es){es.forEach(function(e){visivel=e.isIntersecting;if(visivel)fundoTocar();else{fundo.pause();if(!dv.paused)dv.pause()}})},{threshold:.2}).observe(tela);
+  /* fundo desfocado do vídeo em pé: copia o quadro atual para um canvas pequeno (o CSS amplia e desfoca) */
+  var borrao=document.getElementById("dep-borrao"),bx=borrao.getContext("2d"),ultimo=0;
+  function pintar(){var vw=fundo.videoWidth,vh=fundo.videoHeight;if(!vw||!borrao.offsetParent)return;var w=borrao.width,h=borrao.height,s=Math.max(w/vw,h/vh);bx.drawImage(fundo,(w-vw*s)/2,(h-vh*s)/2,vw*s,vh*s)}
+  (function laco(t){requestAnimationFrame(laco);if(fundo.paused||t-ultimo<80)return;ultimo=t;pintar()})(0);
+  fundo.addEventListener("loadeddata",pintar);fundo.addEventListener("seeked",pintar);
+  trocarDepoimento(document.querySelector(".reel button[aria-pressed=true]"));
 
   /* ---------- filme ---------- */
   var modal=document.getElementById("modal"),pf=document.getElementById("playfilm");
@@ -775,6 +802,16 @@ document.querySelectorAll(".paths,.people,.reel").forEach(function(t){
     for(var k=0;k<n;k++)d.children[k].classList.toggle("on",k===at)}
   t.addEventListener("scroll",function(){if(!tique){tique=true;requestAnimationFrame(marcar)}},{passive:true});
   marcar();
+});
+</script>
+<script src="assets/movimento.js"></script>
+<script>
+/* animações de scroll, paralaxe dos filmes e cartões que seguem o ponteiro (mesmo motor do site oficial) */
+Movimento({
+  revelar:".nums-h,.sec-h,.mei,.mani-sig,.bpo .c>*,.rail-hint,.rail-wrap,.screen,.reel,.gift .c>*,.cta-sec .c>*,.ftr-g,.ftr-b",
+  cascata:".num-row,.paths,.people",
+  paralaxe:".hero>.film,.bpo>.film,.cta-sec>.film",
+  inclinar:".sector,.mei"
 });
 </script>
 </body>

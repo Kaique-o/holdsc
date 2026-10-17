@@ -41,7 +41,7 @@ a{color:var(--blue)}
 .sec-head--split>div{display:flex;flex-direction:column;gap:12px;max-width:660px}
 
 /* ---------- botões e etiquetas ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--display);font-weight:700;font-size:15px;line-height:1;padding:15px 22px;border-radius:12px;border:0;cursor:pointer;text-decoration:none;transition:background .15s,color .15s,box-shadow .15s;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--display);font-weight:700;font-size:15px;line-height:1;padding:15px 22px;border-radius:12px;border:0;cursor:pointer;text-decoration:none;transition:background-color .3s ease,color .3s ease,box-shadow .3s ease,translate .5s cubic-bezier(.23,1,.32,1),scale .16s ease-out;white-space:nowrap}
 .btn svg{width:18px;height:18px;flex:none}
 .btn--primary{background:var(--blue);color:#fff}
 .btn--primary:hover{background:var(--blue-d)}
@@ -110,6 +110,9 @@ a{color:var(--blue)}
 .dd{position:relative}
 .dd>button[aria-expanded="true"] .chev{transform:rotate(180deg)}
 .dd-panel{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%);width:min(680px,90vw);background:#fff;border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--float);padding:14px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+/* submenu: o JS ainda usa "hidden"; aqui ele vira um estado animado (some com opacidade/deslocamento, não com display:none) */
+.dd-panel{transform-origin:50% 0;transition:opacity .2s ease,translate .28s cubic-bezier(.23,1,.32,1),scale .28s cubic-bezier(.23,1,.32,1),visibility 0s linear 0s}
+.dd-panel[hidden]{display:grid!important;opacity:0;visibility:hidden;translate:0 -6px;scale:.98;pointer-events:none;transition:opacity .16s ease,translate .2s ease,scale .2s ease,visibility 0s linear .2s}
 .dd-panel a{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:10px;text-decoration:none;color:var(--navy)}
 .dd-panel a:hover{background:var(--paper)}
 .dd-panel a strong{display:block;font-family:var(--display);font-size:14.5px}
@@ -212,7 +215,7 @@ a{color:var(--blue)}
 /* ---------- cards altos com etiqueta (ref. Klarna) ---------- */
 .tall{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap)}
 .tall a{position:relative;aspect-ratio:3/4.2;max-width:100%;border-radius:var(--r-lg);overflow:hidden;text-decoration:none;display:block}
-.tall a .ph{position:absolute;inset:0;transition:transform .5s}
+.tall a .ph{position:absolute;inset:0;transition:transform .9s cubic-bezier(.23,1,.32,1)}
 .tall a:hover .ph{transform:scale(1.04)}
 .tall .lab{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:2;background:rgba(255,255,255,.95);border-radius:8px;padding:9px 14px;font-family:var(--display);font-weight:700;font-size:14px;color:var(--navy);white-space:nowrap}
 .tall .top{position:absolute;left:16px;top:16px;z-index:2}
@@ -291,9 +294,9 @@ a{color:var(--blue)}
 .clients .rowx--rev{animation-direction:reverse;animation-duration:70s}
 .clients:hover .rowx{animation-play-state:paused}
 @keyframes mq{to{transform:translateX(-50%)}}
-.logo-cli{width:220px;height:120px;flex:none;background:#fff;border:1px solid var(--line);border-radius:18px;display:grid;place-items:center;padding:18px 26px}
-.logo-cli img{max-width:100%;max-height:64px;width:auto;height:auto;object-fit:contain;display:block;opacity:.85;transition:opacity .2s}
-.logo-cli:hover img{opacity:1}
+.logo-cli{width:220px;height:120px;flex:none;display:grid;place-items:center;padding:18px 26px}
+.logo-cli img{max-width:100%;max-height:64px;width:auto;height:auto;object-fit:contain;display:block;opacity:.8;transition:opacity .4s ease,scale .6s cubic-bezier(.23,1,.32,1)}
+.logo-cli:hover img{opacity:1;scale:1.05}
 .client{position:relative;width:300px;height:196px;border-radius:18px;overflow:hidden;flex:none}
 .client .ph{position:absolute;inset:0}
 .client .tag{position:absolute;left:12px;top:12px;z-index:2}
@@ -305,9 +308,17 @@ a{color:var(--blue)}
 /* ---------- conteúdos (ref. Swap) ---------- */
 .news-top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
 .arrows{display:flex;gap:8px}
+@media (max-width:640px){.arrows{display:none}} /* no celular arrasta com o dedo */
 .arrows button{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--navy);font:700 17px var(--display);cursor:pointer}
 .arrows button:hover{border-color:var(--navy)}
-.news{overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px}
+.news{overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-block:12px 36px;margin-block:-12px -30px} /* respiro: o cartão sobe e tem sombra no hover sem ser cortado */
+/* borda do carrossel: o cartão cortado some num degradê em vez de um corte seco (site.js liga cada lado só quando há mais cartões ali) */
+@property --fade-e{syntax:"<length>";inherits:false;initial-value:0px}
+@property --fade-d{syntax:"<length>";inherits:false;initial-value:0px}
+.news{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 var(--fade-e),#000 calc(100% - var(--fade-d)),transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 var(--fade-e),#000 calc(100% - var(--fade-d)),transparent 100%);transition:--fade-e .25s ease,--fade-d .25s ease}
+.news.tem-antes{--fade-e:56px}
+.news.tem-depois{--fade-d:120px}
+@media (max-width:640px){.news.tem-antes{--fade-e:24px}.news.tem-depois{--fade-d:48px}}
 .news::-webkit-scrollbar{display:none}
 .news-track{display:flex;gap:var(--gap);width:max-content}
 .story{width:min(860px,86vw,calc(100vw - 48px));min-height:360px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);border-radius:18px;overflow:hidden;scroll-snap-align:start;text-decoration:none;color:#fff;background:var(--bg,var(--navy))}
@@ -568,7 +579,26 @@ a{color:var(--blue)}
 }
 
 /* ---------- hover em tudo que é clicável ---------- */
-a,button,.opt,.card,.strip,.story,.logo-cli,.person,.post,.fab .circle,.fab .bubble,select,input,textarea,label{transition:color .15s,background-color .15s,border-color .15s,box-shadow .15s,transform .15s,opacity .15s}
+a,button,.opt,.card,.strip,.story,.logo-cli,.person,.post,.fab .circle,.fab .bubble,select,input,textarea,label{transition:color .25s ease,background-color .25s ease,border-color .25s ease,box-shadow .45s cubic-bezier(.23,1,.32,1),transform .45s cubic-bezier(.23,1,.32,1),opacity .25s ease,translate .45s cubic-bezier(.23,1,.32,1),scale .16s ease-out}
+/* hover mais visível (só mouse); os cartões inteiros também inclinam com o ponteiro: ver assets/movimento.js */
+@media (hover:hover) and (pointer:fine){
+  .btn:not(.btn--link):hover,.opt:hover,a.tag:hover,.topics button:hover,.socials a:hover{translate:0 -2px}
+  .arrows button:hover{background:var(--navy);border-color:var(--navy);color:#fff}
+  .sector .ph>img,.person .ph>img,.client .ph>img,.tall a .ph>img,.post .cover b{transition:scale .9s cubic-bezier(.23,1,.32,1),translate .6s cubic-bezier(.23,1,.32,1)}
+  .sector:hover .ph>img,.person:hover .ph>img,.client:hover .ph>img{scale:1.04}
+  .sector .ph{transition:translate .6s cubic-bezier(.23,1,.32,1)}
+  .sector:hover .ph{translate:0 -4px}
+  .sector:hover h3,.post:hover h3,.intent:hover h3,.tall a:hover .lab{color:var(--blue)}
+  .post:hover{border-color:var(--blue)}
+  .post:hover .cover b{translate:0 -4px}
+  .person:hover{box-shadow:0 22px 44px -26px rgba(14,30,74,.32)}
+  .svc-item:hover h3{color:var(--navy)}
+  .menu>a,.menu>.dd>button{position:relative}
+  .menu>a::after{content:"";position:absolute;left:12px;right:12px;bottom:4px;height:2px;border-radius:1px;background:var(--blue);scale:0 1;transform-origin:left;transition:scale .25s cubic-bezier(.23,1,.32,1)}
+  .menu>a:hover::after,.menu>a[aria-current="page"]::after{scale:1 1}
+}
+/* aperto ao clicar (também no toque) */
+.btn:active,.opt:active,.arrows button:active,.topics button:active,a.tag:active{scale:.97;transition-duration:.08s}
 a:not([class]):hover,.contact-list a:hover,.cookie a:hover,.prose a:hover,.deadline a:hover{color:var(--blue-d);text-decoration-thickness:2px}
 .deadline a:hover{color:var(--navy);opacity:.75}
 .deadline button:hover{background:rgba(14,30,74,.1)}
@@ -583,9 +613,8 @@ a.card:hover h3{color:var(--blue)}
 .strip:hover{background:#CFE0FA}
 .strip:hover .go{color:var(--navy)}
 a.tag:hover{background:var(--navy);color:#fff}
-.story{transition:transform .2s}
 .story:hover{transform:translateY(-3px)}
-.story .ph img{transition:transform .5s}
+.story .ph img{transition:transform .9s cubic-bezier(.23,1,.32,1)}
 .story:hover .ph img{transform:scale(1.04)}
 .story:hover .btn--light{background:var(--sky)}
 .story:hover .btn--primary{background:var(--blue-d)}
@@ -602,9 +631,8 @@ input[type=checkbox]{cursor:pointer}
 .consent{cursor:pointer}
 .consent:hover{color:var(--navy)}
 .selfcheck label:hover{background:var(--paper);padding-left:8px}
-.person{transition:border-color .15s,transform .15s}
+.person{transition:border-color .3s ease,transform .5s cubic-bezier(.23,1,.32,1),box-shadow .5s cubic-bezier(.23,1,.32,1)}
 .person:hover{border-color:var(--blue);transform:translateY(-3px)}
-.logo-cli:hover{border-color:var(--navy)}
 .client:hover .card{background:var(--sky)}
 .proof .faces span:hover{transform:translateY(-3px)}
 .ui-row a:hover{color:var(--blue-d);text-decoration:underline}

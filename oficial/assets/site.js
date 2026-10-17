@@ -103,6 +103,8 @@
     $$("[data-carousel]").forEach(function(w){
       var sc=$(".news",w);if(!sc)return;
       $$("[data-dir]",w).forEach(function(b){b.addEventListener("click",function(){var card=$(".story",sc);var dx=(card?card.getBoundingClientRect().width+16:600)*(+b.dataset.dir);sc.scrollBy({left:dx,behavior:reduce?"auto":"smooth"})})});
+      var bordas=function(){var fim=sc.scrollWidth-sc.clientWidth;sc.classList.toggle("tem-antes",sc.scrollLeft>4);sc.classList.toggle("tem-depois",sc.scrollLeft<fim-4)};
+      sc.addEventListener("scroll",bordas,{passive:true});addEventListener("resize",bordas);bordas();
     });
     $$(".clients .rowx").forEach(function(r){r.innerHTML+=r.innerHTML;$$(".client,.logo-cli",r).forEach(function(c,i,a){if(i>=a.length/2)c.setAttribute("aria-hidden","true")})});
   }
@@ -225,6 +227,13 @@
 
   document.addEventListener("DOMContentLoaded",function(){
     ui();nav();svcList();carousels();carDots();contadores();leadForms();signups();selfcheck();topics();fab();cookieBanner();thanks();
+    // animações de scroll, paralaxe e cartões que seguem o ponteiro (assets/movimento.js)
+    if(window.Movimento)Movimento({
+      revelar:"main section:not(.hero):not(.phero) .c>*, main .phero .phero-card, .ftr .c>*",
+      cascata:".grid2,.grid3,.intents,.pains,.people,.posts,.prows,.sectors,.tall,.stats,.faq,.steps3,.related,.units,.tline",
+      paralaxe:".hero-photo>img,.svc-media .ph>img,main .c>.ph--img>img,.row>.ph--img>img,.split .ph>img,.unit .ph>img,.quote .ph>img",
+      inclinar:"a.card,a.post,a.story,.tall>a,a.intent,a.client,a.strip,.related a"
+    });
     track("page_view",{});
   });
 })();
