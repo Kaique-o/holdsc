@@ -37,6 +37,32 @@ a{color:var(--sky)}
 .film{position:absolute;inset:0;overflow:hidden;background:var(--navy)}
 .film canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .film .kb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.85) contrast(1.05);animation:kb 22s ease-in-out infinite alternate;transform-origin:60% 40%}
+/* banner: vídeo mudo feito das fotos (já vem tratado em navy e escurecido no alto, onde fica o rótulo do serviço) */
+.film .kb--video{animation:none;filter:none;object-fit:cover}
+.film .kb--video+canvas+.shade{background:linear-gradient(180deg,rgba(5,11,36,.25) 0%,rgba(14,30,74,.3) 45%,rgba(5,11,36,.9) 100%)}
+/* rótulo do serviço que está no vídeo do banner: HTML por cima (acompanha o tamanho do título); canto direito do rodapé do banner */
+.bn-rotulo{width:min(400px,32vw);display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.bn-num{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--sky)}
+.bn-nome{font-family:var(--display);font-weight:700;font-size:clamp(22px,2.1vw,32px);line-height:1.15;color:#fff;padding-bottom:10px;background:linear-gradient(var(--sky),var(--sky)) 0 100%/40px 3px no-repeat,linear-gradient(var(--blue),var(--blue)) 0 100%/100% 3px no-repeat}
+.bn-frase{font-size:16px;line-height:1.4;color:rgba(244,247,255,.82)}
+.bn-rotulo>*{opacity:0}
+.bn-rotulo.on .bn-num{opacity:1;transition:opacity .3s}
+.bn-rotulo.on .bn-nome{opacity:1;clip-path:inset(0 0 0 0);transition:clip-path .55s cubic-bezier(.23,1,.32,1) .08s}
+.bn-rotulo .bn-nome{clip-path:inset(0 100% 0 0)}
+.bn-rotulo.on .bn-frase{opacity:1;translate:0 0;transition:opacity .4s ease .3s,translate .6s cubic-bezier(.23,1,.32,1) .3s}
+.bn-rotulo .bn-frase{translate:0 8px}
+.bn-rotulo:not(.on)>*{transition:opacity .15s}
+@media (max-width:900px){.bn-frase{display:none}}
+.kk-cena{display:none}
+/* celular: não sobra canto livre; o kicker do banner mostra o serviço da cena */
+@media (max-width:640px){
+  .hero-lado{display:none}
+  .hero .kicker.cena .kk-base{display:none}
+  .hero .kicker.cena .kk-cena{display:inline;animation:kk-entra .5s cubic-bezier(.23,1,.32,1)}
+  .kk-cena b{color:#fff;font-weight:700}
+}
+@keyframes kk-entra{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@media (prefers-reduced-motion:reduce){.bn-rotulo *{transition:none!important}}
 .film .kb+canvas+.shade{background:linear-gradient(180deg,rgba(5,11,36,.45) 0%,rgba(14,30,74,.35) 45%,rgba(5,11,36,.9) 100%)}
 @keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.12) translate(-1.5%,-1%)}}
 .film .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,11,36,.35) 0%,rgba(5,11,36,.15) 40%,rgba(5,11,36,.85) 100%)}
@@ -93,11 +119,6 @@ a{color:var(--sky)}
 .hero-bot{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end}
 .hero-bot p{font-size:clamp(17px,1.5vw,20px);color:rgba(244,247,255,.85);max-width:50ch}
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
-.play{display:flex;align-items:center;gap:14px;background:none;border:0;color:#fff;cursor:pointer;font:600 15px var(--body);text-align:left;padding:6px;border-radius:12px}
-.play .circ{width:64px;height:64px;border-radius:50%;border:1.5px solid rgba(244,247,255,.7);display:grid;place-items:center;flex:none;transition:background .15s}
-.play:hover .circ{background:rgba(244,247,255,.12)}
-.play .circ::after{content:"";border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:5px}
-.play small{display:block;font-family:var(--mono);font-size:11.5px;color:var(--mist);letter-spacing:.08em}
 .hero-slate{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:16px}
 
 /* letreiro */
@@ -305,14 +326,6 @@ a{color:var(--sky)}
 .fab{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:45;width:60px;height:60px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:var(--float)}
 .fab svg{width:30px;height:30px;color:#fff}
 
-/* modal do filme */
-.modal{position:fixed;inset:0;z-index:80;background:rgba(3,8,23,.94);display:flex;align-items:center;justify-content:center;padding:24px}
-.modal-in{position:relative;width:min(1100px,100%);aspect-ratio:16/9;max-width:100%;border-radius:18px;overflow:hidden;isolation:isolate}
-.modal-in .film{z-index:-1}
-.modal-cap{position:absolute;left:24px;right:24px;bottom:22px;display:flex;justify-content:space-between;gap:16px;align-items:end;flex-wrap:wrap}
-.modal-cap p{font-family:var(--display);font-weight:700;font-size:clamp(18px,2.2vw,28px);max-width:30ch}
-.x{position:absolute;right:14px;top:14px;z-index:3;width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(244,247,255,.6);background:rgba(5,11,36,.6);color:#fff;font:700 20px var(--display);cursor:pointer}
-
 
 
 /* ---------- hover em tudo que é clicável ---------- */
@@ -326,14 +339,12 @@ a,button,.opt,.sector,.person,.reel button,select,input,label{transition:color .
   .path:hover .film .kb{scale:1.05}
   .person .film .kb{transition:scale 1s cubic-bezier(.23,1,.32,1)}
   .person:hover .film .kb{scale:1.05}
-  .play .circ{transition:scale .3s cubic-bezier(.23,1,.32,1),background-color .15s}
-  .play:hover .circ{scale:1.08}
   .links a{position:relative}
   .links a::after{content:"";position:absolute;left:12px;right:12px;bottom:3px;height:2px;border-radius:1px;background:var(--sky);scale:0 1;transform-origin:left;transition:scale .25s cubic-bezier(.23,1,.32,1)}
   .links a:hover::after{scale:1 1}
 }
 /* aperto ao clicar (também no toque) */
-.btn:active,.opt:active,.reel button:active,.path:active,.play:active{scale:.97;transition-duration:.08s}
+.btn:active,.opt:active,.reel button:active,.path:active{scale:.97;transition-duration:.08s}
 .logo:hover{opacity:.8}
 .drawer a:not(.btn):hover{color:var(--sky);padding-left:6px}
 .burger:hover{background:rgba(244,247,255,.1)}
@@ -346,7 +357,6 @@ a,button,.opt,.sector,.person,.reel button,select,input,label{transition:color .
 .reel button:hover{border-color:rgba(159,192,255,.6);background:rgba(21,96,232,.08)}
 .opt:hover{border-color:rgba(159,192,255,.6);background:rgba(244,247,255,.04)}
 .linkbtn:hover{color:#fff}
-.x:hover{background:rgba(244,247,255,.15)}
 .field input:hover,.field select:hover{border-color:rgba(159,192,255,.45)}
 .field:hover>label{color:var(--sky)}
 input[type=checkbox]{cursor:pointer}
@@ -354,7 +364,6 @@ input[type=checkbox]{cursor:pointer}
 .consent:hover{color:#fff}
 .gift .field input:hover{border-color:rgba(159,192,255,.45)}
 .mei:hover span:last-child{color:#fff}
-.play:hover small{color:#fff}
 
 @media (max-width:1000px){
   .links,.client,.nav-r .btn{display:none}
@@ -439,16 +448,18 @@ input[type=checkbox]{cursor:pointer}
 <main id="topo">
 <!-- CENA 01 · HERO -->
 <section class="hero">
-  <div class="film" data-v="office" data-seed="1"><img class="kb" src="assets/img/escritorio-hold.jpg" alt="" loading="eager"><canvas></canvas><div class="shade"></div><span class="tagv">Vídeo · cena 01 · bastidores · 15s loop</span></div>
+  <div class="film" data-v="office" data-seed="1"><video class="kb kb--video" id="banner-video" muted playsinline loop preload="auto" aria-hidden="true" tabindex="-1" data-desk="assets/video/banner-desk" data-mobile="assets/video/banner-mobile"></video><canvas></canvas><div class="shade"></div></div>
   <div class="c">
-    <span class="kicker">Contabilidade estratégica · há mais de 25 anos</span>
+    <span class="kicker"><span class="kk-base">Contabilidade estratégica · há mais de 25 anos</span><span class="kk-cena" id="kk-cena" aria-hidden="true"></span></span>
     <h1><span class="ln"><span>Seu dinheiro</span></span><span class="ln"><span class="blue">trabalhando</span></span><span class="ln"><span>por você.</span></span></h1>
     <div class="hero-bot">
       <div>
         <p>Mais de 60 especialistas em Tubarão, Laguna e Belo Horizonte cuidando da contabilidade, do financeiro e do planejamento tributário da sua empresa.</p>
         <div class="hero-ctas"><a class="btn btn--primary" href="#proposta">Falar com um especialista</a><a class="btn btn--ghost" href="#caminhos">Ver serviços</a></div>
       </div>
-      <button class="play" type="button" id="playfilm"><span class="circ" aria-hidden="true"></span><span>Assistir o filme da Hold<small>0:45 · com legenda</small></span></button>
+      <div class="hero-lado">
+        <div class="bn-rotulo" id="bn-rotulo" aria-hidden="true"><span class="bn-num"></span><strong class="bn-nome"></strong><span class="bn-frase"></span></div>
+      </div>
     </div>
     <div class="hero-slate"><span class="slate"><b>Tubarão</b> · Rua Luiz Martins Collaço, 537</span><span class="slate"><b>Laguna</b> · Rua Osvaldo Cabral, 68</span><span class="slate">Role para ver</span></div>
   </div>
@@ -641,13 +652,6 @@ input[type=checkbox]{cursor:pointer}
 
 <a class="fab" href="#" aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9 0-1.4.7-2 1-2.3.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg></a>
 
-<div class="modal" id="modal" hidden role="dialog" aria-label="Filme da Hold">
-  <div class="modal-in">
-    <div class="film" data-v="office" data-seed="17"><img class="kb" src="assets/img/equipe-hold.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div><span class="tagv">Filme manifesto · cena 09 · 0:45</span></div>
-    <button class="x" type="button" id="closefilm" aria-label="Fechar filme">×</button>
-    <div class="modal-cap"><p>Aqui entra o filme de 45 segundos com os sócios, a equipe e as cidades.</p><span class="slate">Legenda sempre ligada</span></div>
-  </div>
-</div>
 
 <script>
 (function(){
@@ -688,6 +692,29 @@ input[type=checkbox]{cursor:pointer}
     films.forEach(function(f){io.observe(f.el)});
     var last=0;(function loop(t){requestAnimationFrame(loop);if(t-last<40)return;last=t;films.forEach(function(f){if(f.on&&f.el.offsetParent!==null)f.draw(t)})})(0);
   }
+
+  /* ---------- banner: vídeo das fotos, versão em pé no celular; só toca com o banner na tela ---------- */
+  (function(){
+    var bv=document.getElementById("banner-video");if(!bv)return;
+    var cel=matchMedia("(max-width: 640px)"),fonte="",naTela=true;
+    function escolher(){var b=cel.matches?bv.dataset.mobile:bv.dataset.desk;if(b===fonte)return;fonte=b;bv.poster=b+".jpg";if(!reduce){bv.src=b+".mp4";tocar()}}
+    function tocar(){if(reduce||!naTela)return;var p=bv.play();if(p&&p.catch)p.catch(function(){})}
+    escolher();cel.addEventListener("change",escolher);
+    // rótulo: mesma linha do tempo do vídeo (cortina 0,3 s antes de cada batida; texto entra quando ela termina)
+    var CENAS=[["Hold Contábil","Tubarão · Laguna · BH",""],["01 / 05","Contabilidade estratégica","Planejamento tributário para decidir com número."],
+      ["02 / 05","Abertura de empresas","CNPJ, regime certo, licenças e alvarás."],["03 / 05","Terceirização financeira","Contas, caixa e relatório em dia."],
+      ["04 / 05","Departamento pessoal","Folha, admissões, férias e eSocial em dia."],["05 / 05","Imposto de Renda","Declaração feita por especialista."],
+      ["Equipe Hold","60 especialistas","25 anos de contabilidade estratégica."]];
+    var INI=[0,2.5,4.5,6.5,8.5,10.5,12.5,15],rot=document.getElementById("bn-rotulo"),kkc=document.getElementById("kk-cena"),kk=kkc.parentNode,atual=-1;
+    function mostrar(i){if(i===atual)return;atual=i;rot.classList.remove("on");if(i<0)return;var c=CENAS[i];
+      rot.children[0].textContent=c[0];rot.children[1].textContent=c[1];rot.children[2].textContent=c[2];void rot.offsetWidth;rot.classList.add("on");
+      // celular: o kicker troca para o serviço (na cena do escritório volta ao texto de sempre)
+      kk.classList.toggle("cena",i>0);if(i>0){kkc.innerHTML="";kkc.append(c[0]+" · ");var b=document.createElement("b");b.textContent=c[1];kkc.append(b)}}
+    function cenaEm(t){for(var i=0;i<7;i++){if(t>=INI[i]+.25&&t<INI[i+1]-.3)return i}return -1}
+    function sync(){if(!bv.paused)mostrar(cenaEm(bv.currentTime))}
+    if(reduce)mostrar(0);else{bv.addEventListener("timeupdate",sync);(function laco(){requestAnimationFrame(laco);if(naTela)sync()})()}
+    if("IntersectionObserver" in window)new IntersectionObserver(function(es){es.forEach(function(e){naTela=e.isIntersecting;if(naTela)tocar();else bv.pause()})},{threshold:.05}).observe(bv.parentNode);
+  })();
 
   /* ---------- nav ---------- */
   var nav=document.getElementById("nav");function ns(){nav.classList.toggle("solid",scrollY>40)}addEventListener("scroll",ns,{passive:true});ns();
@@ -754,13 +781,6 @@ input[type=checkbox]{cursor:pointer}
   fundo.addEventListener("loadeddata",pintar);fundo.addEventListener("seeked",pintar);
   trocarDepoimento(document.querySelector(".reel button[aria-pressed=true]"));
 
-  /* ---------- filme ---------- */
-  var modal=document.getElementById("modal"),pf=document.getElementById("playfilm");
-  pf.addEventListener("click",function(){modal.hidden=false;films.forEach(function(f){if(f.el.closest("#modal")){f.size();f.draw(performance.now());f.on=true}});document.getElementById("closefilm").focus()});
-  function close(){modal.hidden=true;pf.focus()}
-  document.getElementById("closefilm").addEventListener("click",close);
-  modal.addEventListener("click",function(e){if(e.target===modal)close()});
-  addEventListener("keydown",function(e){if(e.key==="Escape"&&!modal.hidden)close()});
 
   /* ---------- planilha ---------- */
   document.getElementById("gift").addEventListener("submit",function(e){e.preventDefault();var wa=document.getElementById("g-wa");
