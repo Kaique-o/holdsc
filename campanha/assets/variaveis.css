@@ -1,0 +1,64 @@
+/* GERADO de compartilhado/variaveis.css por scripts/copiar-compartilhado.mjs — não edite aqui, edite a fonte. */
+/* Hold Contábil · variáveis da marca — FONTE ÚNICA para todos os produtos.
+   Só variáveis: nenhuma regra de componente aqui.
+   - Apps React e blog recebem via compartilhado/tokens.css (que importa este arquivo).
+   - Site oficial e campanha recebem uma CÓPIA em assets/variaveis.css, feita por scripts/copiar-compartilhado.mjs
+     (chamado pelo build do site oficial e pelo publicar). Não edite as cópias: edite este arquivo.
+   Regras da marca: sem pílula, sem glow. Sombra só em flutuante, sempre neutra.
+
+   Duas camadas:
+   1. Paleta da marca (valores fixos, não mudam com o tema): --navy, --blue, --sky…
+   2. Papéis (--fundo, --texto, --destaque…): é o que muda com [data-tema=escuro].
+      Componente novo usa papel; cor de marca só quando a cor é a própria marca. */
+:root{
+  color-scheme:light;
+  /* paleta da marca */
+  --navy:#0E1E4A;--navy-2:#16295F;--blue:#1560E8;--blue-d:#0F4BC0;--sky:#DCE8FB;--mist:#8EA1C0;
+  --sky-claro:#9FC0FF;  /* azul claro para texto e acento sobre fundo escuro */
+  --abismo:#050B24;     /* azul quase preto do fundo da campanha */
+  --gelo:#F4F7FF;       /* branco azulado do texto sobre fundo escuro */
+  --paper:#F5F7FB;--paper-2:#EEF1F6;--white:#FFFFFF;--ink:#0E1E4A;--ink-2:#4A5675;--ink-3:#7A86A3;--line:#DCE3F0;
+  --alert:#FFC53D;--wa:#1FAF55;--err:#C4320A;--err-bg:#FDECE7;--ok:#1D7A4E;--ok-bg:#E3F4EA;--warn:#8A5A00;--warn-bg:#FFF2D6;
+  /* tipografia */
+  --display:"Sora",ui-sans-serif,"Segoe UI",Helvetica,Arial,sans-serif;
+  --body:"Source Sans 3","Source Sans Pro","Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  /* forma e espaço */
+  --r-sm:10px;--r-md:14px;--r-lg:20px;--r-tag:4px;
+  --gap:24px;   /* espaço entre cards: igual em todas as grades */
+  --split:64px; /* espaço entre as duas colunas de uma seção */
+  --c-largura:1200px;--c-margem:24px;
+}
+
+/* papéis · tema claro (padrão) */
+:root,[data-tema=claro]{
+  --fundo:var(--paper);
+  --fundo-2:var(--white);
+  --superficie:var(--white);
+  --texto:var(--ink);
+  --texto-2:var(--ink-2);
+  --texto-3:var(--ink-3);
+  --titulo:var(--navy);
+  --destaque:var(--blue);
+  --linha:var(--line);
+  --erro:var(--err);
+  --sucesso:var(--ok);
+  --float:0 4px 14px rgba(14,30,74,.14);
+}
+
+/* papéis · tema escuro (campanha inteira; no site e no blog, faixas navy que pedirem data-tema="escuro") */
+[data-tema=escuro]{
+  color-scheme:dark;
+  --fundo:var(--abismo);
+  --fundo-2:var(--navy);
+  --superficie:var(--navy-2);
+  --texto:var(--gelo);
+  --texto-2:#C9D5F2;
+  --texto-3:var(--mist);
+  --titulo:var(--gelo);
+  --destaque:var(--sky-claro);
+  --linha:rgba(159,192,255,.18);
+  --erro:#FF8A7A;
+  --sucesso:#6FD3A0;
+  --float:0 6px 16px rgba(0,0,0,.35);
+}

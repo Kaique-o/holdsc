@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="escuro">
 <head><meta name="robots" content="noindex,nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -8,30 +8,28 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!-- capa do banner pedida cedo (o vídeo só vem depois do carregamento); o corte de 640px é o mesmo do JS -->
+<link rel="preload" as="image" type="image/webp" href="assets/video/banner-mobile.webp" media="(max-width:640px)" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" href="assets/video/banner-desk.webp" media="(min-width:641px)" fetchpriority="high">
+<link rel="stylesheet" href="assets/variaveis.css">
 <style>
-/* Direção cinematográfica: um só mundo, azul profundo. Cores explícitas, sem tema claro. */
-:root{
-  color-scheme:dark;
-  --abyss:#050B24;--navy:#0E1E4A;--navy-2:#13275C;--blue:#1560E8;--blue-d:#0F4BC0;--sky:#9FC0FF;--mist:#8EA1C0;--white:#F4F7FF;--line:rgba(159,192,255,.18);
-  --wa:#1FAF55;--alert:#FFC53D;--err:#FF8A7A;--ok:#6FD3A0;
-  --display:"Sora",ui-sans-serif,"Segoe UI",Helvetica,Arial,sans-serif;
-  --body:"Source Sans 3","Source Sans Pro","Segoe UI",Helvetica,Arial,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
-  --float:0 6px 16px rgba(0,0,0,.35);
-}
+/* Direção cinematográfica: um só mundo, azul profundo.
+   As variáveis vêm de assets/variaveis.css (cópia gerada de compartilhado/variaveis.css, fonte única da marca).
+   A campanha é o tema escuro (<html data-tema="escuro">): use os papéis (--fundo, --texto, --titulo, --destaque,
+   --linha, --erro, --sucesso). --sky e --white aqui valem o mesmo que no site oficial (fundo claro e branco). */
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 img{max-width:100%}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--abyss);color:var(--white);font-family:var(--body);font-size:17px;line-height:1.6;overflow-x:hidden}
-h1,h2,h3,h4{font-family:var(--display);margin:0;text-wrap:balance;color:var(--white)}
+body{margin:0;background:var(--fundo);color:var(--texto);font-family:var(--body);font-size:17px;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:var(--display);margin:0;text-wrap:balance;color:var(--titulo)}
 p{margin:0}
-a{color:var(--sky)}
+a{color:var(--destaque)}
 :focus-visible{outline:3px solid var(--alert);outline-offset:3px;border-radius:6px}
 .c{max-width:1280px;margin:0 auto;padding-inline:28px}
 .slate{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mist)}
-.slate b{color:var(--white);font-weight:500}
-.kicker{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--sky)}
+.slate b{color:var(--texto);font-weight:500}
+.kicker{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--destaque)}
 
 /* vídeo simulado */
 .film{position:absolute;inset:0;overflow:hidden;background:var(--navy)}
@@ -42,8 +40,8 @@ a{color:var(--sky)}
 .film .kb--video+canvas+.shade{background:linear-gradient(180deg,rgba(5,11,36,.25) 0%,rgba(14,30,74,.3) 45%,rgba(5,11,36,.9) 100%)}
 /* rótulo do serviço que está no vídeo do banner: HTML por cima (acompanha o tamanho do título); canto direito do rodapé do banner */
 .bn-rotulo{width:min(400px,32vw);display:flex;flex-direction:column;gap:8px;pointer-events:none}
-.bn-num{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--sky)}
-.bn-nome{font-family:var(--display);font-weight:700;font-size:clamp(22px,2.1vw,32px);line-height:1.15;color:#fff;padding-bottom:10px;background:linear-gradient(var(--sky),var(--sky)) 0 100%/40px 3px no-repeat,linear-gradient(var(--blue),var(--blue)) 0 100%/100% 3px no-repeat}
+.bn-num{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--destaque)}
+.bn-nome{font-family:var(--display);font-weight:700;font-size:clamp(22px,2.1vw,32px);line-height:1.15;color:#fff;padding-bottom:10px;background:linear-gradient(var(--destaque),var(--destaque)) 0 100%/40px 3px no-repeat,linear-gradient(var(--blue),var(--blue)) 0 100%/100% 3px no-repeat}
 .bn-frase{font-size:16px;line-height:1.4;color:rgba(244,247,255,.82)}
 .bn-rotulo>*{opacity:0}
 .bn-rotulo.on .bn-num{opacity:1;transition:opacity .3s}
@@ -66,16 +64,15 @@ a{color:var(--sky)}
 .film .kb+canvas+.shade{background:linear-gradient(180deg,rgba(5,11,36,.45) 0%,rgba(14,30,74,.35) 45%,rgba(5,11,36,.9) 100%)}
 @keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.12) translate(-1.5%,-1%)}}
 .film .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,11,36,.35) 0%,rgba(5,11,36,.15) 40%,rgba(5,11,36,.85) 100%)}
-.film .tagv{position:absolute;right:14px;top:14px;z-index:2;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,247,255,.8);background:rgba(5,11,36,.55);padding:4px 8px;border-radius:4px}
 
 /* botões */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--display);font-weight:700;font-size:15px;line-height:1;padding:17px 26px;border-radius:12px;border:0;cursor:pointer;text-decoration:none;transition:background-color .3s ease,color .3s ease,translate .5s cubic-bezier(.23,1,.32,1),scale .16s ease-out}
 .btn svg{width:18px;height:18px;flex:none}
 .btn--primary{background:var(--blue);color:#fff}
 .btn--primary:hover{background:var(--blue-d)}
-.btn--light{background:var(--white);color:var(--navy)}
+.btn--light{background:var(--gelo);color:var(--navy)}
 .btn--light:hover{background:#DCE8FB}
-.btn--ghost{background:transparent;color:var(--white);box-shadow:inset 0 0 0 1.5px rgba(244,247,255,.6)}
+.btn--ghost{background:transparent;color:var(--texto);box-shadow:inset 0 0 0 1.5px rgba(244,247,255,.6)}
 .btn--ghost:hover{background:rgba(244,247,255,.1)}
 .btn--sm{padding:11px 16px;font-size:14px;border-radius:10px}
 .tag{display:inline-flex;padding:5px 10px;border-radius:4px;font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:rgba(21,96,232,.9);color:#fff}
@@ -85,9 +82,9 @@ a{color:var(--sky)}
 /* desfoque sem máscara (o Safari do iPhone desenha errado desfoque com máscara): cobre do topo da tela até o fim do menu */
 .nav::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;transition:opacity .25s}
 .nav.solid::before{opacity:1}
-.nav.solid{background:rgba(5,11,36,.78);border-bottom-color:var(--line)}
+.nav.solid{background:rgba(5,11,36,.78);border-bottom-color:var(--linha)}
 .nav .c{display:flex;align-items:center;gap:28px;height:76px}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--white);flex:none}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--texto);flex:none}
 .logo .oh{display:grid;place-items:center;width:40px;height:29px;border:3px solid currentColor;border-radius:7px;font-family:var(--display);font-weight:800;font-size:12px}
 .logo b{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.05em}
 .links{display:flex;gap:4px;flex:1}
@@ -98,10 +95,15 @@ a{color:var(--sky)}
 .client:hover{color:#fff}
 .burger{display:none;margin-left:auto;background:none;border:0;color:#fff;width:44px;height:44px;border-radius:8px;cursor:pointer}
 .burger svg{width:26px;height:26px}
-.drawer{background:var(--abyss);border-top:1px solid var(--line)}
-.drawer{max-height:calc(100svh - 76px - env(safe-area-inset-top,0px));overflow-y:auto;overscroll-behavior:contain}
+.drawer{background:var(--fundo);border-top:1px solid var(--linha)}
+.drawer{max-height:calc(var(--gaveta-max,calc(100svh - 76px - env(safe-area-inset-top,0px))) - env(safe-area-inset-bottom,0px));overflow-y:auto;overscroll-behavior:contain}
+/* menu do celular (assets/gaveta.js, card UX P2): página parada por trás, fundo que fecha ao toque, menu acima de tudo (FAB 45, dica do story 55) */
+.menu-aberto,.menu-aberto body{overflow:hidden}
+.menu-aberto .nav{z-index:80}
+.gaveta-fundo{position:fixed;inset:0;z-index:-2;background:rgba(5,11,36,.55)}
+@media (min-width:1001px){.drawer,.gaveta-fundo{display:none!important}}
 .drawer .c{display:flex;flex-direction:column;align-items:stretch;gap:0;height:auto;padding-block:8px 20px} /* o menu fica dentro da .nav: desfaz a altura fixa e o centro da barra */
-.drawer a:not(.btn){font-family:var(--display);font-weight:700;font-size:22px;color:#fff;text-decoration:none;padding:14px 0;border-bottom:1px solid var(--line)}
+.drawer a:not(.btn){font-family:var(--display);font-weight:700;font-size:22px;color:#fff;text-decoration:none;padding:14px 0;border-bottom:1px solid var(--linha)}
 .drawer .btn{margin-top:16px}
 
 /* hero */
@@ -109,23 +111,25 @@ a{color:var(--sky)}
 .hero .film{z-index:-1}
 .hero .c{width:100%;padding-block:140px 56px;display:flex;flex-direction:column;gap:28px}
 .hero h1{font-weight:800;font-size:clamp(46px,9.2vw,148px);line-height:.92;letter-spacing:-.045em;text-transform:uppercase}
-.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.04em}
+/* a janela de corte sobe .2em para caber o acento do "VOCÊ" (o Ê da Sora vai a .97em, a linha de .92 cortava em .80);
+   a margem negativa devolve o espaço, então o título não muda de altura */
+.hero h1 .ln{display:block;overflow:hidden;padding-top:.2em;margin-top:-.2em;padding-bottom:.04em}
 .hero h1 .ln span{display:inline-block;animation:rise 1s cubic-bezier(.2,.8,.2,1) both}
 .hero h1 .ln:nth-child(2) span{animation-delay:.12s}
 .hero h1 .ln:nth-child(3) span{animation-delay:.24s}
-.hero h1 .blue{color:var(--sky)}
+.hero h1 .blue{color:var(--destaque)}
 @media (max-width:520px){.hero h1{font-size:11.4vw}} /* "TRABALHANDO" cabe inteiro de 320px para cima */
-@keyframes rise{from{transform:translateY(105%)}to{transform:none}}
+@keyframes rise{from{transform:translateY(calc(100% + .3em))}to{transform:none}}
 .hero-bot{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end}
 .hero-bot p{font-size:clamp(17px,1.5vw,20px);color:rgba(244,247,255,.85);max-width:50ch}
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
-.hero-slate{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:16px}
+.hero-slate{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--linha);padding-top:16px}
 
 /* letreiro */
-.marquee{border-block:1px solid var(--line);overflow:hidden;padding-block:26px;background:var(--abyss)}
+.marquee{border-block:1px solid var(--linha);overflow:hidden;padding-block:26px;background:var(--fundo)}
 .track{display:flex;gap:48px;width:max-content;animation:slide 38s linear infinite}
 .track span{font-family:var(--display);font-weight:800;font-size:clamp(34px,5vw,64px);letter-spacing:-.02em;text-transform:uppercase;color:transparent;-webkit-text-stroke:1.5px rgba(159,192,255,.55);white-space:nowrap}
-.track span:nth-child(odd){color:var(--white);-webkit-text-stroke:0}
+.track span:nth-child(odd){color:var(--texto);-webkit-text-stroke:0}
 .track i{align-self:center;width:14px;height:14px;border-radius:50%;background:var(--blue);flex:none}
 @keyframes slide{to{transform:translateX(-50%)}}
 
@@ -134,10 +138,10 @@ a{color:var(--sky)}
 .nums-h{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:48px}
 .nums-h h2{font-weight:800;font-size:clamp(30px,4vw,54px);line-height:1.02;letter-spacing:-.03em;max-width:16ch}
 .num-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));container-type:inline-size}
-.num{padding:8px 24px 8px 0;display:flex;flex-direction:column;gap:6px;border-left:1px solid var(--line);padding-left:24px}
+.num{padding:8px 24px 8px 0;display:flex;flex-direction:column;gap:6px;border-left:1px solid var(--linha);padding-left:24px}
 .num:first-child{border-left:0;padding-left:0}
 .num b{font-family:var(--display);font-weight:800;font-size:min(112px,6.4cqi);line-height:.9;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
-.num b sup{font-size:.5em;line-height:1;color:var(--sky);vertical-align:top;position:relative;top:.12em;margin-right:.04em}
+.num b sup{font-size:.5em;line-height:1;color:var(--destaque);vertical-align:top;position:relative;top:.12em;margin-right:.04em}
 .num>span{font-size:16px;color:var(--mist)}
 .num b .v{font:inherit;color:inherit}
 
@@ -155,11 +159,11 @@ a{color:var(--sky)}
 .path .go{margin-top:20px;font-family:var(--display);font-weight:700;font-size:15px;display:flex;align-items:center;gap:10px}
 .path .go::after{content:"";width:34px;height:1.5px;background:currentColor;transition:width .3s}
 .path:hover .go::after{width:60px}
-.path--feat .go{color:var(--sky)}
-.mei{margin-top:14px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;border:1px solid var(--line);border-radius:16px;padding:18px 22px;text-decoration:none;color:#fff}
+.path--feat .go{color:var(--destaque)}
+.mei{margin-top:14px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;border:1px solid var(--linha);border-radius:16px;padding:18px 22px;text-decoration:none;color:#fff}
 .mei:hover{border-color:rgba(159,192,255,.5)}
 .mei p{flex:1;min-width:220px;color:rgba(244,247,255,.85)}
-.mei span:last-child{font-family:var(--display);font-weight:700;color:var(--sky)}
+.mei span:last-child{font-family:var(--display);font-weight:700;color:var(--destaque)}
 
 /* manifesto */
 .manifesto{padding-block:120px;background:var(--navy);position:relative;overflow:hidden}
@@ -168,7 +172,7 @@ a{color:var(--sky)}
 .mani{font-family:var(--display);font-weight:800;font-size:clamp(30px,4.8vw,72px);line-height:1.06;letter-spacing:-.035em;max-width:20ch}
 .mani .w{opacity:.28;transition:opacity .3s}
 .mani .w.on{opacity:1}
-.mani .w.hl.on{color:var(--sky)}
+.mani .w.hl.on{color:var(--destaque)}
 .mani-sig{margin-top:40px;display:flex;gap:18px;align-items:center}
 .mani-sig .face{width:56px;height:56px;border-radius:50%;background:linear-gradient(150deg,#9DB0D6,#34497E);flex:none}
 .mani-sig strong{display:block;font-family:var(--display)}
@@ -182,12 +186,12 @@ a{color:var(--sky)}
 .bpo h2{font-weight:800;font-size:clamp(34px,5vw,74px);line-height:.98;letter-spacing:-.04em;margin-top:16px}
 .bpo p.lead{color:rgba(244,247,255,.82);font-size:18px;margin-top:22px;max-width:48ch}
 .bpo .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
-.ledger{background:rgba(5,11,36,.9);border:1px solid var(--line);border-radius:18px;padding:24px;font-variant-numeric:tabular-nums}
-.ledger-h{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;color:var(--mist);padding-bottom:12px;border-bottom:1px solid var(--line);letter-spacing:.06em;text-transform:uppercase}
+.ledger{background:rgba(5,11,36,.9);border:1px solid var(--linha);border-radius:18px;padding:24px;font-variant-numeric:tabular-nums}
+.ledger-h{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;color:var(--mist);padding-bottom:12px;border-bottom:1px solid var(--linha);letter-spacing:.06em;text-transform:uppercase}
 .lr{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:14px;align-items:center;padding-block:12px;border-bottom:1px solid rgba(159,192,255,.1);font-size:15px}
 .lr .v{font-family:var(--mono);font-size:14px}
 .lr .s{font-family:var(--display);font-weight:700;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px}
-.s-ok{background:rgba(111,211,160,.15);color:var(--ok)}
+.s-ok{background:rgba(111,211,160,.15);color:var(--sucesso)}
 .s-due{background:rgba(255,197,61,.15);color:var(--alert)}
 .ledger-f{display:flex;justify-content:space-between;align-items:baseline;padding-top:16px}
 .ledger-f span{color:var(--mist);font-size:14px}
@@ -221,7 +225,7 @@ a{color:var(--sky)}
 .sector .num-s{position:absolute;left:24px;top:22px;font-family:var(--mono);font-size:12px;color:rgba(244,247,255,.75)}
 .sector h3{font-weight:800;font-size:26px;line-height:1.05;letter-spacing:-.02em}
 .sector p{color:rgba(244,247,255,.8);font-size:15px;margin-top:8px}
-.sector .go{margin-top:16px;font-family:var(--display);font-weight:700;font-size:14px;color:var(--sky)}
+.sector .go{margin-top:16px;font-family:var(--display);font-weight:700;font-size:14px;color:var(--destaque)}
 .rail-hint{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}
 .rail-btns{display:flex;gap:8px}
 .rail-btns button{width:48px;height:48px;border-radius:50%;border:1.5px solid rgba(244,247,255,.5);background:none;color:#fff;font:700 18px var(--display);cursor:pointer}
@@ -235,7 +239,7 @@ a{color:var(--sky)}
 .person .film{z-index:-1}
 .person strong{font-family:var(--display);font-size:18px}
 .person span{color:rgba(244,247,255,.8);font-size:14.5px}
-.person a{margin-top:12px;align-self:flex-start;font-family:var(--display);font-weight:700;font-size:14px;color:var(--sky);text-decoration:none}
+.person a{margin-top:12px;align-self:flex-start;font-family:var(--display);font-weight:700;font-size:14px;color:var(--destaque);text-decoration:none}
 .person a::after{content:" →"}
 
 /* depoimentos */
@@ -266,19 +270,19 @@ a{color:var(--sky)}
 .screen.dep--v.tocando .dep-fundo{opacity:0}
 .screen.tocando .dep-sombra,.screen.tocando .screen-t{opacity:0;pointer-events:none}
 .reel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:14px}
-.reel button{background:none;border:1px solid var(--line);border-radius:14px;padding:16px 18px;text-align:left;color:#fff;cursor:pointer;font:inherit;display:flex;flex-direction:column;gap:4px}
-.reel button[aria-pressed="true"]{border-color:var(--sky);background:rgba(21,96,232,.12)}
+.reel button{background:none;border:1px solid var(--linha);border-radius:14px;padding:16px 18px;text-align:left;color:#fff;cursor:pointer;font:inherit;display:flex;flex-direction:column;gap:4px}
+.reel button[aria-pressed="true"]{border-color:var(--destaque);background:rgba(21,96,232,.12)}
 .reel strong{font-family:var(--display);font-size:16px}
 .reel span{font-size:14px;color:var(--mist)}
 
 /* planilha */
-.gift{padding-block:90px;border-top:1px solid var(--line)}
+.gift{padding-block:90px;border-top:1px solid var(--linha)}
 .gift .c{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
 .gift h2{font-weight:800;font-size:clamp(28px,3.6vw,48px);line-height:1.02;letter-spacing:-.03em;margin-top:12px}
 .gift p{color:rgba(244,247,255,.8);margin-top:14px;max-width:46ch}
 .gift form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
 .gift form .btn{grid-column:1/-1}
-.okmsg{color:var(--ok);font-weight:600}
+.okmsg{color:var(--sucesso);font-weight:600}
 
 /* formulário */
 .cta-sec{position:relative;isolation:isolate;padding-block:130px}
@@ -286,44 +290,44 @@ a{color:var(--sky)}
 .cta-sec .film .shade{background:rgba(5,11,36,.8)}
 .cta-sec .c{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:center}
 .cta-sec h2{font-weight:800;font-size:clamp(38px,6vw,96px);line-height:.92;letter-spacing:-.045em;text-transform:uppercase}
-.cta-sec h2 span{color:var(--sky)}
+.cta-sec h2 span{color:var(--destaque)}
 .cta-sec .lead{margin-top:22px;color:rgba(244,247,255,.82);font-size:18px;max-width:42ch}
-.form{background:rgba(5,11,36,.92);border:1px solid var(--line);border-radius:22px;padding:32px;display:flex;flex-direction:column;gap:18px}
+.form{background:rgba(5,11,36,.92);border:1px solid var(--linha);border-radius:22px;padding:32px;display:flex;flex-direction:column;gap:18px}
 .steps{display:flex;gap:6px}
-.steps i{flex:1;height:3px;border-radius:2px;background:var(--line)}
-.steps i.on{background:var(--sky)}
+.steps i{flex:1;height:3px;border-radius:2px;background:var(--linha)}
+.steps i.on{background:var(--destaque)}
 .form h3{font-size:22px}
 .opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
-.opt{font:600 15.5px var(--body);text-align:left;padding:16px;border-radius:12px;border:1.5px solid var(--line);background:transparent;color:#fff;cursor:pointer}
-.opt[aria-pressed="true"]{border-color:var(--sky);background:rgba(21,96,232,.18)}
+.opt{font:600 15.5px var(--body);text-align:left;padding:16px;border-radius:12px;border:1.5px solid var(--linha);background:transparent;color:#fff;cursor:pointer}
+.opt[aria-pressed="true"]{border-color:var(--destaque);background:rgba(21,96,232,.18)}
 .field{display:flex;flex-direction:column;gap:6px}
 .field label{font-weight:700;font-size:14px}
-.field input,.field select{font:inherit;font-size:16px;color:#fff;background:rgba(244,247,255,.06);border:1.5px solid var(--line);border-radius:10px;padding:13px 14px;width:100%;min-width:0}
+.field input,.field select{font:inherit;font-size:16px;color:#fff;background:rgba(244,247,255,.06);border:1.5px solid var(--linha);border-radius:10px;padding:13px 14px;width:100%;min-width:0}
 .field input::placeholder{color:rgba(244,247,255,.4)}
-.field input:focus,.field select:focus{outline:none;border-color:var(--sky)}
+.field input:focus,.field select:focus{outline:none;border-color:var(--destaque)}
 .field select option{color:#0E1E4A}
-.field.err input{border-color:var(--err)}
+.field.err input{border-color:var(--erro)}
 .field .hint{font-size:13.5px;color:var(--mist)}
-.field.err .hint{color:var(--err)}
+.field.err .hint{color:var(--erro)}
 .consent{display:flex;gap:10px;font-size:13.5px;color:var(--mist);align-items:flex-start}
 .consent input{margin-top:3px;accent-color:var(--blue);width:16px;height:16px;flex:none}
 .factions{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.linkbtn{background:none;border:0;color:var(--sky);font:700 15px var(--display);cursor:pointer;padding:6px 0}
+.linkbtn{background:none;border:0;color:var(--destaque);font:700 15px var(--display);cursor:pointer;padding:6px 0}
 .done{display:flex;flex-direction:column;gap:12px}
-.done .ok{width:56px;height:56px;border-radius:50%;background:rgba(111,211,160,.15);color:var(--ok);display:grid;place-items:center;font:800 26px var(--display)}
-.errmsg{color:var(--err);font-size:14px}
+.done .ok{width:56px;height:56px;border-radius:50%;background:rgba(111,211,160,.15);color:var(--sucesso);display:grid;place-items:center;font:800 26px var(--display)}
+.errmsg{color:var(--erro);font-size:14px}
 
 /* rodapé */
-.ftr{background:#030817;border-top:1px solid var(--line);color:var(--mist);font-size:15px}
+.ftr{background:#030817;border-top:1px solid var(--linha);color:var(--mist);font-size:15px}
 .ftr-g{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:32px;padding-block:64px 32px}
 .ftr h4{font-size:15px;margin-bottom:10px}
 .ftr .col{display:flex;flex-direction:column;gap:4px}
 .ftr a{color:var(--mist);text-decoration:none}
 .ftr a:hover{color:#fff}
-.ftr-b{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-block:20px 28px;font-size:13.5px}
+.ftr-b{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--linha);padding-block:20px 28px;font-size:13.5px}
 
 /* whatsapp */
-.fab{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:45;width:60px;height:60px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:var(--float)}
+.fab{position:fixed;right:20px;bottom:calc(20px + var(--aviso-h,0px) + env(safe-area-inset-bottom,0px));transition:bottom .22s cubic-bezier(.23,1,.32,1);z-index:45;width:60px;height:60px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:var(--float)}
 .fab svg{width:30px;height:30px;color:#fff}
 
 
@@ -340,13 +344,13 @@ a,button,.opt,.sector,.person,.reel button,select,input,label{transition:color .
   .person .film .kb{transition:scale 1s cubic-bezier(.23,1,.32,1)}
   .person:hover .film .kb{scale:1.05}
   .links a{position:relative}
-  .links a::after{content:"";position:absolute;left:12px;right:12px;bottom:3px;height:2px;border-radius:1px;background:var(--sky);scale:0 1;transform-origin:left;transition:scale .25s cubic-bezier(.23,1,.32,1)}
+  .links a::after{content:"";position:absolute;left:12px;right:12px;bottom:3px;height:2px;border-radius:1px;background:var(--destaque);scale:0 1;transform-origin:left;transition:scale .25s cubic-bezier(.23,1,.32,1)}
   .links a:hover::after{scale:1 1}
 }
 /* aperto ao clicar (também no toque) */
 .btn:active,.opt:active,.reel button:active,.path:active{scale:.97;transition-duration:.08s}
 .logo:hover{opacity:.8}
-.drawer a:not(.btn):hover{color:var(--sky);padding-left:6px}
+.drawer a:not(.btn):hover{color:var(--destaque);padding-left:6px}
 .burger:hover{background:rgba(244,247,255,.1)}
 .fab:hover{transform:scale(1.07)}
 .sector:hover{transform:translateY(-4px)}
@@ -358,7 +362,7 @@ a,button,.opt,.sector,.person,.reel button,select,input,label{transition:color .
 .opt:hover{border-color:rgba(159,192,255,.6);background:rgba(244,247,255,.04)}
 .linkbtn:hover{color:#fff}
 .field input:hover,.field select:hover{border-color:rgba(159,192,255,.45)}
-.field:hover>label{color:var(--sky)}
+.field:hover>label{color:var(--destaque)}
 input[type=checkbox]{cursor:pointer}
 .consent{cursor:pointer}
 .consent:hover{color:#fff}
@@ -423,8 +427,29 @@ input[type=checkbox]{cursor:pointer}
   .hero h1 .ln span,.track,.film .kb{animation:none!important}
   html{scroll-behavior:auto}
 }
+/* Alvos de toque · card p3-toque: no celular tudo que se toca tem pelo menos 44 × 44 px
+   (área invisível no ::before para alvo solto; linha de 44 px nos links empilhados do rodapé). */
+@media (max-width:860px), (pointer:coarse){
+  .person a,.bpo .ctas .btn--ghost{position:relative}
+  .person a::before,.bpo .ctas .btn--ghost::before{content:"";position:absolute;inset:min(0px, calc(50% - 22px))}
+  .ftr .col{gap:0}
+  .ftr .col a{display:flex;align-items:center;min-height:44px}
+  .logo{min-height:44px}
+}
+/* celular: os links do "Navegue" em duas colunas, para o rodapé seguir cabendo numa tela no modo story */
+@media (max-width:640px){
+  .ftr .col:has(>h4+a){display:grid;grid-template-columns:1fr 1fr;column-gap:16px}
+  .ftr .col:has(>h4+a) h4{grid-column:1/-1}
+}
 </style>
 <link rel="stylesheet" href="assets/movimento.css">
+<!-- barra de cookies + Consent Mode (card UX P2): cópia de compartilhado/consentimento/; antes da medição -->
+<link rel="stylesheet" href="assets/consentimento.css">
+<script src="assets/consentimento.js" data-politica="../politica-de-privacidade.html"></script>
+<!-- medição (card UX P1): data-gtm vazio = GTM não carrega; ID e endereço da CAPI vêm da Hold -->
+<script src="assets/medicao.js" data-secao="campanha" data-gtm="" data-capi=""></script>
+<script src="assets/medicao-campanha.js" defer></script>
+<script src="assets/gaveta.js"></script>
 <!-- modo story no celular (teste): para tirar, apague estas duas linhas -->
 <link rel="stylesheet" href="assets/stories.css">
 <script src="assets/stories.js"></script>
@@ -434,13 +459,14 @@ input[type=checkbox]{cursor:pointer}
 <!-- NAV -->
 <header class="nav" id="nav">
   <div class="c">
-    <a class="logo" href="#topo" aria-label="Hold, início"><img src="assets/hold-logo-branco.png" alt="Hold Assessoria e Consultoria Contábil" style="height:36px;width:auto;display:block"></a>
+    <a class="logo" href="#topo" aria-label="Hold, início"><img src="assets/_otim/hold-logo-branco-560.webp" alt="Hold Assessoria e Consultoria Contábil" style="height:36px;width:auto;display:block" sizes="128px" width="600" height="170" decoding="async" srcset="assets/_otim/hold-logo-branco-280.webp 280w, assets/_otim/hold-logo-branco-560.webp 560w"></a>
     <nav class="links" aria-label="Principal"><a href="#caminhos">Serviços</a><a href="#time">A Hold</a><a href="#terceirizacao">Terceirização</a><a href="#setores">Setores</a><a href="#depoimentos">Clientes</a></nav>
-    <div class="nav-r"><a class="client" href="#">Área do cliente</a><a class="btn btn--light btn--sm" href="#proposta">Pedir proposta</a></div>
+    <div class="nav-r"><a class="client" href="https://vip.acessorias.com/holdcontabilidade" target="_blank" rel="noopener">Área do cliente</a><a class="btn btn--light btn--sm" href="#proposta">Pedir proposta</a></div>
     <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Abrir menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   </div>
+  <div class="gaveta-fundo" hidden></div>
   <div class="drawer" id="drawer" hidden><div class="c">
-    <a href="#caminhos">Serviços</a><a href="#time">A Hold</a><a href="#terceirizacao">Terceirização</a><a href="#setores">Setores</a><a href="#depoimentos">Clientes</a><a href="#">Área do cliente</a>
+    <a href="#caminhos">Serviços</a><a href="#time">A Hold</a><a href="#terceirizacao">Terceirização</a><a href="#setores">Setores</a><a href="#depoimentos">Clientes</a><a href="https://vip.acessorias.com/holdcontabilidade" target="_blank" rel="noopener">Área do cliente</a>
     <a class="btn btn--light" href="#proposta">Pedir proposta</a>
   </div></div>
 </header>
@@ -448,14 +474,14 @@ input[type=checkbox]{cursor:pointer}
 <main id="topo">
 <!-- CENA 01 · HERO -->
 <section class="hero">
-  <div class="film" data-v="office" data-seed="1"><video class="kb kb--video" id="banner-video" muted playsinline loop preload="auto" aria-hidden="true" tabindex="-1" data-desk="assets/video/banner-desk" data-mobile="assets/video/banner-mobile"></video><canvas></canvas><div class="shade"></div></div>
+  <div class="film" data-v="office" data-seed="1"><video class="kb kb--video" id="banner-video" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" data-desk="assets/video/banner-desk" data-mobile="assets/video/banner-mobile"></video><canvas></canvas><div class="shade"></div></div>
   <div class="c">
     <span class="kicker"><span class="kk-base">Contabilidade estratégica · há mais de 25 anos</span><span class="kk-cena" id="kk-cena" aria-hidden="true"></span></span>
     <h1><span class="ln"><span>Seu dinheiro</span></span><span class="ln"><span class="blue">trabalhando</span></span><span class="ln"><span>por você.</span></span></h1>
     <div class="hero-bot">
       <div>
         <p>Mais de 60 especialistas em Tubarão, Laguna e Belo Horizonte cuidando da contabilidade, do financeiro e do planejamento tributário da sua empresa.</p>
-        <div class="hero-ctas"><a class="btn btn--primary" href="#proposta">Falar com um especialista</a><a class="btn btn--ghost" href="#caminhos">Ver serviços</a></div>
+        <div class="hero-ctas"><a class="btn btn--primary" href="#proposta">Pedir proposta</a><a class="btn btn--ghost" href="#caminhos">Ver serviços</a></div>
       </div>
       <div class="hero-lado">
         <div class="bn-rotulo" id="bn-rotulo" aria-hidden="true"><span class="bn-num"></span><strong class="bn-nome"></strong><span class="bn-frase"></span></div>
@@ -489,19 +515,19 @@ input[type=checkbox]{cursor:pointer}
     <div class="sec-h"><span class="kicker">Por onde começar</span><h2>O que a sua empresa precisa agora?</h2></div>
     <div class="paths">
       <a class="path" href="#proposta" data-intent="abrir_empresa">
-        <div class="film" data-v="hands" data-seed="2"><img class="kb" src="assets/img/abertura-de-empresas.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div><span class="tagv">cena 02 · 6s</span></div>
+        <div class="film" data-v="hands" data-seed="2"><img class="kb" src="assets/img/_otim/abertura-de-empresas-800.webp" alt="" loading="lazy" sizes="(min-width:860px) 50vw, 92vw" width="1024" height="683" decoding="async" srcset="assets/img/_otim/abertura-de-empresas-400.webp 400w, assets/img/_otim/abertura-de-empresas-800.webp 800w, assets/img/_otim/abertura-de-empresas-1024.webp 1024w"><canvas></canvas><div class="shade"></div></div>
         <h3>Quero abrir minha empresa</h3><p>O tipo de empresa e o regime certos para pagar menos imposto desde o primeiro mês.</p><span class="go">Começar</span>
       </a>
       <a class="path" href="#proposta" data-intent="trocar_contador">
-        <div class="film" data-v="people" data-seed="3"><img class="kb" src="assets/img/reuniao.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div><span class="tagv">cena 03 · 6s</span></div>
+        <div class="film" data-v="people" data-seed="3"><img class="kb" src="assets/img/_otim/reuniao-800.webp" alt="" loading="lazy" sizes="(min-width:860px) 50vw, 92vw" width="1024" height="683" decoding="async" srcset="assets/img/_otim/reuniao-400.webp 400w, assets/img/_otim/reuniao-800.webp 800w, assets/img/_otim/reuniao-1024.webp 1024w"><canvas></canvas><div class="shade"></div></div>
         <h3>Quero trocar de contador</h3><p>A Hold cuida da troca com o escritório anterior. Sua empresa não para.</p><span class="go">Começar</span>
       </a>
       <a class="path path--feat" href="#proposta" data-intent="terceirizar_financeiro">
-        <div class="film" data-v="desk" data-seed="4"><img class="kb" src="assets/img/terceirizacao.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div><span class="tagv">cena 04 · 6s</span></div>
+        <div class="film" data-v="desk" data-seed="4"><img class="kb" src="assets/img/_otim/terceirizacao-800.webp" alt="" loading="lazy" sizes="(min-width:860px) 50vw, 92vw" width="1024" height="683" decoding="async" srcset="assets/img/_otim/terceirizacao-400.webp 400w, assets/img/_otim/terceirizacao-800.webp 800w, assets/img/_otim/terceirizacao-1024.webp 1024w"><canvas></canvas><div class="shade"></div></div>
         <h3>Quero terceirizar meu financeiro</h3><p>Contas, conciliação e fluxo de caixa com a Hold. Você volta a vender.</p><span class="go">Começar</span>
       </a>
     </div>
-    <a class="mei" href="#proposta" data-intent="mei"><span class="tag">MEI</span><p>DAS, declaração anual e a hora certa de virar ME.</p><span>Plano para MEI →</span></a>
+    <a class="mei" href="#proposta" data-intent="mei"><span class="tag">MEI</span><p>DAS, declaração anual e a hora certa de virar ME.</p><span>Pedir proposta →</span></a>
   </div>
 </section>
 
@@ -510,19 +536,19 @@ input[type=checkbox]{cursor:pointer}
   <div class="c">
     <span class="kicker">Por que a Hold</span>
     <p class="mani" id="mani" style="margin-top:22px">O básico, qualquer escritório faz. A Hold *planeja* o seu imposto, *antecipa* o seu prazo e *cuida* das pessoas por trás dos números.</p>
-    <div class="mani-sig"><span class="face" aria-hidden="true"></span><div><strong>Nome do sócio</strong><span>Sócio-fundador da Hold</span></div></div>
+    <div class="mani-sig"><div><strong>Equipe Hold</strong><span>Tubarão · Laguna · Belo Horizonte</span></div></div>
   </div>
 </section>
 
 <!-- CENA 05 · TERCEIRIZAÇÃO -->
 <section class="bpo" id="terceirizacao">
-  <div class="film" data-v="desk" data-seed="5"><img class="kb" src="assets/img/grafico.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div><span class="tagv">Vídeo · cena 05 · relatório financeiro · 10s</span></div>
+  <div class="film" data-v="desk" data-seed="5"><img class="kb" src="assets/img/_otim/grafico-800.webp" alt="" loading="lazy" sizes="(min-width:860px) 50vw, 92vw" width="1080" height="1620" decoding="async" srcset="assets/img/_otim/grafico-400.webp 400w, assets/img/_otim/grafico-800.webp 800w, assets/img/_otim/grafico-1080.webp 1080w"><canvas></canvas><div class="shade"></div></div>
   <div class="c">
     <div>
       <span class="slate">Terceirizou · uma empresa Hold</span>
       <h2>Você sabe para onde o dinheiro está indo?</h2>
       <p class="lead">A Hold assume o seu financeiro: contas a pagar e a receber, conciliação e fluxo de caixa. Todo mês, um relatório simples para decidir com número na mão.</p>
-      <div class="ctas"><a class="btn btn--light" href="#proposta" data-intent="terceirizar_financeiro">Quero terceirizar meu financeiro</a><a class="btn btn--ghost" href="https://www.terceirizou.com.br/" target="_blank" rel="noopener">Conhecer a Terceirizou</a></div>
+      <div class="ctas"><a class="btn btn--light" href="#proposta" data-intent="terceirizar_financeiro">Pedir proposta</a><a class="btn btn--ghost" href="https://www.terceirizou.com.br/" target="_blank" rel="noopener">Conhecer a Terceirizou</a></div>
     </div>
     <div class="ledger" aria-label="Exemplo de relatório mensal">
       <div class="ledger-h"><span>Relatório de setembro</span><span>exemplo</span></div>
@@ -545,23 +571,23 @@ input[type=checkbox]{cursor:pointer}
     </div>
   </div>
   <div class="rail-wrap" id="rail"><div class="rail">
-    <a class="sector" href="#proposta"><div class="film" data-v="city" data-seed="6"><img class="kb" src="assets/img/moedas.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><span class="num-s">Revendas</span><h3>Revendas de veículos</h3><p>Tributação de usados e margem do estoque.</p><span class="go">Ver como a Hold atende →</span></a>
-    <a class="sector" href="#proposta"><div class="film" data-v="people" data-seed="7"><img class="kb" src="assets/img/profissional-mesa.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><span class="num-s">Saúde</span><h3>Profissionais da saúde</h3><p>CPF ou CNPJ, e como pagar menos no PJ.</p><span class="go">Ver como a Hold atende →</span></a>
-    <a class="sector" href="#proposta"><div class="film" data-v="office" data-seed="8"><img class="kb" src="assets/img/escritorio-2.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><span class="num-s">Associações</span><h3>Proteção veicular</h3><p>CNSP 491, LC 213 e a adaptação da associação.</p><span class="go">Ver como a Hold atende →</span></a>
-    <a class="sector" href="#proposta"><div class="film" data-v="hands" data-seed="9"><img class="kb" src="assets/img/casa.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><span class="num-s">Família</span><h3>Holding patrimonial</h3><p>Organizar os bens e planejar a sucessão.</p><span class="go">Ver como a Hold atende →</span></a>
-    <a class="sector" href="#proposta"><div class="film" data-v="city" data-seed="10"><img class="kb" src="assets/img/condominio.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><span class="num-s">Condomínios</span><h3>Condomínios</h3><p>Folha, prestação de contas e boletos.</p><span class="go">Ver como a Hold atende →</span></a>
+    <a class="sector" href="#proposta"><div class="film" data-v="city" data-seed="6"><img class="kb" src="assets/img/_otim/moedas-800.webp" alt="" loading="lazy" sizes="(min-width:860px) 50vw, 92vw" width="1024" height="683" decoding="async" srcset="assets/img/_otim/moedas-400.webp 400w, assets/img/_otim/moedas-800.webp 800w, assets/img/_otim/moedas-1024.webp 1024w"><canvas></canvas><div class="shade"></div></div><span class="num-s">Revendas</span><h3>Revendas de veículos</h3><p>Tributação de usados e margem do estoque.</p><span class="go">Ver como a Hold atende →</span></a>
+    <a class="sector" href="#proposta"><div class="film" data-v="people" data-seed="7"><img class="kb" src="assets/img/_otim/profissional-mesa-800.webp" alt="" loading="lazy" sizes="(min-width:860px) 50vw, 92vw" width="1079" height="597" decoding="async" srcset="assets/img/_otim/profissional-mesa-400.webp 400w, assets/img/_otim/profissional-mesa-800.webp 800w, assets/img/_otim/profissional-mesa-1079.webp 1079w"><canvas></canvas><div class="shade"></div></div><span class="num-s">Saúde</span><h3>Profissionais da saúde</h3><p>CPF ou CNPJ, e como pagar menos no PJ.</p><span class="go">Ver como a Hold atende →</span></a>
+    <a class="sector" href="#proposta"><div class="film" data-v="office" data-seed="8"><img class="kb" src="assets/img/_otim/escritorio-2-800.webp" alt="" loading="lazy" sizes="(min-width:860px) 50vw, 92vw" width="1024" height="576" decoding="async" srcset="assets/img/_otim/escritorio-2-400.webp 400w, assets/img/_otim/escritorio-2-800.webp 800w, assets/img/_otim/escritorio-2-1024.webp 1024w"><canvas></canvas><div class="shade"></div></div><span class="num-s">Associações</span><h3>Proteção veicular</h3><p>CNSP 491, LC 213 e a adaptação da associação.</p><span class="go">Ver como a Hold atende →</span></a>
+    <a class="sector" href="#proposta"><div class="film" data-v="hands" data-seed="9"><img class="kb" src="assets/img/_otim/casa-800.webp" alt="" loading="lazy" sizes="(min-width:860px) 50vw, 92vw" width="1200" height="675" decoding="async" srcset="assets/img/_otim/casa-400.webp 400w, assets/img/_otim/casa-800.webp 800w, assets/img/_otim/casa-1200.webp 1200w"><canvas></canvas><div class="shade"></div></div><span class="num-s">Família</span><h3>Holding patrimonial</h3><p>Organizar os bens e planejar a sucessão.</p><span class="go">Ver como a Hold atende →</span></a>
+    <a class="sector" href="#proposta"><div class="film" data-v="city" data-seed="10"><img class="kb" src="assets/img/_otim/condominio-800.webp" alt="" loading="lazy" sizes="(min-width:860px) 50vw, 92vw" width="1080" height="720" decoding="async" srcset="assets/img/_otim/condominio-400.webp 400w, assets/img/_otim/condominio-800.webp 800w, assets/img/_otim/condominio-1080.webp 1080w"><canvas></canvas><div class="shade"></div></div><span class="num-s">Condomínios</span><h3>Condomínios</h3><p>Folha, prestação de contas e boletos.</p><span class="go">Ver como a Hold atende →</span></a>
   </div></div>
 </section>
 
 <!-- CENA 07 · ESPECIALISTAS -->
 <section class="people-sec">
   <div class="c">
-    <div class="sec-h"><span class="kicker">Quem cuida de você</span><h2>Gente de verdade, com nome e rosto.</h2></div>
+    <div class="sec-h"><span class="kicker">Quem cuida de você</span><h2>Gente de verdade do outro lado.</h2></div>
     <div class="people">
-      <div class="person"><div class="film" data-v="portrait" data-seed="11"><img class="kb" src="assets/img/pessoa-1.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><strong>Nome Sobrenome</strong><span>Planejamento tributário</span><a href="#">Falar comigo</a></div>
-      <div class="person"><div class="film" data-v="portrait" data-seed="12"><img class="kb" src="assets/img/pessoa-3.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><strong>Nome Sobrenome</strong><span>Revendas de veículos</span><a href="#">Falar comigo</a></div>
-      <div class="person"><div class="film" data-v="portrait" data-seed="13"><img class="kb" src="assets/img/pessoa-2.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><strong>Nome Sobrenome</strong><span>Terceirização financeira</span><a href="#">Falar comigo</a></div>
-      <div class="person"><div class="film" data-v="portrait" data-seed="14"><img class="kb" src="assets/img/pessoa-4.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div></div><strong>Nome Sobrenome</strong><span>Profissionais da saúde</span><a href="#">Falar comigo</a></div>
+      <div class="person"><div class="film" data-v="people" data-seed="11"><img class="kb" src="assets/img/_otim/equipe-hold-800.webp" alt="" loading="lazy" sizes="(min-width:860px) 50vw, 92vw" width="1024" height="576" decoding="async" srcset="assets/img/_otim/equipe-hold-400.webp 400w, assets/img/_otim/equipe-hold-800.webp 800w, assets/img/_otim/equipe-hold-1024.webp 1024w"><canvas></canvas><div class="shade"></div></div><strong>Planejamento tributário</strong><span>Equipe Hold</span><a href="https://wa.me/554830524321?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20Hold.%20Quero%20falar%20com%20a%20equipe%20de%20planejamento%20tribut%C3%A1rio." target="_blank" rel="noopener">Falar com a equipe</a></div>
+      <div class="person"><div class="film" data-v="people" data-seed="12"><img class="kb" src="assets/img/_otim/escritorio-hold-800.webp" alt="" loading="lazy" sizes="(min-width:860px) 50vw, 92vw" width="1080" height="1209" decoding="async" srcset="assets/img/_otim/escritorio-hold-400.webp 400w, assets/img/_otim/escritorio-hold-800.webp 800w, assets/img/_otim/escritorio-hold-1080.webp 1080w"><canvas></canvas><div class="shade"></div></div><strong>Revendas de veículos</strong><span>Equipe Hold</span><a href="https://wa.me/554830524321?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20Hold.%20Quero%20falar%20com%20a%20equipe%20de%20revendas%20de%20ve%C3%ADculos." target="_blank" rel="noopener">Falar com a equipe</a></div>
+      <div class="person"><div class="film" data-v="people" data-seed="13"><img class="kb" src="assets/img/_otim/escritorio-2-800.webp" alt="" loading="lazy" sizes="(min-width:860px) 50vw, 92vw" width="1024" height="576" decoding="async" srcset="assets/img/_otim/escritorio-2-400.webp 400w, assets/img/_otim/escritorio-2-800.webp 800w, assets/img/_otim/escritorio-2-1024.webp 1024w"><canvas></canvas><div class="shade"></div></div><strong>Terceirização financeira</strong><span>Equipe Hold</span><a href="https://wa.me/5548998640303?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20Hold.%20Quero%20falar%20com%20a%20equipe%20de%20terceiriza%C3%A7%C3%A3o%20financeira." target="_blank" rel="noopener">Falar com a equipe</a></div>
+      <div class="person"><div class="film" data-v="people" data-seed="14"><img class="kb" src="assets/img/_otim/equipe-hold-800.webp" alt="" loading="lazy" sizes="(min-width:860px) 50vw, 92vw" width="1024" height="576" decoding="async" srcset="assets/img/_otim/equipe-hold-400.webp 400w, assets/img/_otim/equipe-hold-800.webp 800w, assets/img/_otim/equipe-hold-1024.webp 1024w"><canvas></canvas><div class="shade"></div></div><strong>Profissionais da saúde</strong><span>Equipe Hold</span><a href="https://wa.me/554830524321?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20da%20Hold.%20Quero%20falar%20com%20a%20equipe%20de%20profissionais%20da%20sa%C3%BAde." target="_blank" rel="noopener">Falar com a equipe</a></div>
     </div>
   </div>
 </section>
@@ -571,7 +597,7 @@ input[type=checkbox]{cursor:pointer}
   <div class="c">
     <div class="sec-h"><span class="kicker">Quem já é Hold</span><h2>Na voz de quem é cliente.</h2></div>
     <div class="screen" id="dep-tela">
-      <video class="dep-fundo" id="dep-fundo" muted playsinline loop preload="metadata" aria-hidden="true" tabindex="-1" src="assets/video/depoimento-mateus.mp4#t=5"></video>
+      <video class="dep-fundo" id="dep-fundo" muted playsinline loop preload="metadata" aria-hidden="true" tabindex="-1"></video>
       <canvas class="dep-borrao" id="dep-borrao" width="48" height="21" aria-hidden="true"></canvas>
       <div class="dep-sombra"></div>
       <video class="dep-video" id="dep-video" playsinline preload="none"></video>
@@ -595,24 +621,23 @@ input[type=checkbox]{cursor:pointer}
     <div>
       <form id="gift" novalidate>
         <div class="field"><label for="g-nome">Seu nome</label><input id="g-nome" placeholder="Ana" autocomplete="given-name"></div>
-        <div class="field" id="g-f"><label for="g-wa">Seu WhatsApp</label><input id="g-wa" placeholder="(48) 99999-0000" inputmode="tel" autocomplete="tel"></div>
+        <div class="field" id="g-f"><label for="g-wa">Seu WhatsApp</label><input id="g-wa" type="tel" maxlength="15" placeholder="(48) 99999-0000" inputmode="tel" autocomplete="tel"></div>
         <button class="btn btn--primary" type="submit">Quero a planilha</button>
       </form>
-      <p class="okmsg" id="g-ok" hidden>Pronto! A planilha chega no seu WhatsApp em alguns minutos.</p>
+      <p class="okmsg" id="g-ok" hidden>Abrimos o WhatsApp da Hold com o pedido da planilha já escrito. Só falta tocar em enviar. <a id="g-link" href="https://wa.me/554830524321" target="_blank" rel="noopener">Não abriu? Toque aqui.</a></p>
     </div>
   </div>
 </section>
 
 <!-- CENA 09 · FORMULÁRIO -->
 <section class="cta-sec" id="proposta">
-  <div class="film" data-v="city" data-seed="16"><img class="kb" src="assets/img/predios.jpg" alt="" loading="lazy"><canvas></canvas><div class="shade"></div><span class="tagv">Vídeo · cena 10 · Tubarão aérea · 8s</span></div>
+  <div class="film" data-v="city" data-seed="16"><img class="kb" src="assets/img/_otim/predios-800.webp" alt="" loading="lazy" sizes="(min-width:860px) 50vw, 92vw" width="1024" height="683" decoding="async" srcset="assets/img/_otim/predios-400.webp 400w, assets/img/_otim/predios-800.webp 800w, assets/img/_otim/predios-1024.webp 1024w"><canvas></canvas><div class="shade"></div></div>
   <div class="c">
     <div>
       <h2>A próxima cena é <span>da sua empresa.</span></h2>
       <p class="lead">Conte o que você precisa. Um especialista chama você no WhatsApp com a proposta.</p>
     </div>
     <form class="form" id="form" novalidate>
-      <div class="steps" aria-hidden="true"><i class="on"></i><i id="s2"></i><i id="s3"></i></div>
       <div id="f1"><h3>O que você precisa?</h3>
         <div class="opts" role="group" aria-label="O que você precisa">
           <button class="opt" type="button" data-v="abrir_empresa" aria-pressed="false">Abrir empresa</button>
@@ -622,17 +647,15 @@ input[type=checkbox]{cursor:pointer}
           <button class="opt" type="button" data-v="imposto_renda" aria-pressed="false">Imposto de Renda</button>
           <button class="opt" type="button" data-v="outro" aria-pressed="false">Outro assunto</button>
         </div>
-        <p class="errmsg" id="e1" hidden style="margin-top:10px">Escolha uma opção para continuar.</p>
+        <p class="errmsg" id="e1" role="alert" hidden style="margin-top:10px">Escolha o que você precisa.</p>
       </div>
-      <div id="f2" hidden style="display:flex;flex-direction:column;gap:14px"><h3>Como a gente fala com você?</h3>
-        <div class="field"><label for="nome">Seu nome</label><input id="nome" placeholder="Ana" autocomplete="given-name"></div>
-        <div class="field" id="waf"><label for="wa">Seu WhatsApp</label><input id="wa" placeholder="(48) 99999-0000" inputmode="tel" autocomplete="tel"><span class="hint" id="wah">A gente chama você por aqui, sem spam.</span></div>
+      <div id="f2" style="display:flex;flex-direction:column;gap:14px">
         <div class="field"><label for="cidade">Cidade</label><select id="cidade"><option>Tubarão</option><option>Laguna</option><option>Belo Horizonte</option><option>Outra cidade</option></select></div>
-        <label class="consent"><input type="checkbox" id="lgpd"> Concordo que a Hold use meus dados para entrar em contato sobre este pedido.</label>
-        <p class="errmsg" id="e2" hidden>Precisamos da sua autorização para entrar em contato.</p>
+        <div class="field"><label for="porte">Tamanho da empresa</label><select id="porte"><option>Ainda não tenho empresa</option><option>MEI</option><option>Até 10 funcionários</option><option>De 11 a 50 funcionários</option><option>Mais de 50 funcionários</option></select></div>
+        <div class="field"><label for="nome">Seu nome <span style="font-weight:400;opacity:.75">(opcional)</span></label><input id="nome" placeholder="Ana" autocomplete="given-name"></div>
       </div>
-      <div id="f3" class="done" hidden><span class="ok">✓</span><h3>Recebemos, <span id="okn">tudo certo</span>!</h3><p style="color:var(--mist)">Um especialista chama você no WhatsApp em até 1 dia útil.</p><button class="linkbtn" type="button" id="again" style="align-self:flex-start">Enviar outro pedido</button></div>
-      <div class="factions" id="fa"><button class="linkbtn" type="button" id="back" hidden>Voltar</button><button class="btn btn--light" type="submit" id="nx" style="margin-left:auto">Continuar</button></div>
+      <div id="f3" class="done" hidden><span class="ok">✓</span><h3>Obrigado, <span id="okn">tudo certo</span>!</h3><p style="color:var(--mist)">Abrimos o WhatsApp da Hold com o seu pedido já escrito. Só falta tocar em enviar. <a id="f3-link" href="https://wa.me/554830524321" target="_blank" rel="noopener" style="color:inherit">Não abriu? Toque aqui.</a></p><button class="linkbtn" type="button" id="again" style="align-self:flex-start">Enviar outro pedido</button></div>
+      <div class="factions" id="fa"><button class="btn btn--light" type="submit" id="nx" style="width:100%">Pedir proposta</button><p style="color:var(--mist);font-size:14px;margin:0">Abre o seu WhatsApp com o pedido pronto. É só enviar.</p></div>
     </form>
   </div>
 </section>
@@ -641,21 +664,23 @@ input[type=checkbox]{cursor:pointer}
 <footer class="ftr">
   <div class="c">
     <div class="ftr-g">
-      <div class="col"><a class="logo" href="#topo" aria-label="Hold, início"><img src="assets/hold-logo-branco.png" alt="Hold Assessoria e Consultoria Contábil" style="height:42px;width:auto;display:block"></a><span style="margin-top:12px">Contabilidade estratégica há mais de 25 anos.</span></div>
+      <div class="col"><a class="logo" href="#topo" aria-label="Hold, início"><img src="assets/_otim/hold-logo-branco-560.webp" alt="Hold Assessoria e Consultoria Contábil" style="height:42px;width:auto;display:block" sizes="149px" width="600" height="170" decoding="async" srcset="assets/_otim/hold-logo-branco-280.webp 280w, assets/_otim/hold-logo-branco-560.webp 560w"></a><span style="margin-top:12px">Contabilidade estratégica há mais de 25 anos.</span></div>
       <div class="col"><h4>Tubarão</h4><span>Rua Luiz Martins Collaço, 537</span><span>Santo Antônio · 88701-523</span><span>(48) 3052-4321</span></div>
       <div class="col"><h4>Laguna</h4><span>Rua Osvaldo Cabral, 68, salas 1 e 2</span><span>Centro · 88790-000</span><span>(48) 3644-4321</span></div>
-      <div class="col"><h4>Navegue</h4><a href="#caminhos">Serviços</a><a href="#setores">Setores</a><a href="#terceirizacao">Terceirização</a><a href="#">Área do cliente</a><a href="https://www.instagram.com/holdcontabil/" target="_blank" rel="noopener">Instagram</a></div>
+      <div class="col"><h4>Navegue</h4><a href="#caminhos">Serviços</a><a href="#setores">Setores</a><a href="#terceirizacao">Terceirização</a><a href="https://vip.acessorias.com/holdcontabilidade" target="_blank" rel="noopener">Área do cliente</a><a href="https://www.instagram.com/holdcontabil/" target="_blank" rel="noopener">Instagram</a></div>
     </div>
-    <div class="ftr-b"><span>© 2026 Hold Assessoria &amp; Consultoria Contábil</span><span>contato@holdcontabil.com.br · Política de privacidade</span></div>
+    <div class="ftr-b"><span>© 2026 Hold Assessoria &amp; Consultoria Contábil</span><span>contato@holdcontabil.com.br · <a href="../politica-de-privacidade.html">Política de privacidade</a> · <a href="../politica-de-privacidade.html" data-cookie-reset>Preferências de cookies</a></span></div>
   </div>
 </footer>
 
-<a class="fab" href="#" aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9 0-1.4.7-2 1-2.3.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg></a>
+<a class="fab" href="https://wa.me/554830524321?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Hold%20e%20quero%20falar%20com%20um%20especialista." target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9 0-1.4.7-2 1-2.3.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg></a>
 
 
 <script>
 (function(){
   var reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  // economia de dados ligada ou conexão lenta: os vídeos de fundo não baixam sozinhos (só Chrome/Android informam)
+  var con=navigator.connection,economiza=!!(con&&(con.saveData||/2g|3g/.test(con.effectiveType||"")));
 
   /* ---------- vídeo simulado em canvas ---------- */
   var grain=document.createElement("canvas");grain.width=grain.height=160;
@@ -696,10 +721,16 @@ input[type=checkbox]{cursor:pointer}
   /* ---------- banner: vídeo das fotos, versão em pé no celular; só toca com o banner na tela ---------- */
   (function(){
     var bv=document.getElementById("banner-video");if(!bv)return;
-    var cel=matchMedia("(max-width: 640px)"),fonte="",naTela=true;
-    function escolher(){var b=cel.matches?bv.dataset.mobile:bv.dataset.desk;if(b===fonte)return;fonte=b;bv.poster=b+".jpg";if(!reduce){bv.src=b+".mp4";tocar()}}
-    function tocar(){if(reduce||!naTela)return;var p=bv.play();if(p&&p.catch)p.catch(function(){})}
+    var cel=matchMedia("(max-width: 640px)"),fonte="",naTela=true,liberado=false;
+    // primeiro só a capa; o vídeo vem depois do carregamento, no ocioso, com o banner na tela, e nunca com
+    // "reduzir movimento", economia de dados ou conexão 2G/3G
+    function escolher(){var b=cel.matches?bv.dataset.mobile:bv.dataset.desk;if(b===fonte)return;fonte=b;bv.poster=b+".webp";if(bv.getAttribute("src"))carregar()}
+    function carregar(){if(reduce||economiza||!liberado||!naTela)return;var s=fonte+".mp4";if(bv.getAttribute("src")!==s){bv.preload="auto";bv.src=s}tocar()}
+    function tocar(){if(reduce||!naTela||!bv.getAttribute("src"))return;var p=bv.play();if(p&&p.catch)p.catch(function(){})}
     escolher();cel.addEventListener("change",escolher);
+    function liberar(){liberado=true;carregar()}
+    function depois(){if(window.requestIdleCallback)requestIdleCallback(liberar,{timeout:2000});else setTimeout(liberar,1200)}
+    if(document.readyState==="complete")depois();else addEventListener("load",depois);
     // rótulo: mesma linha do tempo do vídeo (cortina 0,3 s antes de cada batida; texto entra quando ela termina)
     var CENAS=[["Hold Contábil","Tubarão · Laguna · BH",""],["01 / 05","Contabilidade estratégica","Planejamento tributário para decidir com número."],
       ["02 / 05","Abertura de empresas","CNPJ, regime certo, licenças e alvarás."],["03 / 05","Terceirização financeira","Contas, caixa e relatório em dia."],
@@ -712,15 +743,15 @@ input[type=checkbox]{cursor:pointer}
       kk.classList.toggle("cena",i>0);if(i>0){kkc.innerHTML="";kkc.append(c[0]+" · ");var b=document.createElement("b");b.textContent=c[1];kkc.append(b)}}
     function cenaEm(t){for(var i=0;i<7;i++){if(t>=INI[i]+.25&&t<INI[i+1]-.3)return i}return -1}
     function sync(){if(!bv.paused)mostrar(cenaEm(bv.currentTime))}
-    if(reduce)mostrar(0);else{bv.addEventListener("timeupdate",sync);(function laco(){requestAnimationFrame(laco);if(naTela)sync()})()}
-    if("IntersectionObserver" in window)new IntersectionObserver(function(es){es.forEach(function(e){naTela=e.isIntersecting;if(naTela)tocar();else bv.pause()})},{threshold:.05}).observe(bv.parentNode);
+    mostrar(0);// enquanto só a capa aparece, fica a cena do escritório; com o vídeo tocando o sync assume
+    if(!reduce){bv.addEventListener("timeupdate",sync);(function laco(){requestAnimationFrame(laco);if(naTela)sync()})()}
+    if("IntersectionObserver" in window)new IntersectionObserver(function(es){es.forEach(function(e){naTela=e.isIntersecting;if(naTela)carregar();else bv.pause()})},{threshold:.05}).observe(bv.parentNode);
   })();
 
   /* ---------- nav ---------- */
   var nav=document.getElementById("nav");function ns(){nav.classList.toggle("solid",scrollY>40)}addEventListener("scroll",ns,{passive:true});ns();
-  var burger=document.getElementById("burger"),drawer=document.getElementById("drawer");
-  burger.addEventListener("click",function(){drawer.hidden=!drawer.hidden;burger.setAttribute("aria-expanded",String(!drawer.hidden));nav.classList.add("solid")});
-  drawer.addEventListener("click",function(e){if(e.target.closest("a")){drawer.hidden=true;burger.setAttribute("aria-expanded","false")}});
+  /* menu do celular: assets/gaveta.js (Esc, toque no fundo, link, desktop, foco preso, rolagem travada) */
+  if(window.Gaveta)Gaveta({botao:document.getElementById("burger"),gaveta:document.getElementById("drawer"),fundo:nav.querySelector(".gaveta-fundo"),desde:1001,aoMudar:function(aberta){if(aberta)nav.classList.add("solid");else ns()}});
 
   /* ---------- letreiro duplicado para loop contínuo ---------- */
   var tr=document.getElementById("track");tr.innerHTML+=tr.innerHTML;
@@ -752,12 +783,14 @@ input[type=checkbox]{cursor:pointer}
   /* vídeo do depoimento: o fundo da tela é o vídeo escolhido (mudo, em loop, a partir do segundo 5, porque antes
      é a abertura em lápis); o play toca o vídeo do começo, com som, por cima */
   var tela=document.getElementById("dep-tela"),fundo=document.getElementById("dep-fundo"),dv=document.getElementById("dep-video");
-  var semMovimento=matchMedia("(prefers-reduced-motion:reduce)").matches,visivel=false;
-  function fundoTocar(){if(!semMovimento&&visivel&&!tela.classList.contains("tocando")){var p=fundo.play();if(p&&p.catch)p.catch(function(){})}}
+  var semMovimento=matchMedia("(prefers-reduced-motion:reduce)").matches||economiza,visivel=false,perto=false;
+  // o fundo (arquivo de 11 a 15 MB) só ganha src quando a seção está a uma tela de distância
+  function fundoCarregar(){if(perto&&fundo.dataset.src&&fundo.getAttribute("src")!==fundo.dataset.src)fundo.src=fundo.dataset.src}
+  function fundoTocar(){fundoCarregar();if(!semMovimento&&visivel&&!tela.classList.contains("tocando")){var p=fundo.play();if(p&&p.catch)p.catch(function(){})}}
   function parar(){dv.pause();dv.removeAttribute("controls");tela.classList.remove("tocando")}
   function trocarDepoimento(b){
     parar();
-    fundo.src=b.dataset.v+"#t=5";dv.dataset.src=b.dataset.v;dv.removeAttribute("src");dv.load();
+    fundo.dataset.src=b.dataset.v+"#t=5";fundoCarregar();dv.dataset.src=b.dataset.v;dv.removeAttribute("src");dv.load();
     tela.classList.toggle("dep--v",b.dataset.f==="v");tela.classList.toggle("dep--h",b.dataset.f==="h");
     document.getElementById("dep-dur").textContent=b.dataset.d||"";
     document.getElementById("q-play").setAttribute("aria-label","Assistir o depoimento do "+b.querySelector("strong").textContent);
@@ -774,6 +807,7 @@ input[type=checkbox]{cursor:pointer}
   dv.addEventListener("ended",function(){parar();fundoTocar()});
   // só anima o fundo com a seção na tela; saiu (rolou ou passou o story): pausa tudo, para o som não continuar escondido
   if("IntersectionObserver" in window)new IntersectionObserver(function(es){es.forEach(function(e){visivel=e.isIntersecting;if(visivel)fundoTocar();else{fundo.pause();if(!dv.paused)dv.pause()}})},{threshold:.2}).observe(tela);
+  if("IntersectionObserver" in window)new IntersectionObserver(function(es,obs){if(es[0].isIntersecting){perto=true;fundoTocar();obs.disconnect()}},{rootMargin:"100% 0px"}).observe(tela);else{perto=true}
   /* fundo desfocado do vídeo em pé: copia o quadro atual para um canvas pequeno (o CSS amplia e desfoca) */
   var borrao=document.getElementById("dep-borrao"),bx=borrao.getContext("2d"),ultimo=0;
   function pintar(){var vw=fundo.videoWidth,vh=fundo.videoHeight;if(!vw||!borrao.offsetParent)return;var w=borrao.width,h=borrao.height,s=Math.max(w/vw,h/vh);bx.drawImage(fundo,(w-vw*s)/2,(h-vh*s)/2,vw*s,vh*s)}
@@ -782,29 +816,46 @@ input[type=checkbox]{cursor:pointer}
   trocarDepoimento(document.querySelector(".reel button[aria-pressed=true]"));
 
 
+  /* ---------- telefone e WhatsApp ----------
+     Mesma regra do site oficial (site-real/assets/site.js): 10 ou 11 dígitos, DDD válido, celular começa com 9.
+     Sem CRM ainda: os formulários abrem o WhatsApp oficial com a mensagem pronta (card UX 00). */
+  var WA="554830524321",WA_TERCEIRIZOU="5548998640303";
+  function foneDigitos(v){var d=String(v||"").replace(/\D/g,"");if(d.length>11&&d.slice(0,2)==="55")d=d.slice(2);return d.slice(0,11)}
+  function foneValido(v){return /^[1-9][1-9](?:9\d{8}|[2-5]\d{7})$/.test(foneDigitos(v))}
+  function foneMascara(v){var d=foneDigitos(v);if(!d)return "";if(d.length<3)return "("+d;var n=d.length===11?5:4;return "("+d.slice(0,2)+") "+d.slice(2,2+n)+(d.length>2+n?"-"+d.slice(2+n):"")}
+  document.addEventListener("input",function(e){var i=e.target;if(!i.matches||!i.matches("input[type=tel]"))return;var m=foneMascara(i.value);if(m!==i.value)i.value=m});
+  function abrirWa(num,txt){var u="https://wa.me/"+num+"?text="+encodeURIComponent(txt);try{var j=window.open(u,"_blank");if(j)j.opener=null}catch(x){}return u}
+
   /* ---------- planilha ---------- */
   document.getElementById("gift").addEventListener("submit",function(e){e.preventDefault();var wa=document.getElementById("g-wa");
-    if(wa.value.replace(/\D/g,"").length<10){document.getElementById("g-f").classList.add("err");wa.focus();return}
+    if(!foneValido(wa.value)){document.getElementById("g-f").classList.add("err");wa.focus();return}
+    document.getElementById("g-f").classList.remove("err");
+    var nm=document.getElementById("g-nome").value.trim();
+    document.getElementById("g-link").href=abrirWa(WA,"Olá! Vim pela página da Hold e quero receber a planilha de fluxo de caixa grátis."+(nm?"\nNome: "+nm:"")+"\nMeu WhatsApp: "+foneMascara(wa.value));
     this.hidden=true;document.getElementById("g-ok").hidden=false});
 
   /* ---------- formulário ---------- */
-  var step=1,intent=null,opts=document.querySelectorAll(".opt"),nx=document.getElementById("nx"),back=document.getElementById("back");
+  /* Card UX P1: uma tela, sem telefone (o número chega com a mensagem do WhatsApp). Mesmos nomes de evento do site;
+     só vão para o dataLayer quando o motor de medição (window.holdTrack, com consentimento) estiver na página. */
+  function trk(ev,p){if(window.holdTrack)window.holdTrack(ev,Object.assign({origem:"campanha"},p||{}))}
+  var step=1,intent=null,iniciou=false,opts=document.querySelectorAll(".opt"),nx=document.getElementById("nx");
+  function comecar(){if(!iniciou){iniciou=true;trk("form_start",{intencao:intent||""})}}
   function pick(v){intent=v;opts.forEach(function(o){o.setAttribute("aria-pressed",String(o.dataset.v===v))});document.getElementById("e1").hidden=true}
-  opts.forEach(function(o){o.addEventListener("click",function(){pick(o.dataset.v)})});
-  function show(){document.getElementById("f1").hidden=step!==1;document.getElementById("f2").hidden=step!==2;document.getElementById("f3").hidden=step!==3;
-    document.getElementById("f2").style.display=step===2?"flex":"";
-    document.getElementById("s2").className=step>=2?"on":"";document.getElementById("s3").className=step>=3?"on":"";
-    back.hidden=step!==2;document.getElementById("fa").hidden=step===3;nx.textContent=step===2?"Quero falar com um especialista":"Continuar"}
-  document.querySelectorAll("[data-intent]").forEach(function(a){a.addEventListener("click",function(){pick(a.dataset.intent);step=2;show()})});
+  opts.forEach(function(o){o.addEventListener("click",function(){pick(o.dataset.v);comecar();trk("select_intent",{intencao:o.dataset.v,secao:"formulario"})})});
+  ["cidade","porte","nome"].forEach(function(id){document.getElementById(id).addEventListener("change",comecar)});
+  function show(){document.getElementById("f1").hidden=step!==1;document.getElementById("f2").hidden=step!==1;document.getElementById("f3").hidden=step!==3;
+    document.getElementById("f2").style.display=step===1?"flex":"";document.getElementById("fa").hidden=step===3}
+  document.querySelectorAll("[data-intent]").forEach(function(a){a.addEventListener("click",function(){pick(a.dataset.intent);if(a.dataset.intent==="mei")document.getElementById("porte").value="MEI";trk("generate_lead_start",{intencao:a.dataset.intent});trk("select_intent",{intencao:a.dataset.intent,secao:"cartao"})})});
+  document.querySelectorAll('a[href="#proposta"]:not([data-intent])').forEach(function(a){a.addEventListener("click",function(){trk("generate_lead_start",{})})});
   document.getElementById("form").addEventListener("submit",function(e){e.preventDefault();
-    if(step===1){if(!intent){document.getElementById("e1").hidden=false;return}step=2;show();return}
-    var wa=document.getElementById("wa"),f=document.getElementById("waf"),h=document.getElementById("wah");
-    if(wa.value.replace(/\D/g,"").length<10){f.classList.add("err");h.textContent="Faltou o DDD. Ex.: (48) 99999-0000";wa.focus();return}
-    f.classList.remove("err");h.textContent="A gente chama você por aqui, sem spam.";
-    if(!document.getElementById("lgpd").checked){document.getElementById("e2").hidden=false;return}
-    document.getElementById("e2").hidden=true;document.getElementById("okn").textContent=document.getElementById("nome").value.trim()||"tudo certo";step=3;show()});
-  back.addEventListener("click",function(){step=1;show()});
-  document.getElementById("again").addEventListener("click",function(){step=1;intent=null;opts.forEach(function(o){o.setAttribute("aria-pressed","false")});show()});
+    if(!intent){document.getElementById("e1").hidden=false;opts[0].focus();return}
+    comecar();
+    var nome=document.getElementById("nome").value.trim(),op=document.querySelector('.opt[data-v="'+intent+'"]'),cidade=document.getElementById("cidade").value,porte=document.getElementById("porte").value;
+    document.getElementById("f3-link").href=abrirWa(intent==="terceirizar_financeiro"?WA_TERCEIRIZOU:WA,
+      "Olá! Pedido de proposta pela página da Hold.\nAssunto: "+(op?op.textContent.trim():intent)+"\nCidade: "+cidade+"\nEmpresa: "+porte+(nome?"\nMeu nome é "+nome+".":""));
+    trk("generate_lead",{intencao:intent,cidade:cidade,porte:porte,metodo:"whatsapp"});
+    document.getElementById("okn").textContent=nome||"tudo certo";step=3;show()});
+  document.getElementById("again").addEventListener("click",function(){step=1;intent=null;iniciou=false;opts.forEach(function(o){o.setAttribute("aria-pressed","false")});show()});
   show();
 })();
 </script>

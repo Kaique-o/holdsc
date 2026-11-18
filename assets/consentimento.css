@@ -1,0 +1,44 @@
+/* Hold Contábil · barra de cookies (par do consentimento.js)
+   ORIGINAL: compartilhado/consentimento/. Cópias idênticas em site-real/assets/ e site-blog/public/.
+   Barra fina presa ao rodapé, largura total. Sem pílula, sem glow: fica rente à borda, só com fio no topo.
+   Camadas: rastreamento 45 · FAB 50 · ESTA BARRA 55 · cabeçalho/gaveta 60 (menu aberto 80). O menu sempre fica por cima.
+   Alturas-alvo: ~81–100 px até 640 px; 64 px acima. Botões com 44 px. */
+.aviso-cookies{
+  position:fixed;left:0;right:0;bottom:0;z-index:55;
+  background:var(--white,#fff);border-top:1px solid var(--line,#DCE3F0);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));
+  translate:0 100%;
+  transition:translate .22s cubic-bezier(.23,1,.32,1);
+}
+.aviso-cookies.on{translate:0 0}
+.aviso-cookies.saindo{translate:0 100%;transition-duration:.16s;transition-timing-function:cubic-bezier(.55,0,1,.45)}
+.aviso-cookies-in{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.aviso-cookies p{margin:0;font-family:var(--body,inherit);font-size:13.5px;line-height:1.4;color:var(--ink-2,#4A5675)}
+.aviso-cookies a{color:var(--blue-d,#0F4BC0);font-weight:600;text-decoration:underline;text-underline-offset:3px;padding:8px 2px}
+.aviso-cookies a:hover{color:var(--navy,#0E1E4A)}
+.aviso-cookies-bts{display:flex;gap:8px}
+.aviso-cookies-bt{
+  flex:1;min-height:44px;padding:10px 14px;margin:0;cursor:pointer;
+  font-family:var(--display,inherit);font-weight:700;font-size:14.5px;line-height:1;
+  border-radius:var(--r-sm,10px);border:1.5px solid var(--line,#DCE3F0);background:var(--white,#fff);color:var(--navy,#0E1E4A);
+  transition:border-color .15s ease,background-color .15s ease;
+}
+.aviso-cookies-bt:hover{border-color:var(--navy,#0E1E4A)}
+.aviso-cookies-bt--sim{background:var(--blue,#1560E8);border-color:var(--blue,#1560E8);color:#fff}
+.aviso-cookies-bt--sim:hover{background:var(--blue-d,#0F4BC0);border-color:var(--blue-d,#0F4BC0)}
+.aviso-cookies-bt[aria-pressed="true"]{box-shadow:inset 0 0 0 1.5px currentColor}
+.aviso-cookies-bt:active{scale:.97}
+.aviso-cookies-bt:focus-visible,.aviso-cookies a:focus-visible{outline:3px solid var(--alert,#FFC53D);outline-offset:2px}
+@media (min-width:641px){
+  .aviso-cookies{padding-inline:24px}
+  .aviso-cookies-in{flex-direction:row;align-items:center;justify-content:space-between;gap:24px}
+  .aviso-cookies p{font-size:14.5px}
+  .aviso-cookies-bts{flex:none}
+  .aviso-cookies-bt{flex:none;min-width:140px}
+}
+/* O fim da página não fica escondido atrás da barra. */
+html.tem-aviso-cookies body{padding-bottom:var(--aviso-h,0px)}
+@media (prefers-reduced-motion:reduce){
+  .aviso-cookies,.aviso-cookies.on,.aviso-cookies.saindo{translate:none;transition:none}
+  .aviso-cookies-bt:active{scale:none}
+}

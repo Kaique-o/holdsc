@@ -1,0 +1,995 @@
+{
+ "gerado_por": "scripts/otimizar-imagens.mjs",
+ "imagens": {
+  "assets/img/abertura-de-empresas.jpg": {
+   "largura": 1024,
+   "altura": 683,
+   "hash": "0195742e2a37a26f3a0356bddd1e75f6da650176",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/abertura-de-empresas-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/abertura-de-empresas-800.webp"
+    },
+    {
+     "w": 1024,
+     "arquivo": "assets/img/_otim/abertura-de-empresas-1024.webp"
+    }
+   ]
+  },
+  "assets/img/analise.jpg": {
+   "largura": 1024,
+   "altura": 681,
+   "hash": "36df0342b44605db020c3c44941f885f49a15796",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/analise-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/analise-800.webp"
+    },
+    {
+     "w": 1024,
+     "arquivo": "assets/img/_otim/analise-1024.webp"
+    }
+   ]
+  },
+  "assets/img/analista.jpg": {
+   "largura": 1080,
+   "altura": 720,
+   "hash": "0044e86f223466c565607ce94aa63c8b7810ccea",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/analista-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/analista-800.webp"
+    },
+    {
+     "w": 1080,
+     "arquivo": "assets/img/_otim/analista-1080.webp"
+    }
+   ]
+  },
+  "assets/img/anotando.jpg": {
+   "largura": 1024,
+   "altura": 683,
+   "hash": "c63878178f9b44618b6fc4c0df6b6c494af6b447",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/anotando-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/anotando-800.webp"
+    },
+    {
+     "w": 1024,
+     "arquivo": "assets/img/_otim/anotando-1024.webp"
+    }
+   ]
+  },
+  "assets/img/casa.jpg": {
+   "largura": 1200,
+   "altura": 675,
+   "hash": "babe5488a4de5c5a48736b125e6cba29936cb6e4",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/casa-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/casa-800.webp"
+    },
+    {
+     "w": 1200,
+     "arquivo": "assets/img/_otim/casa-1200.webp"
+    }
+   ]
+  },
+  "assets/img/certificado-digital.jpg": {
+   "largura": 1024,
+   "altura": 683,
+   "hash": "534ee8f184e8c2922ff47245c4f12c9e0fe22f2d",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/certificado-digital-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/certificado-digital-800.webp"
+    },
+    {
+     "w": 1024,
+     "arquivo": "assets/img/_otim/certificado-digital-1024.webp"
+    }
+   ]
+  },
+  "assets/img/condominio.jpg": {
+   "largura": 1080,
+   "altura": 720,
+   "hash": "f2a299106ebdd7359c5289f9be0c0be02845a2b6",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/condominio-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/condominio-800.webp"
+    },
+    {
+     "w": 1080,
+     "arquivo": "assets/img/_otim/condominio-1080.webp"
+    }
+   ]
+  },
+  "assets/img/contabilidade-estrategica.jpg": {
+   "largura": 1079,
+   "altura": 682,
+   "hash": "0a9a92e82badab090197e6f122230a821f2811cb",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/contabilidade-estrategica-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/contabilidade-estrategica-800.webp"
+    },
+    {
+     "w": 1079,
+     "arquivo": "assets/img/_otim/contabilidade-estrategica-1079.webp"
+    }
+   ]
+  },
+  "assets/img/departamento-pessoal.jpg": {
+   "largura": 1080,
+   "altura": 720,
+   "hash": "de902dae7016a9787c8ff1cd0b6252c6354fcfe0",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/departamento-pessoal-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/departamento-pessoal-800.webp"
+    },
+    {
+     "w": 1080,
+     "arquivo": "assets/img/_otim/departamento-pessoal-1080.webp"
+    }
+   ]
+  },
+  "assets/img/equipe-hold.jpg": {
+   "largura": 1024,
+   "altura": 576,
+   "hash": "c234b93cc3c586521ab78a796d5168c867df357d",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/equipe-hold-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/equipe-hold-800.webp"
+    },
+    {
+     "w": 1024,
+     "arquivo": "assets/img/_otim/equipe-hold-1024.webp"
+    }
+   ]
+  },
+  "assets/img/escritorio-2.jpg": {
+   "largura": 1024,
+   "altura": 576,
+   "hash": "ae93e0afdfe7f87d512abf5c806184afcbc1b8c9",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/escritorio-2-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/escritorio-2-800.webp"
+    },
+    {
+     "w": 1024,
+     "arquivo": "assets/img/_otim/escritorio-2-1024.webp"
+    }
+   ]
+  },
+  "assets/img/escritorio-3.jpg": {
+   "largura": 1024,
+   "altura": 576,
+   "hash": "2eebe73f0e5fd37edf2758e0c8885624f561fe1f",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/escritorio-3-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/escritorio-3-800.webp"
+    },
+    {
+     "w": 1024,
+     "arquivo": "assets/img/_otim/escritorio-3-1024.webp"
+    }
+   ]
+  },
+  "assets/img/escritorio-hold.jpg": {
+   "largura": 1080,
+   "altura": 1209,
+   "hash": "e05ac3c691615634a246351b3d320a7c9f2077e9",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/escritorio-hold-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/escritorio-hold-800.webp"
+    },
+    {
+     "w": 1080,
+     "arquivo": "assets/img/_otim/escritorio-hold-1080.webp"
+    }
+   ]
+  },
+  "assets/img/escrituracao-fiscal.jpg": {
+   "largura": 1080,
+   "altura": 721,
+   "hash": "30effd041376af0dc3d72ee27ff5e80cdf949c2e",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/escrituracao-fiscal-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/escrituracao-fiscal-800.webp"
+    },
+    {
+     "w": 1080,
+     "arquivo": "assets/img/_otim/escrituracao-fiscal-1080.webp"
+    }
+   ]
+  },
+  "assets/img/estrategia.jpg": {
+   "largura": 1024,
+   "altura": 633,
+   "hash": "db4a2759f1943f11f845951f95878f76906a5770",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/estrategia-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/estrategia-800.webp"
+    },
+    {
+     "w": 1024,
+     "arquivo": "assets/img/_otim/estrategia-1024.webp"
+    }
+   ]
+  },
+  "assets/img/grafico.jpg": {
+   "largura": 1080,
+   "altura": 1620,
+   "hash": "4aa0b654bc0489ead861e8fcf643e204d5eca282",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/grafico-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/grafico-800.webp"
+    },
+    {
+     "w": 1080,
+     "arquivo": "assets/img/_otim/grafico-1080.webp"
+    }
+   ]
+  },
+  "assets/img/gratidao.jpg": {
+   "largura": 1024,
+   "altura": 683,
+   "hash": "33bf207205451cd73cbd9e11a5a51aaf761dacaf",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/gratidao-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/gratidao-800.webp"
+    },
+    {
+     "w": 1024,
+     "arquivo": "assets/img/_otim/gratidao-1024.webp"
+    }
+   ]
+  },
+  "assets/img/imposto-de-renda.jpg": {
+   "largura": 1080,
+   "altura": 720,
+   "hash": "4be162c6901325e5c8cc708b5c63b7aedc7c9046",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/imposto-de-renda-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/imposto-de-renda-800.webp"
+    },
+    {
+     "w": 1080,
+     "arquivo": "assets/img/_otim/imposto-de-renda-1080.webp"
+    }
+   ]
+  },
+  "assets/img/ligacao.jpg": {
+   "largura": 1024,
+   "altura": 683,
+   "hash": "35857041bb0225268a7f225099a2213644447a7b",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/ligacao-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/ligacao-800.webp"
+    },
+    {
+     "w": 1024,
+     "arquivo": "assets/img/_otim/ligacao-1024.webp"
+    }
+   ]
+  },
+  "assets/img/mei.jpg": {
+   "largura": 1080,
+   "altura": 720,
+   "hash": "4558f51ecf608ea73d56daf2cc5e19459af6f9d3",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/mei-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/mei-800.webp"
+    },
+    {
+     "w": 1080,
+     "arquivo": "assets/img/_otim/mei-1080.webp"
+    }
+   ]
+  },
+  "assets/img/moedas.jpg": {
+   "largura": 1024,
+   "altura": 683,
+   "hash": "10febb60ce8e895665bfd9d5f58c3dfb519f22f9",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/moedas-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/moedas-800.webp"
+    },
+    {
+     "w": 1024,
+     "arquivo": "assets/img/_otim/moedas-1024.webp"
+    }
+   ]
+  },
+  "assets/img/notebook.jpg": {
+   "largura": 417,
+   "altura": 626,
+   "hash": "bfc8cd7230970064b5afe3057bd80160e04db14e",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/notebook-400.webp"
+    },
+    {
+     "w": 417,
+     "arquivo": "assets/img/_otim/notebook-417.webp"
+    }
+   ]
+  },
+  "assets/img/pessoa-1.jpg": {
+   "largura": 453,
+   "altura": 720,
+   "hash": "544b896f82369f53c7f8a2ee21b61493118ab532",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/pessoa-1-400.webp"
+    },
+    {
+     "w": 453,
+     "arquivo": "assets/img/_otim/pessoa-1-453.webp"
+    }
+   ]
+  },
+  "assets/img/pessoa-2.jpg": {
+   "largura": 388,
+   "altura": 720,
+   "hash": "0187aebc909eb6285735b1acb0cb14a2b188b2db",
+   "variantes": [
+    {
+     "w": 388,
+     "arquivo": "assets/img/_otim/pessoa-2-388.webp"
+    }
+   ]
+  },
+  "assets/img/pessoa-3.jpg": {
+   "largura": 540,
+   "altura": 721,
+   "hash": "6c77887e4e08c46c9373d330202c8a4ce2971c8c",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/pessoa-3-400.webp"
+    },
+    {
+     "w": 540,
+     "arquivo": "assets/img/_otim/pessoa-3-540.webp"
+    }
+   ]
+  },
+  "assets/img/pessoa-4.jpg": {
+   "largura": 512,
+   "altura": 612,
+   "hash": "8339ebd0ecf633fa001e0ce7f5e2b7bc7e6cf66f",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/pessoa-4-400.webp"
+    },
+    {
+     "w": 512,
+     "arquivo": "assets/img/_otim/pessoa-4-512.webp"
+    }
+   ]
+  },
+  "assets/img/pessoa-5.jpg": {
+   "largura": 432,
+   "altura": 597,
+   "hash": "b911dfa1ec2e66034240380ab03e5919fa7113a7",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/pessoa-5-400.webp"
+    },
+    {
+     "w": 432,
+     "arquivo": "assets/img/_otim/pessoa-5-432.webp"
+    }
+   ]
+  },
+  "assets/img/predios.jpg": {
+   "largura": 1024,
+   "altura": 683,
+   "hash": "86eac420d846af71095e434684a99f53e42e6d6e",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/predios-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/predios-800.webp"
+    },
+    {
+     "w": 1024,
+     "arquivo": "assets/img/_otim/predios-1024.webp"
+    }
+   ]
+  },
+  "assets/img/profissional-mesa.jpg": {
+   "largura": 1079,
+   "altura": 597,
+   "hash": "8e0847e2497fb40d9654ca970ca625f5e2948eca",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/profissional-mesa-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/profissional-mesa-800.webp"
+    },
+    {
+     "w": 1079,
+     "arquivo": "assets/img/_otim/profissional-mesa-1079.webp"
+    }
+   ]
+  },
+  "assets/img/regularizacao-de-alvaras.jpg": {
+   "largura": 1080,
+   "altura": 720,
+   "hash": "310d328b2e8784fd1e832e1e5617ad34ece165bc",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/regularizacao-de-alvaras-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/regularizacao-de-alvaras-800.webp"
+    },
+    {
+     "w": 1080,
+     "arquivo": "assets/img/_otim/regularizacao-de-alvaras-1080.webp"
+    }
+   ]
+  },
+  "assets/img/reuniao.jpg": {
+   "largura": 1024,
+   "altura": 683,
+   "hash": "ccacb64ef59b80ca62fd47cda32ff933658b3498",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/reuniao-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/reuniao-800.webp"
+    },
+    {
+     "w": 1024,
+     "arquivo": "assets/img/_otim/reuniao-1024.webp"
+    }
+   ]
+  },
+  "assets/img/terceirizacao.jpg": {
+   "largura": 1024,
+   "altura": 683,
+   "hash": "8ec4eb43badab75e5b9ce010a77c1343ccf7fadf",
+   "variantes": [
+    {
+     "w": 400,
+     "arquivo": "assets/img/_otim/terceirizacao-400.webp"
+    },
+    {
+     "w": 800,
+     "arquivo": "assets/img/_otim/terceirizacao-800.webp"
+    },
+    {
+     "w": 1024,
+     "arquivo": "assets/img/_otim/terceirizacao-1024.webp"
+    }
+   ]
+  },
+  "assets/clientes/brupe-diner.png": {
+   "largura": 194,
+   "altura": 158,
+   "hash": "d12020b0a3f7aed0eefcb7ce483a75b297ebf693",
+   "variantes": [
+    {
+     "w": 79,
+     "arquivo": "assets/clientes/_otim/brupe-diner-79.webp"
+    },
+    {
+     "w": 157,
+     "arquivo": "assets/clientes/_otim/brupe-diner-157.webp"
+    }
+   ],
+   "sizes": "79px"
+  },
+  "assets/clientes/cliente-aguia.png": {
+   "largura": 158,
+   "altura": 158,
+   "hash": "b8ddac1e68718cd61f868c468fb67c6a597910c9",
+   "variantes": [
+    {
+     "w": 64,
+     "arquivo": "assets/clientes/_otim/cliente-aguia-64.webp"
+    },
+    {
+     "w": 128,
+     "arquivo": "assets/clientes/_otim/cliente-aguia-128.webp"
+    }
+   ],
+   "sizes": "64px"
+  },
+  "assets/clientes/cliente-casa.png": {
+   "largura": 138,
+   "altura": 158,
+   "hash": "fbaabebe855d85795a7fc5dd0b8f77a43ebb508c",
+   "variantes": [
+    {
+     "w": 56,
+     "arquivo": "assets/clientes/_otim/cliente-casa-56.webp"
+    },
+    {
+     "w": 112,
+     "arquivo": "assets/clientes/_otim/cliente-casa-112.webp"
+    }
+   ],
+   "sizes": "56px"
+  },
+  "assets/clientes/cliente-splash.png": {
+   "largura": 166,
+   "altura": 150,
+   "hash": "3e1b700fa301e6cca33465cdad8aeb06aa2ee91b",
+   "variantes": [
+    {
+     "w": 71,
+     "arquivo": "assets/clientes/_otim/cliente-splash-71.webp"
+    },
+    {
+     "w": 142,
+     "arquivo": "assets/clientes/_otim/cliente-splash-142.webp"
+    }
+   ],
+   "sizes": "71px"
+  },
+  "assets/clientes/confianca.png": {
+   "largura": 274,
+   "altura": 128,
+   "hash": "13c91c71683265e13db03edc8e4f46d0880c9ade",
+   "variantes": [
+    {
+     "w": 137,
+     "arquivo": "assets/clientes/_otim/confianca-137.webp"
+    },
+    {
+     "w": 274,
+     "arquivo": "assets/clientes/_otim/confianca-274.webp"
+    }
+   ],
+   "sizes": "137px"
+  },
+  "assets/clientes/cootransul.png": {
+   "largura": 212,
+   "altura": 120,
+   "hash": "14f85bede262e0e29d760958f908d23f5bc3489a",
+   "variantes": [
+    {
+     "w": 113,
+     "arquivo": "assets/clientes/_otim/cootransul-113.webp"
+    }
+   ],
+   "sizes": "114px"
+  },
+  "assets/clientes/femax.png": {
+   "largura": 162,
+   "altura": 150,
+   "hash": "e37cec213ce6c75aafec560123bad1c235023e6e",
+   "variantes": [
+    {
+     "w": 69,
+     "arquivo": "assets/clientes/_otim/femax-69.webp"
+    },
+    {
+     "w": 138,
+     "arquivo": "assets/clientes/_otim/femax-138.webp"
+    }
+   ],
+   "sizes": "70px"
+  },
+  "assets/clientes/freeway.png": {
+   "largura": 258,
+   "altura": 120,
+   "hash": "308d9f3d63a15a589defffaa7ffb90ae138d90ed",
+   "variantes": [
+    {
+     "w": 138,
+     "arquivo": "assets/clientes/_otim/freeway-138.webp"
+    }
+   ],
+   "sizes": "138px"
+  },
+  "assets/clientes/futura.png": {
+   "largura": 232,
+   "altura": 120,
+   "hash": "8e118c7d188325d6b82304791712f11679155a26",
+   "variantes": [
+    {
+     "w": 124,
+     "arquivo": "assets/clientes/_otim/futura-124.webp"
+    }
+   ],
+   "sizes": "124px"
+  },
+  "assets/clientes/hannas.png": {
+   "largura": 150,
+   "altura": 150,
+   "hash": "b344f964a3bcf9367762df4c8fc0c7a41948703a",
+   "variantes": [
+    {
+     "w": 64,
+     "arquivo": "assets/clientes/_otim/hannas-64.webp"
+    },
+    {
+     "w": 128,
+     "arquivo": "assets/clientes/_otim/hannas-128.webp"
+    }
+   ],
+   "sizes": "64px"
+  },
+  "assets/clientes/hfc.png": {
+   "largura": 118,
+   "altura": 150,
+   "hash": "42d6017144d801fdc6d600a2691745b9ad42380c",
+   "variantes": [
+    {
+     "w": 50,
+     "arquivo": "assets/clientes/_otim/hfc-50.webp"
+    },
+    {
+     "w": 101,
+     "arquivo": "assets/clientes/_otim/hfc-101.webp"
+    }
+   ],
+   "sizes": "51px"
+  },
+  "assets/clientes/instituto-maike-souza.png": {
+   "largura": 280,
+   "altura": 128,
+   "hash": "50620ef8068c314d102ae0967e83526c42db0fb5",
+   "variantes": [
+    {
+     "w": 140,
+     "arquivo": "assets/clientes/_otim/instituto-maike-souza-140.webp"
+    },
+    {
+     "w": 280,
+     "arquivo": "assets/clientes/_otim/instituto-maike-souza-280.webp"
+    }
+   ],
+   "sizes": "140px"
+  },
+  "assets/clientes/jonas-automoveis.png": {
+   "largura": 284,
+   "altura": 158,
+   "hash": "3f4285266a9497e0b9fddc88df13c180cd3455b9",
+   "variantes": [
+    {
+     "w": 115,
+     "arquivo": "assets/clientes/_otim/jonas-automoveis-115.webp"
+    },
+    {
+     "w": 230,
+     "arquivo": "assets/clientes/_otim/jonas-automoveis-230.webp"
+    }
+   ],
+   "sizes": "116px"
+  },
+  "assets/clientes/nuclearmed.png": {
+   "largura": 254,
+   "altura": 128,
+   "hash": "a07ca401d97c899203bbf0735eac2046bb4ada3e",
+   "variantes": [
+    {
+     "w": 127,
+     "arquivo": "assets/clientes/_otim/nuclearmed-127.webp"
+    },
+    {
+     "w": 254,
+     "arquivo": "assets/clientes/_otim/nuclearmed-254.webp"
+    }
+   ],
+   "sizes": "127px"
+  },
+  "assets/clientes/petronunes.png": {
+   "largura": 252,
+   "altura": 120,
+   "hash": "33050920ad7f19c70f30d597c277f05e6314d82b",
+   "variantes": [
+    {
+     "w": 134,
+     "arquivo": "assets/clientes/_otim/petronunes-134.webp"
+    }
+   ],
+   "sizes": "135px"
+  },
+  "assets/clientes/pichos-caprichos.png": {
+   "largura": 182,
+   "altura": 158,
+   "hash": "2f21391ef78e1769174393409bae6e5281de2f0b",
+   "variantes": [
+    {
+     "w": 74,
+     "arquivo": "assets/clientes/_otim/pichos-caprichos-74.webp"
+    },
+    {
+     "w": 147,
+     "arquivo": "assets/clientes/_otim/pichos-caprichos-147.webp"
+    }
+   ],
+   "sizes": "74px"
+  },
+  "assets/clientes/pioneira.png": {
+   "largura": 254,
+   "altura": 120,
+   "hash": "73e4b983a74ff731ec244f77a367434bcd53e7ae",
+   "variantes": [
+    {
+     "w": 135,
+     "arquivo": "assets/clientes/_otim/pioneira-135.webp"
+    }
+   ],
+   "sizes": "136px"
+  },
+  "assets/clientes/pousada-genoveva.png": {
+   "largura": 240,
+   "altura": 150,
+   "hash": "981218d06b22e33214c865f70a950c14df8d2964",
+   "variantes": [
+    {
+     "w": 102,
+     "arquivo": "assets/clientes/_otim/pousada-genoveva-102.webp"
+    },
+    {
+     "w": 205,
+     "arquivo": "assets/clientes/_otim/pousada-genoveva-205.webp"
+    }
+   ],
+   "sizes": "103px"
+  },
+  "assets/clientes/r-costa.png": {
+   "largura": 264,
+   "altura": 128,
+   "hash": "8f77c1f40a960967c3974cec191f9e62c38eb894",
+   "variantes": [
+    {
+     "w": 132,
+     "arquivo": "assets/clientes/_otim/r-costa-132.webp"
+    },
+    {
+     "w": 264,
+     "arquivo": "assets/clientes/_otim/r-costa-264.webp"
+    }
+   ],
+   "sizes": "132px"
+  },
+  "assets/clientes/reevisa.png": {
+   "largura": 256,
+   "altura": 128,
+   "hash": "7fa3bc536fd19e5ced5113faad269ecf719fa732",
+   "variantes": [
+    {
+     "w": 128,
+     "arquivo": "assets/clientes/_otim/reevisa-128.webp"
+    },
+    {
+     "w": 256,
+     "arquivo": "assets/clientes/_otim/reevisa-256.webp"
+    }
+   ],
+   "sizes": "128px"
+  },
+  "assets/clientes/semear.png": {
+   "largura": 260,
+   "altura": 158,
+   "hash": "5642076c54f0f814ab3e95cfc550773a3f06c609",
+   "variantes": [
+    {
+     "w": 105,
+     "arquivo": "assets/clientes/_otim/semear-105.webp"
+    },
+    {
+     "w": 211,
+     "arquivo": "assets/clientes/_otim/semear-211.webp"
+    }
+   ],
+   "sizes": "106px"
+  },
+  "assets/clientes/serrana.png": {
+   "largura": 240,
+   "altura": 150,
+   "hash": "80004ccd184406a260a13992872c0c7d5351598d",
+   "variantes": [
+    {
+     "w": 102,
+     "arquivo": "assets/clientes/_otim/serrana-102.webp"
+    },
+    {
+     "w": 205,
+     "arquivo": "assets/clientes/_otim/serrana-205.webp"
+    }
+   ],
+   "sizes": "103px"
+  },
+  "assets/clientes/tartari-almeida.png": {
+   "largura": 204,
+   "altura": 128,
+   "hash": "ab600393d24ce177c1bbb7385680851a5d062ac3",
+   "variantes": [
+    {
+     "w": 102,
+     "arquivo": "assets/clientes/_otim/tartari-almeida-102.webp"
+    },
+    {
+     "w": 204,
+     "arquivo": "assets/clientes/_otim/tartari-almeida-204.webp"
+    }
+   ],
+   "sizes": "102px"
+  },
+  "assets/clientes/tesba.png": {
+   "largura": 238,
+   "altura": 150,
+   "hash": "b41710975f93b6d261f0406c27fbe7f24019304a",
+   "variantes": [
+    {
+     "w": 102,
+     "arquivo": "assets/clientes/_otim/tesba-102.webp"
+    },
+    {
+     "w": 203,
+     "arquivo": "assets/clientes/_otim/tesba-203.webp"
+    }
+   ],
+   "sizes": "102px"
+  },
+  "assets/clientes/zumplast.png": {
+   "largura": 252,
+   "altura": 128,
+   "hash": "ace8b3f4ab1f3b28b08533a8d86d68d86ff94a61",
+   "variantes": [
+    {
+     "w": 126,
+     "arquivo": "assets/clientes/_otim/zumplast-126.webp"
+    },
+    {
+     "w": 252,
+     "arquivo": "assets/clientes/_otim/zumplast-252.webp"
+    }
+   ],
+   "sizes": "126px"
+  },
+  "assets/hold-logo-azul.png": {
+   "largura": 600,
+   "altura": 170,
+   "hash": "250097ca7cc7d9caff6870bf280f31b07690b45d",
+   "variantes": [
+    {
+     "w": 280,
+     "arquivo": "assets/_otim/hold-logo-azul-280.webp"
+    },
+    {
+     "w": 560,
+     "arquivo": "assets/_otim/hold-logo-azul-560.webp"
+    }
+   ]
+  },
+  "assets/hold-logo-branco.png": {
+   "largura": 600,
+   "altura": 170,
+   "hash": "63e20426b59242ba21afa0be5baff6763e0008ab",
+   "variantes": [
+    {
+     "w": 280,
+     "arquivo": "assets/_otim/hold-logo-branco-280.webp"
+    },
+    {
+     "w": 560,
+     "arquivo": "assets/_otim/hold-logo-branco-560.webp"
+    }
+   ]
+  }
+ }
+}
