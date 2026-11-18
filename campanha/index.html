@@ -7,7 +7,10 @@
 <title>Hold em Cena</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!-- fontes sem travar a primeira pintura (o texto aparece na fonte do sistema e troca quando chegam) -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"></noscript>
 <!-- capa do banner pedida cedo (o vídeo só vem depois do carregamento); o corte de 640px é o mesmo do JS -->
 <link rel="preload" as="image" type="image/webp" href="assets/video/banner-mobile.webp" media="(max-width:640px)" fetchpriority="high">
 <link rel="preload" as="image" type="image/webp" href="assets/video/banner-desk.webp" media="(min-width:641px)" fetchpriority="high">
@@ -457,9 +460,9 @@ input[type=checkbox]{cursor:pointer}
 <link rel="stylesheet" href="assets/movimento.css">
 <!-- barra de cookies + Consent Mode (card UX P2): cópia de compartilhado/consentimento/; antes da medição -->
 <link rel="stylesheet" href="assets/consentimento.css">
-<script src="assets/consentimento.js" data-politica="../politica-de-privacidade.html"></script>
+<script src="assets/consentimento.js" data-politica="../politica-de-privacidade.html" defer></script>
 <!-- medição (card UX P1): data-gtm vazio = GTM não carrega; ID e endereço da CAPI vêm da Hold -->
-<script src="assets/medicao.js" data-secao="campanha" data-gtm="" data-capi=""></script>
+<script src="assets/medicao.js" data-secao="campanha" data-gtm="" data-capi="" defer></script>
 <script src="assets/medicao-campanha.js" defer></script>
 <script src="assets/gaveta.js"></script>
 <!-- modo story no celular (teste): para tirar, apague estas duas linhas -->
