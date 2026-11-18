@@ -236,11 +236,14 @@
         if(!ok)return;
         var kind=f.dataset.kind||"newsletter";
         if(kind==="material"){
-          // Sem envio automático ainda: o pedido da planilha segue pelo WhatsApp oficial, com a mensagem pronta.
+          // O arquivo baixa na hora (data-arquivo). O contato chega à Hold pelo WhatsApp oficial, com a mensagem pronta,
+          // porque ainda não há CRM: sem o envio da mensagem, a Hold não fica sabendo do lead.
           var nm=(($(".js-nome",f)||{}).value||"").trim(),tel=$("[data-req=tel]",f);
-          var lk=waLink("material","Olá! Vim pelo site da Hold e quero receber a planilha de fluxo de caixa grátis."+(nm?"\nNome: "+nm:"")+(tel?"\nMeu WhatsApp: "+foneMascara(tel.value):""));
+          var arq=f.dataset.arquivo?new URL(ROOT+f.dataset.arquivo,location.href).href:"";  // absoluto: o obrigado fica em outra pasta
+          if(arq){var dl=document.createElement("a");dl.href=arq;dl.download="";document.body.appendChild(dl);dl.click();dl.remove()}
+          var lk=waLink("material",(arq?"Olá! Baixei a planilha de fluxo de caixa no site da Hold.":"Olá! Vim pelo site da Hold e quero receber a planilha de fluxo de caixa grátis.")+(nm?"\nNome: "+nm:"")+(tel?"\nMeu WhatsApp: "+foneMascara(tel.value):""));
           var jn=null;try{jn=window.open(lk,"_blank");if(jn)jn.opener=null}catch(x){}
-          store("hold_lead",JSON.stringify({nome:nm,material:f.dataset.material,wa:lk,novo:1}));track("download_material",{material:f.dataset.material,metodo:"whatsapp"});setTimeout(function(){location.href=ROOT+"obrigado.html"},jn?400:0);return}
+          store("hold_lead",JSON.stringify({nome:nm,material:f.dataset.material,arquivo:arq,wa:lk,novo:1}));track("download_material",{material:f.dataset.material,metodo:arq?"download":"whatsapp"});setTimeout(function(){location.href=ROOT+"obrigado.html"},jn||arq?600:0);return}
         // Newsletter: ainda não há lista de e-mails. Nada é guardado nem medido como inscrição; a mensagem diz isso.
         f.hidden=true;var ok2=f.parentNode.querySelector(".js-ok");if(ok2)ok2.hidden=false;
       });
@@ -262,7 +265,10 @@
     var el=$(".js-thanks");if(!el)return;
     var d={};try{d=JSON.parse(store("hold_lead")||"{}")}catch(e){}
     if(d.nome)$(".js-thanks-name").textContent=", "+d.nome;
-    if(d.material){$(".js-thanks-msg").textContent="Abrimos o WhatsApp da Hold com o pedido da planilha já escrito. Só falta tocar em enviar.";}
+    if(d.material){
+      $(".js-thanks-msg").textContent=d.arquivo?"A planilha está baixando. Também abrimos o WhatsApp da Hold: mande a mensagem para um especialista ajudar você a usar.":"Abrimos o WhatsApp da Hold com o pedido da planilha já escrito. Só falta tocar em enviar.";
+      var bx=$(".js-thanks-arquivo");if(bx&&d.arquivo){bx.href=d.arquivo;bx.hidden=false}
+    }
     var bt=$(".js-thanks-wa");if(bt&&d.wa)bt.href=d.wa;
     if(!d.wa)$(".js-thanks-msg").textContent="Quer falar com a Hold? Um especialista atende você no WhatsApp.";
     // generate_lead conta uma vez por envio: entrar direto, recarregar ou voltar para esta página não conta de novo.
